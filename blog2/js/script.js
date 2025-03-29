@@ -5,134 +5,198 @@
   
     document.addEventListener('DOMContentLoaded', () => {
 
-      const saveHtmlButton = document.getElementById('save-html-button');
-      const saveJpgButton = document.getElementById('save-jpg-button');
-      const contentToCapture = document.getElementById('main-content'); // Target main content for JPG
+    const saveHtmlButton = document.getElementById('save-html-button');
+    const saveJpgButton = document.getElementById('save-jpg-button');
+    const contentToCapture = document.getElementById('main-content'); // Target main content for JPG
 
-      // --- Fitur Edit Gambar ---
-      const imageContainers = document.querySelectorAll('.editable-image-container');
-      imageContainers.forEach(container => {
+    // --- Fitur Edit Gambar ---
+    const imageContainers = document.querySelectorAll('.editable-image-container');
+    imageContainers.forEach(container => {
         const fileInput = container.querySelector('.hidden-file-input');
         const imageElement = container.querySelector('img');
         container.addEventListener('click', (e) => {
-          if (e.target.closest('a, button')) return;
-          fileInput.click();
+            if (e.target.closest('a, button')) return; // Jangan trigger jika klik link/button di dalam
+            fileInput.click();
         });
         fileInput.addEventListener('change', (event) => {
-          const file = event.target.files[0];
-          if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const dataUrl = e.target.result;
-              if (imageElement) {
-                imageElement.src = dataUrl;
-                container.dataset.imageDataUrl = dataUrl;
-              } else {
-                // Fallback if somehow no img element found
-                console.warn("No img element found in container:", container);
-              }
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const dataUrl = e.target.result;
+                    if (imageElement) {
+                        imageElement.src = dataUrl;
+                        // Simpan data URL langsung di dataset untuk digunakan saat menyimpan HTML
+                        container.dataset.imageDataUrl = dataUrl;
+                    } else {
+                        console.warn("No img element found in container:", container);
+                    }
+                }
+                reader.readAsDataURL(file);
+            } else if (file) {
+                alert('Harap pilih file gambar yang valid.');
             }
-            reader.readAsDataURL(file);
-          } else if (file) {
-            alert('Harap pilih file gambar yang valid.');
-          }
         });
-      });
+    });
 
-      // --- Fungsi Simpan Halaman HTML ---
-      function savePageHtml() {
+    // --- Fungsi Simpan Halaman HTML ---
+    function savePageHtml() {
         saveHtmlButton.classList.add('loading');
         saveHtmlButton.disabled = true;
         saveHtmlButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan HTML...';
 
-        try {
-          const clonedDoc = document.cloneNode(true);
-          const elementsToRemove = clonedDoc.querySelectorAll('.save-buttons-container, script');
-          elementsToRemove.forEach(el => el.remove());
-          const editableElements = clonedDoc.querySelectorAll('[contenteditable="true"]');
-          editableElements.forEach(el => el.removeAttribute('contenteditable'));
+        // Beri sedikit waktu jika ada perubahan DOM terakhir
+        setTimeout(() => {
+            try {
+                const clonedDoc = document.cloneNode(true);
 
-          const editedImages = clonedDoc.querySelectorAll('.editable-image-container[data-image-data-url]');
-          editedImages.forEach(container => {
-            const dataUrl = container.dataset.imageDataUrl;
-            const img = container.querySelector('img');
-            if (dataUrl && img) { // Check both exist
-              img.src = dataUrl;
+                // Hapus elemen yang tidak perlu (tombol simpan, skrip)
+                const elementsToRemove = clonedDoc.querySelectorAll('.save-buttons-container, script#main-script, link[href*="fontawesome"]'); // Hapus juga Font Awesome jika tidak mau disimpan
+                elementsToRemove.forEach(el => el.remove());
+
+                // Hapus atribut contenteditable
+                const editableElements = clonedDoc.querySelectorAll('[contenteditable="true"]');
+                editableElements.forEach(el => el.removeAttribute('contenteditable'));
+
+                // Update gambar yang diedit menggunakan data URL dari dataset
+                const editedImages = clonedDoc.querySelectorAll('.editable-image-container[data-image-data-url]');
+                editedImages.forEach(container => {
+                    const dataUrl = container.dataset.imageDataUrl;
+                    const img = container.querySelector('img');
+                    if (dataUrl && img) {
+                        img.src = dataUrl;
+                        // Hapus atribut dataset setelah digunakan jika diinginkan
+                        // container.removeAttribute('data-image-data-url');
+                    }
+                    // Hapus input file tersembunyi dari HTML yang disimpan
+                    const hiddenInput = container.querySelector('.hidden-file-input');
+                    if (hiddenInput) hiddenInput.remove();
+                });
+
+                // Hapus kelas-kelas helper atau state UI yang tidak relevan
+                const uiStateElements = clonedDoc.querySelectorAll('.loading'); // Contoh
+                uiStateElements.forEach(el => el.classList.remove('loading'));
+
+
+                const finalHtml = clonedDoc.documentElement.outerHTML;
+                const blob = new Blob([finalHtml], {
+                    type: 'text/html'
+                });
+                const url = URL.createObjectURL(blob);
+                const downloader = document.createElement('a');
+                downloader.href = url;
+                // Ambil judul dari elemen h1 atau title
+                const pageTitle = clonedDoc.querySelector('h1')?.textContent?.trim() || clonedDoc.title?.trim() || 'halaman-diedit';
+                const filename = pageTitle.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '') + '.html';
+                downloader.download = filename;
+                document.body.appendChild(downloader);
+                downloader.click();
+                document.body.removeChild(downloader);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("Gagal menyimpan HTML:", error);
+                alert("Terjadi kesalahan saat menyimpan halaman HTML.");
+            } finally {
+                saveHtmlButton.classList.remove('loading');
+                saveHtmlButton.disabled = false;
+                saveHtmlButton.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan HTML';
             }
-          });
+        }, 100); // Delay kecil 100ms
+    }
 
-          const finalHtml = clonedDoc.documentElement.outerHTML;
-          const blob = new Blob([finalHtml], { type: 'text/html' });
-          const url = URL.createObjectURL(blob);
-          const downloader = document.createElement('a');
-          downloader.href = url;
-          const pageTitle = clonedDoc.getElementById('page-title')?.textContent?.trim() || 'penguin-fashion-diedit';
-          const filename = pageTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.html';
-          downloader.download = filename;
-          document.body.appendChild(downloader);
-          downloader.click();
-          document.body.removeChild(downloader);
-          URL.revokeObjectURL(url);
-        } catch (error) {
-          console.error("Gagal menyimpan HTML:", error);
-          alert("Terjadi kesalahan saat menyimpan halaman HTML.");
-        } finally {
-          saveHtmlButton.classList.remove('loading');
-          saveHtmlButton.disabled = false;
-          saveHtmlButton.innerHTML = '<i class="fas fa-floppy-disk"></i> Simpan HTML';
-        }
-      }
-
-      // --- Fungsi Simpan Halaman JPG ---
-      function savePageJpg() {
+    // --- Fungsi Simpan Halaman JPG ---
+    function savePageJpg() {
         if (typeof html2canvas === 'undefined') {
-          alert('Library html2canvas tidak dimuat. Gagal menyimpan JPG.');
-          return;
+            console.error('Library html2canvas tidak ditemukan!');
+            alert('Library html2canvas tidak dimuat. Gagal menyimpan JPG.');
+            return;
         }
         if (!contentToCapture) {
-          alert('Elemen konten utama (#main-content) tidak ditemukan.');
-          return;
+            console.error('Elemen target #main-content tidak ditemukan!');
+            alert('Elemen konten utama (#main-content) tidak ditemukan.');
+            return;
         }
 
         saveJpgButton.classList.add('loading');
         saveJpgButton.disabled = true;
         saveJpgButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses JPG...';
 
+        // Opsi untuk html2canvas
         const options = {
-          allowTaint: false,
-          useCORS: true,
-          scale: window.devicePixelRatio < 2 ? 2 : window.devicePixelRatio, // Scale at least 2x for better quality
-          backgroundColor: getComputedStyle(document.body).backgroundColor || '#f8f9fa', // Use body background
-          logging: false,
-          // Attempt to capture elements outside viewport
-          windowWidth: contentToCapture.scrollWidth,
-          windowHeight: contentToCapture.scrollHeight,
-          
-          
+            allowTaint: false,        // Jangan izinkan canvas 'tercemar' oleh gambar cross-origin
+            useCORS: true,            // Coba muat gambar cross-origin menggunakan CORS
+            scale: window.devicePixelRatio < 2 ? 2 : window.devicePixelRatio, // Tingkatkan skala untuk kualitas lebih baik (minimal 2x)
+            backgroundColor: getComputedStyle(document.body).backgroundColor || '#ffffff', // Gunakan background body atau putih
+            logging: true,           // Aktifkan logging untuk debug (bisa di-set false di production)
+
+            // --- Kunci Perbaikan ---
+            // Beri tahu html2canvas ukuran penuh elemen target
+            width: contentToCapture.scrollWidth,
+            height: contentToCapture.scrollHeight,
+
+            // Beri tahu html2canvas seolah-olah window sebesar elemen target
+            windowWidth: contentToCapture.scrollWidth,
+            windowHeight: contentToCapture.scrollHeight,
+
+            // Mulai capture dari sudut kiri atas elemen, abaikan scroll halaman
+            scrollX: 0,
+            scrollY: 0,
+
+            // Hapus x dan y, biarkan html2canvas menangani posisi elemen target
+            // x: contentToCapture.offsetLeft, // DIHAPUS
+            // y: contentToCapture.offsetTop,  // DIHAPUS
         };
 
+        console.log("Opsi html2canvas:", options);
+        console.log("Elemen Target:", contentToCapture);
+        console.log("Dimensi Target (Scroll):", contentToCapture.scrollWidth, "x", contentToCapture.scrollHeight);
+        console.log("Dimensi Target (Offset):", contentToCapture.offsetWidth, "x", contentToCapture.offsetHeight);
+
+
+        // Jalankan html2canvas
         html2canvas(contentToCapture, options).then(canvas => {
-          const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92); // Slightly higher quality
-          const downloader = document.createElement('a');
-          downloader.href = imageDataUrl;
-          const pageTitle = document.getElementById('page-title')?.textContent?.trim() || 'Super Games';
-          const filename = pageTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-capture.jpg';
-          downloader.download = filename;
-          document.body.appendChild(downloader);
-          downloader.click();
-          document.body.removeChild(downloader);
+            console.log("Canvas berhasil dibuat, dimensi:", canvas.width, "x", canvas.height);
+            // Cek apakah dimensi canvas sesuai harapan
+            if (canvas.width < contentToCapture.scrollWidth * options.scale * 0.9 || canvas.height < contentToCapture.scrollHeight * options.scale * 0.9) {
+                 console.warn("Dimensi canvas tampak lebih kecil dari yang diharapkan. Hasil mungkin terpotong.");
+            }
+
+            const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92); // Kualitas JPEG (0.0 - 1.0)
+            const downloader = document.createElement('a');
+            downloader.href = imageDataUrl;
+
+            // Ambil judul dari elemen h1 atau title
+            const pageTitle = document.querySelector('h1')?.textContent?.trim() || document.title?.trim() || 'halaman-capture';
+            const filename = pageTitle.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '') + '.jpg';
+            downloader.download = filename;
+
+            document.body.appendChild(downloader);
+            downloader.click();
+            document.body.removeChild(downloader);
+
+            console.log("Gambar JPG berhasil diunduh.");
+
         }).catch(error => {
-          console.error('Error html2canvas:', error);
-          alert('Gagal membuat gambar JPG. Coba refresh halaman atau periksa konsol.');
+            console.error('Error saat menjalankan html2canvas:', error);
+            alert('Gagal membuat gambar JPG. Periksa konsol browser untuk detail error.');
         }).finally(() => {
-          saveJpgButton.classList.remove('loading');
-          saveJpgButton.disabled = false;
-          saveJpgButton.innerHTML = '<i class="fas fa-file-image"></i> Simpan JPG';
+            saveJpgButton.classList.remove('loading');
+            saveJpgButton.disabled = false;
+            saveJpgButton.innerHTML = '<i class="fas fa-file-image"></i> Simpan JPG';
         });
-      }
+    }
 
-      // Event Listeners
-      saveHtmlButton.addEventListener('click', savePageHtml);
-      saveJpgButton.addEventListener('click', savePageJpg);
+    // Event Listeners
+    if (saveHtmlButton) {
+        saveHtmlButton.addEventListener('click', savePageHtml);
+    } else {
+        console.warn("Tombol #save-html-button tidak ditemukan.");
+    }
 
-    }); // End DOMContentLoaded
+    if (saveJpgButton) {
+        saveJpgButton.addEventListener('click', savePageJpg);
+    } else {
+        console.warn("Tombol #save-jpg-button tidak ditemukan.");
+    }
+
+}); // End DOMContentLoaded
