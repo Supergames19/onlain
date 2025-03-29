@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title contenteditable="true" id="page-title">[Nama Produk Anda] - Solusi Modern untuk [Masalah Anda]</title>
+    <title contenteditable="true" id="page-title">OnlainShopBlog</title>
 
     <!-- SEO Meta Tags (Tidak diedit langsung) -->
     <meta name="description" content="Temukan [Nama Produk Anda]! [Deskripsi singkat manfaat utama]. Solusi modern dan efektif untuk [masalah pelanggan]. Beli sekarang!">
@@ -132,10 +132,22 @@
                     <h2 contenteditable="true">Siap untuk Pengalaman yang Lebih Baik?</h2>
                     <p contenteditable="true">Hentikan kompromi dan mulailah menikmati [manfaat utama] dengan <strong>[Nama Produk Anda]</strong>.</p>
                     <p class="special-offer" contenteditable="true"><i class="fa-solid fa-tags"></i> Penawaran Terbatas: Dapatkan [Diskon/Bonus Spesial Anda] khusus pembelian hari ini!</p>
+            
                     <!-- Tombol CTA (Link bisa diedit di atribut href) -->
-                    <a href="[Link Pembelian]" class="button button-cta" title="Klik untuk mengedit link pada atribut href" onclick="this.href=prompt('Masukkan URL tujuan baru:', this.href) || this.href;">
-                        <span contenteditable="true">Pesan [Nama Produk Anda] Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+<a href="#" class="button button-cta" title="Klik untuk mengedit link WhatsApp dan teks" onclick="
+    let nomorWhatsApp = prompt('Masukkan nomor WhatsApp (termasuk kode negara):');
+    if (nomorWhatsApp) {
+        let namaProduk = prompt('Masukkan nama produk:');
+        let pesanDefault = 'Halo, saya tertarik dengan ' + (namaProduk ? namaProduk : '[Nama Produk Anda]') + '.';
+        this.href = 'https://wa.me/' + nomorWhatsApp.replace(/\D/g,'') + '?text=' + encodeURIComponent(pesanDefault);
+        if(namaProduk){
+            this.querySelector('span').textContent = 'Pesan ' + namaProduk + ' Sekarang';
+        }
+    }
+    return false; // Mencegah refresh halaman saat prompt dibatalkan
+">
+    <span contenteditable="true">Pesan Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
+</a>
                     <!-- Tombol Simpan Halaman (Fungsi di JS) -->
                     <!-- <button class="button button-save" id="save-button-cta">Simpan Perubahan</button> -->
                     <small contenteditable="true">Garansi [Sebutkan Garansi, misal: Uang Kembali 30 Hari] | Pengiriman Cepat & Aman</small>
