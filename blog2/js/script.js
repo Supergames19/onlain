@@ -9,13 +9,143 @@
     const saveJpgButton = document.getElementById('save-jpg-button');
     const contentToCapture = document.getElementById('main-content'); // Target main content for JPG
 
-    // --- Fitur Edit Gambar ---
-    const imageContainers = document.querySelectorAll('.editable-image-container');
-    imageContainers.forEach(container => {
-        const fileInput = container.querySelector('.hidden-file-input');
-        const imageElement = container.querySelector('img');
-        container.addEventListener('click', (e) => {
-            if (e.target.closest('a, button')) return; // Jangan trigger jika klik link/button di dalam
+    // ... (Kode Fitur Edit Gambar tetap sama) ...
+    // ... (Kode Fungsi Simpan HTML tetap sama) ...
+
+
+    // --- Fungsi Simpan Halaman JPG (Revisi untuk Debugging) ---
+    function savePageJpg() {
+        if (typeof html2canvas === 'undefined') {
+            console.error('Library html2canvas tidak ditemukan!');
+            alert('Library html2canvas tidak dimuat. Gagal menyimpan JPG.');
+            return;
+        }
+
+        // ===> OPSI 1: TES DENGAN BODY (Uncomment baris di bawah dan comment baris #main-content)
+        // const targetElement = document.body;
+        // const targetElementName = 'document.body';
+
+        // ===> OPSI 2: GUNAKAN #main-content (Default)
+        const targetElement = document.getElementById('main-content');
+        const targetElementName = '#main-content';
+
+
+        if (!targetElement) {
+            console.error(`Elemen target ${targetElementName} tidak ditemukan!`);
+            alert(`Elemen target (${targetElementName}) tidak ditemukan.`);
+            return;
+        }
+
+        saveJpgButton.classList.add('loading');
+        saveJpgButton.disabled = true;
+        saveJpgButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses JPG...';
+
+        // ===> OPSI 3: TAMBAHKAN DELAY (Uncomment setTimeout dan penutupnya)
+        // console.log("Menunggu 1 detik sebelum capture...");
+        // setTimeout(() => {
+
+            // Kalkulasi dimensi berdasarkan target
+            let captureWidth, captureHeight, windowW, windowH;
+            if (targetElement === document.body) {
+                // Untuk body, gunakan dimensi documentElement
+                captureWidth = document.documentElement.scrollWidth;
+                captureHeight = document.documentElement.scrollHeight;
+                windowW = captureWidth;
+                windowH = captureHeight;
+            } else {
+                // Untuk elemen spesifik, gunakan scrollWidth/Height
+                captureWidth = targetElement.scrollWidth;
+                captureHeight = targetElement.scrollHeight;
+                windowW = captureWidth; // Default: samakan window virtual dengan ukuran elemen
+                windowH = captureHeight;
+            }
+
+
+            const options = {
+                allowTaint: false,
+                useCORS: true,
+                scale: window.devicePixelRatio < 2 ? 2 : window.devicePixelRatio,
+                backgroundColor: getComputedStyle(document.body).backgroundColor || '#ffffff', // Selalu ambil dari body?
+                logging: true, // Biarkan true untuk debug
+
+                // --- Eksperimen dengan Dimensi ---
+                width: captureWidth,          // Coba comment baris ini
+                height: captureHeight,         // Coba comment baris ini
+                windowWidth: windowW,
+                windowHeight: windowH,
+
+                // --- Eksperimen dengan Scroll ---
+                scrollX: 0,                 // Default: mulai dari kiri atas elemen
+                scrollY: 0,                 // Default: mulai dari kiri atas elemen
+                // Coba ganti dengan scroll window aktual jika perlu:
+                // scrollX: window.scrollX,
+                // scrollY: window.scrollY,
+
+                // x dan y sebaiknya tetap dihindari kecuali sangat yakin perhitungannya benar
+                // x: targetElement.getBoundingClientRect().left + window.scrollX, // Contoh jika perlu (lebih kompleks)
+                // y: targetElement.getBoundingClientRect().top + window.scrollY,  // Contoh jika perlu
+            };
+
+            console.log(`Mencoba capture: ${targetElementName}`);
+            console.log("Opsi html2canvas:", options);
+            console.log("Dimensi Target Dihitung (Scroll):", captureWidth, "x", captureHeight);
+            console.log("Dimensi Elemen (Offset):", targetElement.offsetWidth, "x", targetElement.offsetHeight); // Bandingkan dengan scroll
+
+            html2canvas(targetElement, options).then(canvas => {
+                console.log("Canvas berhasil dibuat, dimensi:", canvas.width, "x", canvas.height);
+                // Periksa apakah dimensi canvas mendekati target * scale
+                const expectedWidth = captureWidth * options.scale;
+                const expectedHeight = captureHeight * options.scale;
+                if (canvas.width < expectedWidth * 0.95 || canvas.height < expectedHeight * 0.95) {
+                     console.warn(`PERINGATAN: Dimensi canvas (${canvas.width}x${canvas.height}) jauh lebih kecil dari yang diharapkan (${expectedWidth}x${expectedHeight}). Hasil MUNGKIN terpotong.`);
+                } else {
+                     console.log("Dimensi canvas terlihat sesuai harapan.");
+                }
+
+                const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+                const downloader = document.createElement('a');
+                downloader.href = imageDataUrl;
+                const pageTitle = document.querySelector('h1')?.textContent?.trim() || document.title?.trim() || 'halaman-capture';
+                const filename = pageTitle.toLowerCase().replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '') + '.jpg';
+                downloader.download = filename;
+                document.body.appendChild(downloader);
+                downloader.click();
+                document.body.removeChild(downloader);
+                console.log("Gambar JPG berhasil diunduh.");
+
+            }).catch(error => {
+                console.error('Error saat menjalankan html2canvas:', error);
+                // Tampilkan detail error jika ada
+                if (error.message) console.error("Pesan Error:", error.message);
+                if (error.stack) console.error("Stack Trace:", error.stack);
+                alert(`Gagal membuat gambar JPG. Periksa konsol browser untuk detail error. Pesan: ${error.message}`);
+            }).finally(() => {
+                saveJpgButton.classList.remove('loading');
+                saveJpgButton.disabled = false;
+                saveJpgButton.innerHTML = '<i class="fas fa-file-image"></i> Simpan JPG';
+                console.log("Proses simpan JPG selesai.");
+            });
+
+        // ===> OPSI 3: PENUTUP DELAY (Uncomment baris ini jika setTimeout diaktifkan)
+        // }, 1000); // Akhir dari setTimeout
+
+
+    } // --- Akhir Fungsi Simpan Halaman JPG ---
+
+    // Event Listeners
+    if (saveHtmlButton) {
+        saveHtmlButton.addEventListener('click', savePageHtml);
+    } else {
+        console.warn("Tombol #save-html-button tidak ditemukan.");
+    }
+
+    if (saveJpgButton) {
+        saveJpgButton.addEventListener('click', savePageJpg);
+    } else {
+        console.warn("Tombol #save-jpg-button tidak ditemukan.");
+    }
+
+}); // End DOMContentLoaded
             fileInput.click();
         });
         fileInput.addEventListener('change', (event) => {
@@ -108,6 +238,15 @@
     function savePageJpg() {
         if (typeof html2canvas === 'undefined') {
             console.error('Library html2canvas tidak ditemukan!');
+            alert('Library html2canvas tidak dimuat. Gagal menyimpan JPG.');
+            return;
+        }
+        if (!contentToCapture) {
+            console.error('Elemen target #main-content tidak ditemukan!');
+            alert('Elemen konten utama (#main-content) tidak ditemukan.');
+            return;
+        }
+rary html2canvas tidak ditemukan!');
             alert('Library html2canvas tidak dimuat. Gagal menyimpan JPG.');
             return;
         }
