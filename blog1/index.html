@@ -22,14 +22,17 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 
 	<!-- Font Awesome CDN (for save buttons icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!--
 			CSS
 			============================================= -->
 	<!-- Assuming these paths are correct -->
 	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/linearicons.css">
-	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/font-awesome.min.css"> <!-- Template's own FA -->
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/font-awesome.min.css">
+	<!-- Template's own FA -->
 	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/bootstrap.css">
 	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/magnific-popup.css">
 	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/nice-select.css">
@@ -38,28 +41,30 @@
 	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/main.css">
 
 	<!-- html2canvas Library (PENTING untuk Simpan JPG!) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+		integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<!-- Custom Styles for Editability and Save Buttons -->
-	
-	 <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/style.css">
+
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/style.css">
 
 </head>
 
 <body>
 
 	<!-- Kontainer Tombol Simpan di Atas -->
-    <div class="save-buttons-container">
-        <button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
-            <i class="fa-solid fa-floppy-disk"></i> Simpan HTML
-        </button>
-        <button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan konten sebagai gambar JPG">
-            <i class="fa-solid fa-file-image"></i> Simpan JPG
-        </button>
-    </div>
+	<div class="save-buttons-container">
+		<button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+			<i class="fa-solid fa-floppy-disk"></i> Simpan HTML
+		</button>
+		<button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan konten sebagai gambar JPG">
+			<i class="fa-solid fa-file-image"></i> Simpan JPG
+		</button>
+	</div>
 
 	<!-- Wrapper for JPG Capture Area -->
-    <div id="capture-area">
+	<div id="capture-area">
 
 		<header id="header" id="home"> <!-- Note: Duplicate ID 'id="home"' removed from header -->
 			<div class="container">
@@ -67,7 +72,9 @@
 					<div id="logo">
 						<!-- Make logo editable -->
 						<div class="editable-image-container" data-id="logo-image">
-							<a href="https://supergames19.github.io/onlain/blog1/index.html"><img src="https://supergames19.github.io/onlain/blog1/img/logo.png" alt="Logo" title="" id="logo-img-element"/></a>
+							<a href="https://supergames19.github.io/onlain/blog1/index.html"><img
+									src="https://supergames19.github.io/onlain/blog1/img/logo.png" alt="Logo" title=""
+									id="logo-img-element" /></a>
 							<div class="edit-overlay">
 								<i class="fa-solid fa-camera"></i>
 								<span>Ganti Logo</span>
@@ -114,7 +121,7 @@
 		</section>
 		<!-- End banner Area -->
 
-		
+
 		<!-- Start top-course Area -->
 		<section class="top-course-area section-gap">
 			<div class="container">
@@ -130,17 +137,23 @@
 					<div class="col-lg-3 course-left">
 						<div class="single-course">
 							<span class="lnr lnr-rocket"></span>
-							<a href="#"><h4 contenteditable="true">High Performance</h4></a>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
 							<p contenteditable="true">
-								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor incid.idunt
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
 								ut labore et dolore magna aliqua.
 							</p>
 						</div>
 						<div class="single-course">
 							<span class="lnr lnr-cog"></span>
-							<a href="#"><h4 contenteditable="true">High Performance</h4></a>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
 							<p contenteditable="true">
-								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor incid.idunt
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
 								ut labore et dolore magna aliqua.
 							</p>
 						</div>
@@ -148,7 +161,8 @@
 					<div class="col-lg-6 course-middle">
 						<!-- Make course image editable -->
 						<div class="editable-image-container" data-id="course-image">
-							<img class="img-fluid mx-auto d-block" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Course Image">
+							<img class="img-fluid mx-auto d-block"
+								src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Course Image">
 							<div class="edit-overlay">
 								<i class="fa-solid fa-camera"></i>
 								<span>Ganti Gambar</span>
@@ -159,17 +173,23 @@
 					<div class="col-lg-3 course-right">
 						<div class="single-course">
 							<span class="lnr lnr-apartment"></span>
-							<a href="#"><h4 contenteditable="true">High Performance</h4></a>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
 							<p contenteditable="true">
-								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor incid.idunt
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
 								ut labore et dolore magna aliqua.
 							</p>
 						</div>
 						<div class="single-course">
 							<span class="lnr lnr-phone"></span>
-							<a href="#"><h4 contenteditable="true">High Performance</h4></a>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
 							<p contenteditable="true">
-								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor incid.idunt
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
 								ut labore et dolore magna aliqua.
 							</p>
 						</div>
@@ -186,7 +206,8 @@
 					<div class="col-lg-6 no-padding home-about-left">
 						<!-- Make about image editable -->
 						<div class="editable-image-container" data-id="about-image">
-							<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="About Image">
+							<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+								alt="About Image">
 							<div class="edit-overlay">
 								<i class="fa-solid fa-camera"></i>
 								<span>Ganti Gambar</span>
@@ -201,7 +222,8 @@
 							<span>We are here to listen from you deliver exellence</span>
 						</p>
 						<p contenteditable="true">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+							ut
 							labore et dolore magna aliqua.
 							Ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor.
@@ -300,8 +322,10 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="single-unique-product">
 							<div class="editable-image-container" data-id="unique-1">
-								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Product 1">
-								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span></div>
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 1">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
 								<input type="file" class="hidden-file-input" accept="image/*">
 							</div>
 							<div class="desc">
@@ -314,9 +338,11 @@
 					<!-- Product 2 -->
 					<div class="col-lg-3 col-md-6">
 						<div class="single-unique-product">
- 							<div class="editable-image-container" data-id="unique-2">
-								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Product 2">
-								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span></div>
+							<div class="editable-image-container" data-id="unique-2">
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 2">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
 								<input type="file" class="hidden-file-input" accept="image/*">
 							</div>
 							<div class="desc">
@@ -330,8 +356,10 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="single-unique-product">
 							<div class="editable-image-container" data-id="unique-3">
-								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Product 3">
-								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span></div>
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 3">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
 								<input type="file" class="hidden-file-input" accept="image/*">
 							</div>
 							<div class="desc">
@@ -345,8 +373,10 @@
 					<div class="col-lg-3 col-md-6">
 						<div class="single-unique-product">
 							<div class="editable-image-container" data-id="unique-4">
-								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Product 4">
-								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span></div>
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 4">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
 								<input type="file" class="hidden-file-input" accept="image/*">
 							</div>
 							<div class="desc">
@@ -377,7 +407,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Cody Hines</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -394,7 +425,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Chad Herrera</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -410,7 +442,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Andre Gonzalez</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -427,7 +460,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Jon Banks</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -443,7 +477,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Landon Houston</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -459,7 +494,8 @@
 						<div class="single-review">
 							<h4 contenteditable="true">Nelle Wade</h4>
 							<p contenteditable="true">
-								Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
 								scanner, speaker.
 							</p>
 							<div class="star">
@@ -483,7 +519,8 @@
 					<div class="menu-content pb-60 col-lg-10">
 						<div class="title text-center">
 							<h1 class="mb-10" contenteditable="true">Frequently Asked Questions</h1>
-							<p contenteditable="true" style="color:#0e0d0d">Who are in extremely love with eco friendly system.</p>
+							<p contenteditable="true" style="color:#0e0d0d">Who are in extremely love with eco friendly
+								system.</p>
 						</div>
 					</div>
 				</div>
@@ -504,7 +541,8 @@
 									data-parent="#accordion">
 									<div class="card-body" contenteditable="true" style="color:#070707">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
 										exercitation ullamco laboris.
 									</div>
 								</div>
@@ -514,7 +552,8 @@
 								<div class="card-header" id="headingTwo">
 									<h5 class="mb-0">
 										<button class="btn btn-link collapsed" data-toggle="collapse"
-											data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" contenteditable="true">
+											data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+											contenteditable="true">
 											Does it have all the plugin as mentioned?
 										</button>
 									</h5>
@@ -523,7 +562,8 @@
 									data-parent="#accordion">
 									<div class="card-body" contenteditable="true">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
 										exercitation ullamco laboris.
 									</div>
 								</div>
@@ -543,7 +583,8 @@
 									data-parent="#accordion">
 									<div class="card-body" contenteditable="true">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
 										exercitation ullamco laboris.
 									</div>
 								</div>
@@ -553,16 +594,18 @@
 								<div class="card-header" id="headingFour"> <!-- Corrected ID -->
 									<h5 class="mb-0">
 										<button class="btn btn-link collapsed" data-toggle="collapse"
-											data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" contenteditable="true">
+											data-target="#collapseFour" aria-expanded="false"
+											aria-controls="collapseFour" contenteditable="true">
 											Are your Templates responsive? <!-- Example: Different Question -->
 										</button>
 									</h5>
 								</div>
 								<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-									data-parent="#accordion">   <!-- Corrected ID -->
+									data-parent="#accordion"> <!-- Corrected ID -->
 									<div class="card-body" contenteditable="true">
 										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
 										exercitation ullamco laboris.
 									</div>
 								</div>
@@ -583,19 +626,17 @@
 						<div class="single-footer-widget">
 							<h6 contenteditable="true">About Us</h6>
 							<p contenteditable="true">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt
 								ut labore dolore magna aliqua.
 							</p>
-							</br>
-						</br>
-					</br>
-				</br>
 							<!-- Keep copyright dynamic, but allow editing the text around it -->
-							<p class="footer-text"  style="color: #f1efef; " contenteditable="true">
+							<p class="footer-text" style="color: #f1efef; " contenteditable="true">
 								Copyright ©
 								<script>document.write(new Date().getFullYear());</script> All rights reserved | This
-								template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-									href="#" target="_blank">Edy Sahputra</a>
+								template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#"
+									target="_blank">Edy
+									Sahputra</a>
 							</p>
 						</div>
 					</div>
@@ -605,9 +646,7 @@
 							<p contenteditable="true">Stay update with our latest</p>
 							<div class="" id="mc_embed_signup">
 								<!-- Mailchimp form - generally not editable directly -->
-								<form target="_blank" novalidate="true"
-									action="#"
-									method="get" class="form-inline">
+								<form target="_blank" novalidate="true" action="#" method="get" class="form-inline">
 									<input class="form-control" name="EMAIL" placeholder="Enter Email"
 										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
 										required="" type="email">
@@ -637,7 +676,9 @@
 					</div>
 				</div>
 			</div>
+
 		</footer>
+
 		<!-- End footer Area -->
 
 	</div> <!-- End capture-area -->
@@ -667,7 +708,7 @@
 
 	<!-- Custom JS for Editability and Saving -->
 
-	 <script src="https://supergames19.github.io/onlain/blog1/js/script.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/script.js"></script>
 
 </body>
 
