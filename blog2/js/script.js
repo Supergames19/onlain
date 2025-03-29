@@ -107,8 +107,7 @@
       // Attempt to capture elements outside viewport
       windowWidth: contentToCapture.scrollWidth,
       windowHeight: contentToCapture.scrollHeight,
-      x: contentToCapture.0,
-      y: contentToCapture.0,
+      
     };
 
     html2canvas(contentToCapture, options).then(canvas => {
