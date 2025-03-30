@@ -134,7 +134,7 @@
                     <p class="special-offer" contenteditable="true"><i class="fa-solid fa-tags"></i> Penawaran Terbatas: Dapatkan [Diskon/Bonus Spesial Anda] khusus pembelian hari ini!</p>
             
                     <!-- Tombol CTA (Link bisa diedit di atribut href) -->
-                 <a href="[MasukanNomorWhatsapp]" class="button button-cta" title="Klik untuk mengedit link pada atribut href" onclick="this.href=prompt('Masukkan URL tujuan baru:', this.href) || this.href;">
+                 <a href="[MasukanLinkKamu]" class="button button-cta" title="Klik untuk mengedit link pada atribut href" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Pembelian:', this.href); if(newLink) this.href=newLink; return false;">
                     <span contenteditable="true">Pesan Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
                 </a>
                     <!-- Tombol Simpan Halaman (Fungsi di JS) -->
