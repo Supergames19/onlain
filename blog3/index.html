@@ -1,0 +1,733 @@
+<!doctype html>
+<html class="no-js" lang="id"> <!-- Changed lang to id -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <!-- Title is Editable -->
+        <title contenteditable="true" id="page-title">BlogOnlain</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon Editable -->
+        <link rel="icon" href="https://supergames19.github.io/onlain/blog3/img/icon.png" id="favicon-link"> <!-- Added ID -->
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300i,400,400i,500,600,700,800,900" rel="stylesheet">
+		<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/slicknav.min.css">
+		<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/animate.min.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/magnific-popup.css">
+
+		<!-- Font Awesome CDN (for save buttons icons) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- html2canvas Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<!-- Xman CSS -->
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/normalize.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/style.css">
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/responsive.css">
+
+        <!-- Custom Styles for Editability -->
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog3/css/style-edit.css">
+    </head>
+    <body>
+        <!-- Save Buttons Container -->
+        <div class="save-buttons-container">
+            <button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan HTML
+            </button>
+            <button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan halaman sebagai gambar JPG">
+                <i class="fa-solid fa-file-image"></i> Simpan JPG
+            </button>
+        </div>
+
+		
+		<!-- Header Area -->
+		<header id="header" class="header">
+			<div class="header-inner">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-2 col-xs-12">
+							<div class="logo">
+                                <!-- Make logo editable -->
+                                <div class="editable-image-container" data-id="main-logo">
+								    <a href="index.html"><img src="https://supergames19.github.io/onlain/blog3/img/nnn.png" alt="logo.png" id="logo-img"></a>
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti Logo</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+						</div>
+						<div class="col-md-9 col-sm-10 col-xs-12">
+							<div class="mobile-menu"></div>
+							<nav class="navbar navbar-default">
+								<div class="collapse navbar-collapse">
+									<ul id="nav" class="nav navbar-nav">
+                                        <!-- Make nav links editable -->
+										<li class="current"><a href="#slider" contenteditable="true">Welcome</a></li>
+										<li><a href="#about" contenteditable="true">About Me</a></li>
+										<li><a href="#service" contenteditable="true">My Service</a></li>
+										<li><a href="#skill" contenteditable="true">Skill</a></li>
+										<li><a href="#story" contenteditable="true">Story</a></li>
+										<li><a href="#latest-works" contenteditable="true">Portfolio</a></li>
+										<li><a href="#blog" contenteditable="true">Blog</a></li>
+										<li><a href="#contact" contenteditable="true">Contact</a></li>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- End Header Area -->
+
+		<!-- Slider Area -->
+        <!-- Removed inline style, added editable background container -->
+		<section id="slider" class="slider">
+            <!-- Editable Background -->
+            <div class="editable-image-container is-background-replacement" data-id="slider-background">
+                <img src="https://supergames19.github.io/onlain/blog3/img/2.jpg" alt="Slider Background" id="slider-bg-img">
+                <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti Background</span></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+            </div>
+            <!-- Original Slider Content -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7 col-sm-12 col-xs-12">
+						<div class="text">
+							<h1 contenteditable="true">Hi,my name is X-man</h1>
+							<p contenteditable="true">Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Hic Laboriosam Ipsa Sequi? Laudantium Aspernatur Iusto Blanditiis, Totam Perferendis Dicta Magni. tincidunt dui. Vestibulum sodales posuere ullamcorper. Proin convallis neque pulvinar mauris vehicula, quis dictum diam ullamcorper</p>
+							<div class="button">
+								<a href="#" class="btn primary editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;"><i class="fa fa-briefcase"></i><span contenteditable="true">view work</span></a>
+								<a href="#" class="btn editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;"><i class="fa fa-phone"></i><span contenteditable="true">Contact me</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Slider Area -->
+
+		<!-- Start about -->
+		<section id="about" class="about">
+			<div class="container">
+				<div class="row">
+					<div class="about-content">
+						<div class="col-md-2 col-sm-2 col-xs-12">
+							<div class="section-title">
+								<h2 contenteditable="true">About <span>Me</span></h2>
+							</div>
+						</div>
+						<div class="col-md-6  col-sm-6 col-xs-12">
+							<div class="single-about">
+								<p class="bolt" contenteditable="true">Hello!, I'm Akhtar Hossain, User experience designer based in Pekanbaru.</p>
+								<p contenteditable="true">Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Hic Laboriosam Ipsa Sequi? Laudantium Aspernatur Iusto Blanditiis, Totam Perferendis Dicta Magni.Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit.Laudantium Aspernatur Iusto Blanditiis, Totam Perferendis Dicta Magni.Lorem Ipsum Dolor Sit Amet,</p>
+								<p class="bolt" contenteditable="true">"Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis".</p>
+								
+								
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4 col-xs-12">
+							<div class="image">
+                                <!-- Make about image editable -->
+                                <div class="editable-image-container" data-id="about-image">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="about-img">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti Gambar</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+                               
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End about -->
+
+		<!-- Start service -->
+		<section id="service" class="service section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-12 col-xs-12">
+						<div class="section-title">
+							<h2 contenteditable="true">My <span>Service</span></h2>
+						</div>
+					</div>
+					<div class="col-md-8 col-sm-12 col-xs-12">
+						<div class="row">
+                            <!-- Service Item 1 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s">
+								<div class="single-service">
+									<i class="fa fa-laptop"></i>
+									<h5 contenteditable="true">Web Development</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+                            <!-- Service Item 2 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.5s">
+								<div class="single-service">
+									<i class="fa fa-mobile"></i>
+									<h5 contenteditable="true">App Development</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+                            <!-- Service Item 3 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s">
+								<div class="single-service">
+									<i class="fa fa-paper-plane"></i>
+									<h5 contenteditable="true">Rebranding</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+                            <!-- Service Item 4 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.7s">
+								<div class="single-service">
+									<i class="fa fa-pencil"></i>
+									<h5 contenteditable="true">UI / UX Design</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+                            <!-- Service Item 5 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.8s">
+								<div class="single-service">
+									<i class="fa fa-camera"></i>
+									<h5 contenteditable="true">Photography</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+                             <!-- Service Item 6 -->
+							<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.9s">
+								<div class="single-service">
+									<i class="fa fa-life-ring"></i>
+									<h5 contenteditable="true">SEO Marketing</h5>
+									<p contenteditable="true">Lorem ipsum dolor sit ametconcer adipiscing elit. Aenean commodo. In eu justo a felis faucibus ornare vel id metus.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End service -->
+
+		<!-- Start skill -->
+		<section id="skill" class="skill section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2 col-sm-12 col-xs-12">
+						<div class="section-title">
+							<h2 contenteditable="true">My <span>Skill</span></h2>
+						</div>
+					</div>
+					<div class="col-md-10 col-sm-12 col-xs-12">
+						<div class="skill-head">
+							<div class="row">
+								<div class="col-md-6 col-sm-12 col-xs-12">
+									<div class="skill-content">
+										<h3 contenteditable="true">WHAT YOU NEED TO KNOW</h3>
+										<p><b contenteditable="true">Hello!, I'm Akhtar Hossain, User experience designer based in Pekanbaru.</b></p>
+										<p contenteditable="true">Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Hic Laboriosam Ipsa Sequi? Laudantium Aspernatur Iusto Blanditiis, Totam Perferendis Dicta Magni.Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit.Laudantium Aspernatur Iusto Blanditiis, Totam Perferendis Dicta Magni.Lorem Ipsum Dolor Sit Amet,</p>
+										<p><b contenteditable="true">"Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus.</b></p>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-12 col-xs-12">
+									<div class="skill-main">
+                                        <!-- Skill 1 -->
+										<div class="single-skill">
+											<div class="skill-title">
+												<h4 contenteditable="true">WORDPRESS</h4>
+											</div>
+                                            <!-- Note: Progress bar editing is complex, keeping text editable -->
+											<div class="progress two">
+												<div class="progress-bar" data-percent="95">
+													<span contenteditable="true">95%</span>
+												</div>
+											</div>
+										</div>
+                                        <!-- Skill 2 -->
+										<div class="single-skill">
+											<div class="skill-title">
+												<h4 contenteditable="true">HTML & CSS3</h4>
+											</div>
+											<div class="progress two">
+												<div class="progress-bar" data-percent="70">
+													<span contenteditable="true">70%</span>
+												</div>
+											</div>
+										</div>
+                                         <!-- Skill 3 -->
+										<div class="single-skill">
+											<div class="skill-title">
+												<h4 contenteditable="true">PHOTOSHOP</h4>
+											</div>
+											<div class="progress two">
+												<div class="progress-bar" data-percent="80">
+													<span contenteditable="true">80%</span>
+												</div>
+											</div>
+										</div>
+                                        <!-- Skill 4 -->
+										<div class="single-skill">
+											<div class="skill-title">
+												<h4 contenteditable="true">ILUSTRATOR</h4>
+											</div>
+											<div class="progress two">
+												<div class="progress-bar" data-percent="90">
+													<span contenteditable="true">90%</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End skill -->
+
+		<!-- Start Story -->
+		<section id="story" class="story section">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="section-title">
+							<h2 contenteditable="true">my <span>Story</span></h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+						<div class="story-content">
+							<!-- single-story 1 -->
+							<div class="single-story">
+								<span class="year wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.4s" contenteditable="true">2015</span>
+								<div class="inner-content wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s">
+									<h3 contenteditable="true">Codeglim Studio</h3>
+									<p contenteditable="true">Lead Web Designer</p>
+									<p class="p2" contenteditable="true">This was the time when we started our company. We had no idea how far we would go, we weren’t even sure that we would be able to survive for a few years. What drove us to start the company was the understanding that we could provide a service no one else was providing.</p>
+								</div>
+							</div>
+							<!-- single-story 2 -->
+							<div class="single-story">
+								<span class="year wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.6s" contenteditable="true">2016</span>
+								<div class="inner-content wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s">
+									<h3 contenteditable="true">Themelamp Studio</h3>
+									<p contenteditable="true">Lead Web Designer</p>
+									<p class="p2" contenteditable="true">This was the time when we started our company. We had no idea how far we would go, we weren’t even sure that we would be able to survive for a few years. What drove us to start the company was the understanding that we could provide a service no one else was providing.</p>
+								</div>
+							</div>
+							<!-- single-story 3 -->
+							<div class="single-story">
+								<span class="year wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.8s" contenteditable="true">2018</span>
+								<div class="inner-content wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.8s">
+									<h3 contenteditable="true">Ministersoft Studio</h3>
+									<p contenteditable="true">Lead Web Designer</p>
+									<p class="p2" contenteditable="true">This was the time when we started our company. We had no idea how far we would go, we weren’t even sure that we would be able to survive for a few years. What drove us to start the company was the understanding that we could provide a service no one else was providing.</p>
+								</div>
+							</div>
+							<!-- single-story 4 -->
+							<div class="single-story">
+								<span class="year wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay="1s" contenteditable="true">2018</span>
+								<div class="inner-content wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="1s">
+									<h3 contenteditable="true">Creative Studio</h3>
+									<p contenteditable="true">Lead Web Designer</p>
+									<p class="p2" contenteditable="true">This was the time when we started our company. We had no idea how far we would go, we weren’t even sure that we would be able to survive for a few years. What drove us to start the company was the understanding that we could provide a service no one else was providing.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End story -->
+
+		<!-- Latest Works -->
+		<section id="latest-works" class="latest-works section">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="section-title">
+							<h2 contenteditable="true">My <span>Portfolio</span></h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<!-- Project Nav -->
+						<div class="works-menu wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.6s">
+                            <!-- Keep filter buttons functional, text not easily editable without breaking JS -->
+							<ul>
+								<li class="active" data-filter="*"><i class="fa fa-tasks"></i>All Works</li>
+								
+							</ul>
+						</div>
+						<!--/ End Project Nav -->
+					</div>
+				</div>
+				<div class="row">
+					<div class="isotop-active">
+                        <!-- Portfolio Item 1 -->
+						<div class="col-md-4 col-sm-4 col-xs-12 print identity">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-1">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-1">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">WEB DEVELOPMENT</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                        <!-- Portfolio Item 2 -->
+						<div class="col-md-4 col-sm-4 col-xs-12 wordpress branding">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-2">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-2">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">Wordpress</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                        <!-- Portfolio Item 3 -->
+						<div class="col-md-4 col-sm-4 col-xs-12 web">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-3">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-3">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">App Development</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                        <!-- Portfolio Item 4 -->
+						<div class="col-md-4 col-sm-4 col-xs-12  wordpress">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-4">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-4">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">WEB DEVELOPMENT</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                         <!-- Portfolio Item 5 -->
+						<div class="col-md-4 col-sm-4 col-xs-12  branding">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-5">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-5">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">Photography</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                         <!-- Portfolio Item 6 -->
+						<div class="col-md-4 col-sm-4 col-xs-12  branding">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-6">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-6">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">SEO Marketing</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                        <!-- Portfolio Item 7 -->
+						<div class="col-md-4 col-sm-4 col-xs-12 web print">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-7">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-7">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="pf-2colum.html">Photography</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+                        <!-- Portfolio Item 8 -->
+						<div class="col-md-4 col-sm-4 col-xs-12 web print">
+							<div class="single-work">
+                                <div class="editable-image-container" data-id="portfolio-8">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="portfolio-img-8">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="works-hover">
+									<h4 contenteditable="true"><a href="portfolio-single.html">App Development</a></h4>
+									<div class="link"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Works -->
+
+		
+
+		<!-- Blog -->
+		<section id="blog" class="blog section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-4 col-xs-12"> <!-- Adjusted grid for title -->
+						<div class="section-title">
+							<h2 contenteditable="true">Latest <span>Posts</span></h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+                    <!-- Blog Post 1 -->
+					<div class="col-md-4 col-sm-12 col-xs-12 wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.4s">
+						<div class="single-news">
+							<div class="news-head">
+								<div class="news-date">
+									<span contenteditable="true">03</span>
+									<span contenteditable="true">Mar</span>
+									<span contenteditable="true">2018</span>
+								</div>
+                                <div class="editable-image-container" data-id="blog-1">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="blog-img-1">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="news-view">
+									<span><i class="fa fa-comments"></i><span contenteditable="true">25 comments</span></span>
+									<span><i class="fa fa-eye"></i><span contenteditable="true">10k views</span></span>
+								</div>
+							</div>
+							<div class="news-body">
+								<h2><a href="#" contenteditable="true">creative onepage template</a></h2>
+								<p contenteditable="true">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et incididunt ut labore et. Lorem ipsum dolor a sit ameti, consectetur adipisicing elit,</p>
+								<a href="#" class="btn editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;"><span contenteditable="true">Read More</span><i class="fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+					</div>
+                     <!-- Blog Post 2 -->
+					<div class="col-md-4 col-sm-12 col-xs-12 wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.4s"> <!-- Delay was same, adjusted slightly -->
+						<div class="single-news">
+							<div class="news-head">
+								<div class="news-date">
+									<span contenteditable="true">01</span>
+									<span contenteditable="true">Mar</span>
+									<span contenteditable="true">2018</span>
+								</div>
+                                <div class="editable-image-container" data-id="blog-2">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="blog-img-2">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="news-view">
+									<span><i class="fa fa-comments"></i><span contenteditable="true">25 comments</span></span>
+									<span><i class="fa fa-eye"></i><span contenteditable="true">10k views</span></span>
+								</div>
+							</div>
+							<div class="news-body">
+								<h2><a href="#" contenteditable="true">creative responsive template</a></h2>
+								<p contenteditable="true">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et incididunt ut labore et. Lorem ipsum dolor a sit ameti, consectetur adipisicing elit,</p>
+								<a href="#" class="btn editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;"><span contenteditable="true">Read More</span><i class="fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+					</div>
+                    <!-- Blog Post 3 -->
+					<div class="col-md-4 col-sm-12 col-xs-12 wow fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.5s"> <!-- Delay adjusted -->
+						<div class="single-news">
+							<div class="news-head">
+								<div class="news-date">
+									<span contenteditable="true">30</span>
+									<span contenteditable="true">Feb</span>
+									<span contenteditable="true">2018</span>
+								</div>
+                                <div class="editable-image-container" data-id="blog-3">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/1.png" alt="#" id="blog-img-3">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+								<div class="news-view">
+									<span><i class="fa fa-comments"></i><span contenteditable="true">25 comments</span></span>
+									<span><i class="fa fa-eye"></i><span contenteditable="true">10k views</span></span>
+								</div>
+							</div>
+							<div class="news-body">
+								<h2><a href="#" contenteditable="true">creative portfolio template</a></h2>
+								<p contenteditable="true">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et incididunt ut labore et. Lorem ipsum dolor a sit ameti, consectetur adipisicing elit,</p>
+								<a href="#" class="btn editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;"><span contenteditable="true">Read More</span> <i class="fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End blog -->
+
+		
+
+		<!-- Contact -->
+		<section id="contact" class="contact section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-12 col-xs-12">
+						<div class="contact-info">
+							<h4 contenteditable="true">Contact info</h4>
+							<p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							<p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							<span contenteditable="true"><i class="fa fa-phone-square"></i>+262 695 2601</span>
+							<span contenteditable="true"><i class="fa fa-map-marker"></i>121 King Street, Australia</span>
+							<span><i class="fa fa-envelope"></i><a href="#" contenteditable="true" class="editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan Email:', this.href.replace('mailto:','')); if(newLink) this.href='mailto:'+newLink; return false;">youmail@gmail.com</a></span>
+							<span><i class="fa fa-globe"></i><a href="#" contenteditable="true" class="editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Website:', this.href); if(newLink) this.href=newLink; return false;">www.yourWebside.com</a></span>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		<!--/ End Contact -->
+
+		<!-- Clients -->
+		<div id="clients" class="clients section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="owl-carousel clients-slider">
+                            <!-- Client Logo 1 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-1">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-1.png" alt="#" id="client-img-1">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                            <!-- Client Logo 2 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-2">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-2.png" alt="#" id="client-img-2">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                            <!-- Client Logo 3 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-3">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-3.png" alt="#" id="client-img-3">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                             <!-- Client Logo 4 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-4">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-4.png" alt="#" id="client-img-4">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                             <!-- Client Logo 5 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-5">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-5.png" alt="#" id="client-img-5">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                             <!-- Client Logo 6 -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-6">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-6.png" alt="#" id="client-img-6">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+                             <!-- Client Logo 7 (duplicate) -->
+							<div class="single-clients">
+                                <div class="editable-image-container" data-id="client-7">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/brand-1.png" alt="#" id="client-img-7">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/ End Clients -->
+
+		<!-- Footer -->
+		<footer id="footer" class="footer section">
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="logo">
+                                <!-- Make footer logo editable -->
+                                <div class="editable-image-container" data-id="footer-logo">
+								    <img src="https://supergames19.github.io/onlain/blog3/img/nnn.png" alt="#" id="footer-logo-img">
+                                    <div class="edit-overlay"><i class="fa fa-camera"></i><span>Ganti</span></div>
+                                    <input type="file" class="hidden-file-input" accept="image/*">
+                                </div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+                            <!-- Make copyright text editable -->
+							<p contenteditable="true">© 2025 Distributed by <a href="#" class="editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL:', this.href); if(newLink) this.href=newLink; return false;">Edy Sahputra</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!--/ End Footer -->
+
+        <!-- Original JS Dependencies (Keep these) -->
+        <script src="https://supergames19.github.io/onlain/blog3/js/jquery.min.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/bootstrap.min.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/jquery.nav.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/jquery.slicknav.min.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/easing.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/js/jquery-appear.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/jquery.scrollUp.min.js"></script>
+        <script src="https://supergames19.github.io/onlain/blog3/js/owl.carousel.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/js/jquery.counterup.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/js/isotope.pkgd.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/js/wow.min.js"></script>
+		<script src="https://supergames19.github.io/onlain/blog3/js/jquery.magnific-popup.min.js"></script>
+        <!-- Google Maps might need API Key -->
+		<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=YOUR_API_KEY"></script> -->
+        <!-- <script type="text/javascript" src="js/gmaps.min.js"></script> -->
+        <script src="https://supergames19.github.io/onlain/blog3/js/main.js"></script>
+
+        <!-- Custom JS for Editability and Saving -->
+        <script src="https://supergames19.github.io/onlain/blog3/js/script.js"></script>
+    </body>
+</html>
