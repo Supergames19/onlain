@@ -1,4 +1,4 @@
-        :root {
+:root {
             --primary-color: #3498db;
             --secondary-color: #555;
             --danger-color: #e74c3c;
@@ -30,36 +30,38 @@
             background-color: var(--light-bg);
             color: var(--dark-text);
             line-height: 1.6;
-            padding: 20px;
+            padding: 15px; /* Slightly reduce padding for mobile */
             display: flex;
             flex-direction: column;
             /* Use column for header */
             justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
+            -webkit-tap-highlight-color: transparent; /* Prevent tap highlight */
         }
 
         .page-header {
             width: 100%;
             max-width: 1000px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px; /* Reduce margin slightly */
         }
 
         .page-header h1 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             color: var(--dark-text);
+            font-size: 1.8em; /* Adjust header size for smaller screens */
         }
 
         .page-header p {
             color: var(--secondary-color);
-            font-size: 1.1em;
+            font-size: 1em; /* Adjust subheader size */
         }
 
         .main-container {
             display: flex;
-            gap: 30px;
+            gap: 25px; /* Reduce gap slightly */
             width: 100%;
             max-width: 1000px;
             align-items: flex-start;
@@ -68,12 +70,12 @@
 
         #service-editor {
             flex: 3;
-            min-width: 450px;
+            min-width: 100%; /* Default to full width on mobile first approach */
         }
 
         #notification-container {
             border: 1px solid var(--border-color);
-            padding: 35px;
+            padding: 20px; /* Reduce padding */
             background-color: var(--white-bg);
             border-radius: 8px;
             box-shadow: 0 4px 12px var(--shadow-color);
@@ -90,10 +92,10 @@
             font-family: 'Poppins', sans-serif;
             color: var(--primary-color);
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8em;
+            margin-bottom: 20px; /* Reduce margin */
+            font-size: 1.5em; /* Reduce size */
             border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
+            padding-bottom: 10px; /* Reduce padding */
         }
 
         #notification-container p,
@@ -101,67 +103,71 @@
         #notification-container strong,
         #notification-container span {
             color: var(--secondary-color);
-            margin-bottom: 15px;
-            font-size: 1em;
+            margin-bottom: 12px; /* Reduce margin */
+            font-size: 0.95em; /* Adjust base text size slightly */
         }
 
         #notification-container p {
             text-align: left;
         }
 
-        /* Ensure editable strong tags behave like blocks if needed */
         #notification-container strong[contenteditable="true"] {
             display: inline;
-            /* Or block if you want it on its own line */
         }
 
         #notification-container .highlight {
             font-weight: bold;
             color: var(--danger-color);
-            font-size: 1.2em;
+            font-size: 1.1em; /* Adjust highlight size */
         }
 
         #notification-container .cost-section {
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 25px;
-            padding: 10px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            padding: 8px;
             background-color: #fff8f8;
             border: 1px dashed var(--danger-color);
             border-radius: 5px;
         }
+         #notification-container .cost-section span.highlight {
+             font-size: 1.4em; /* Adjust cost font size */
+         }
+         #notification-container .cost-section small {
+             font-size: 0.85em; /* Adjust small text size */
+         }
 
         #notification-container img#device-photo {
-            max-width: 80%;
+            max-width: 90%; /* Ensure image is not too wide */
             height: auto;
             display: block;
-            margin: 25px auto;
+            margin: 20px auto;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 5px;
+            padding: 4px;
             background-color: #f0f0f0;
             object-fit: cover;
-            min-height: 150px;
+            min-height: 100px; /* Reduce min height */
         }
 
         #notification-container .image-caption {
             text-align: center;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #777;
             margin-top: -10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         #notification-container .call-to-action {
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 25px;
+            padding: 15px; /* Reduce padding */
             background-color: #eaf6ff;
-            border-left: 5px solid var(--primary-color);
+            border-left: 4px solid var(--primary-color);
             border-radius: 4px;
         }
 
         #notification-container .call-to-action p {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         #notification-container .call-to-action strong {
@@ -169,24 +175,28 @@
         }
 
         #notification-container .footer {
-            margin-top: 30px;
+            margin-top: 25px;
             border-top: 1px solid #eee;
-            padding-top: 20px;
+            padding-top: 15px;
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            /* Default to column layout for mobile first */
+            flex-direction: column;
+            align-items: center;
             gap: 20px;
         }
 
         .signature-column {
             flex: 1;
-            min-width: 200px;
+            /* Take full width when stacked */
+            width: 100%;
+            max-width: 350px; /* Max width for signature on mobile */
+            min-width: 90%; /* Ensure it takes up space */
             text-align: center;
         }
 
         .signature-column p {
-            margin-bottom: 10px;
-            font-size: 0.95em;
+            margin-bottom: 8px;
+            font-size: 0.9em;
             color: var(--secondary-color);
             text-align: center;
         }
@@ -195,20 +205,20 @@
             color: var(--dark-text);
             font-weight: 600;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduce margin */
         }
 
-        /* Changed to block */
         .signature-wrapper {
             position: relative;
             width: 100%;
-            height: 120px;
+            height: 110px; /* Slightly reduce height */
             border: 1px dashed var(--signature-border-color);
             border-radius: 4px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 8px auto;
             background-color: #fdfdfd;
-            touch-action: none;
-            /* Essential for mobile */
+            touch-action: none; /* Essential for mobile drawing */
+            -webkit-touch-callout: none; /* Disable callout menu on canvas */
+            user-select: none; /* Prevent text selection on canvas */
         }
 
         .signature-wrapper canvas {
@@ -221,8 +231,8 @@
         }
 
         .signature-column button.clear-sig-button {
-            font-size: 0.8em;
-            padding: 3px 8px;
+            font-size: 0.75em;
+            padding: 4px 10px; /* Increase padding for tap */
             margin-top: 0px;
             background-color: var(--secondary-color);
             color: white;
@@ -231,6 +241,9 @@
             cursor: pointer;
             opacity: 0.8;
             transition: opacity 0.2s ease;
+            display: block; /* Make it block for easier centering */
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .signature-column button.clear-sig-button:hover {
@@ -239,20 +252,19 @@
 
         [contenteditable="true"] {
             border: 1px dashed transparent;
-            padding: 4px 6px;
+            padding: 5px 7px; /* Increase padding slightly */
             cursor: text;
-            min-height: 1.2em;
+            min-height: 1.3em; /* Ensure decent height */
             transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
             border-radius: 4px;
             outline: none;
             margin-bottom: 0 !important;
-            /* Overrides general p margin */
             display: inline-block;
-            /* Keep inline context */
             vertical-align: baseline;
+            background-color: transparent; /* Ensure background isn't overriding */
+            -webkit-user-modify: read-write-plaintext-only; /* Hint for mobile editing */
         }
 
-        /* Make block elements editable take full width */
         h2[contenteditable="true"],
         p[contenteditable="true"],
         div[contenteditable="true"] {
@@ -262,26 +274,19 @@
         }
 
         .highlight[contenteditable="true"] {
-            display: inline;
-            padding: 2px 4px;
-            width: auto;
+            display: inline; padding: 2px 4px; width: auto;
         }
 
         .cost-section p[contenteditable="true"],
         .cost-section span[contenteditable="true"],
         .cost-section small[contenteditable="true"] {
-            display: block;
-            width: 100%;
+            display: block; width: 100%;
         }
 
-        /* Ensure cost section editables are block */
         .signature-column p[contenteditable="true"],
         .signature-column strong[contenteditable="true"],
         .signature-column span[contenteditable="true"] {
-            display: inline-block;
-            width: auto;
-            padding: 2px 4px;
-            text-align: center;
+            display: inline-block; width: auto; padding: 2px 4px; text-align: center;
         }
 
         [contenteditable="true"]:hover {
@@ -297,18 +302,16 @@
 
         .controls-section {
             flex: 1;
-            min-width: 250px;
-            padding: 25px;
+            min-width: 100%; /* Full width on mobile */
+            padding: 20px; /* Reduce padding */
             background-color: var(--white-bg);
             border-radius: 8px;
             box-shadow: 0 4px 12px var(--shadow-color);
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            position: sticky;
-            top: 20px;
-            align-self: flex-start;
-            /* Keep controls aligned top */
+            gap: 15px; /* Reduce gap */
+            /* Position static is default for mobile-first, applied via media query if needed */
+            margin-top: 25px; /* Space between editor and controls */
         }
 
         .control-group {
@@ -320,8 +323,9 @@
         .control-group label {
             font-weight: 600;
             color: var(--dark-text);
-            font-size: 0.95em;
+            font-size: 0.9em; /* Adjust label size */
             font-family: 'Poppins', sans-serif;
+            margin-bottom: 4px;
         }
 
         .controls-section input[type="file"] {
@@ -331,6 +335,7 @@
             font-size: 0.9em;
             background-color: #fff;
             cursor: pointer;
+            width: 100%; /* Make input take full width */
         }
 
         .controls-section input[type="file"]::file-selector-button {
@@ -350,7 +355,7 @@
 
         /* Tombol Simpan */
         .controls-section button {
-            padding: 12px 18px;
+            padding: 14px 18px; /* Increase padding for tap */
             color: var(--light-text);
             border: none;
             border-radius: 5px;
@@ -360,6 +365,7 @@
             transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             text-align: center;
             font-family: 'Poppins', sans-serif;
+            width: 100%; /* Make buttons full width */
         }
 
         .controls-section button:hover:not(:disabled) {
@@ -368,103 +374,135 @@
 
         .controls-section button:disabled {
             background-color: #bdc3c7 !important;
-            /* More prominent disabled color */
             cursor: not-allowed;
             opacity: 0.7;
         }
 
-        .controls-section button#save-html-btn {
-            background-color: var(--primary-color);
-        }
-
-        .controls-section button#save-html-btn:hover:not(:disabled) {
-            background-color: #2980b9;
-        }
-
-        .controls-section button#save-jpg-btn {
-            background-color: var(--success-color);
-        }
-
-        .controls-section button#save-jpg-btn:hover:not(:disabled) {
-            background-color: var(--success-hover-color);
-        }
-
-        .controls-section button#save-png-btn {
-            background-color: var(--info-color);
-        }
-
-        .controls-section button#save-png-btn:hover:not(:disabled) {
-            background-color: var(--info-hover-color);
-        }
+        .controls-section button#save-html-btn { background-color: var(--primary-color); }
+        .controls-section button#save-html-btn:hover:not(:disabled) { background-color: #2980b9; }
+        .controls-section button#save-jpg-btn { background-color: var(--success-color); }
+        .controls-section button#save-jpg-btn:hover:not(:disabled) { background-color: var(--success-hover-color); }
+        .controls-section button#save-png-btn { background-color: var(--info-color); }
+        .controls-section button#save-png-btn:hover:not(:disabled) { background-color: var(--info-hover-color); }
 
         .signature-placeholder {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 80px;
-            /* Use min-height */
-            border: 1px dashed #ccc;
-            border-radius: 4px;
-            font-style: italic;
-            color: #999;
-            font-size: 0.9em;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-            margin-bottom: 10px;
-            background-color: #f9f9f9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 80px; border: 1px dashed #ccc; border-radius: 4px;
+            font-style: italic; color: #999; font-size: 0.9em; padding: 10px;
+            box-sizing: border-box; text-align: center; margin-bottom: 10px; background-color: #f9f9f9;
         }
 
-        /* Ensure signature image in saved HTML looks decent */
         .signature-column img.signature-image {
-            max-width: 90%;
-            height: auto;
-            display: block;
-            margin: 0 auto 10px auto;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+            max-width: 90%; height: auto; display: block; margin: 0 auto 10px auto;
+            border-bottom: 1px solid #eee; padding-bottom: 5px;
         }
 
-        @media (max-width: 768px) {
-
-            /* Responsiveness */
+        /* --- Media Query for Larger Screens (Desktop) --- */
+        @media (min-width: 769px) {
+            body {
+                 padding: 20px; /* Restore original padding */
+            }
+             .page-header h1 {
+                font-size: 2.2em; /* Restore header size */
+            }
+             .page-header p {
+                font-size: 1.1em; /* Restore subheader size */
+            }
             .main-container {
-                flex-direction: column;
-                align-items: center;
-                max-width: 100%;
+                flex-direction: row; /* Side-by-side layout */
+                gap: 30px; /* Restore gap */
+                align-items: flex-start; /* Align items to top */
             }
 
-            #service-editor,
-            .controls-section {
-                width: 100%;
-                max-width: 550px;
-                flex: none;
+            #service-editor {
+                flex: 3; /* Take more space */
+                min-width: 450px; /* Restore min-width */
             }
-
-            .controls-section {
-                position: static;
-                margin-top: 30px;
-                align-self: center;
-            }
-
             #notification-container {
-                padding: 20px;
+                 padding: 35px; /* Restore padding */
             }
+             #notification-container h2 {
+                font-size: 1.8em; /* Restore size */
+                margin-bottom: 25px;
+                padding-bottom: 15px;
+             }
+              #notification-container p,
+              #notification-container div,
+              #notification-container strong,
+              #notification-container span {
+                  font-size: 1em; /* Restore base text size */
+                  margin-bottom: 15px; /* Restore margin */
+              }
+              #notification-container .highlight {
+                  font-size: 1.2em; /* Restore highlight size */
+              }
+              #notification-container .cost-section span.highlight {
+                  font-size: 1.6em; /* Restore cost font size */
+              }
+               #notification-container .cost-section small {
+                  font-size: 0.9em; /* Restore small text size */
+              }
+               #notification-container img#device-photo {
+                   max-width: 80%; /* Restore max width */
+                   min-height: 150px; /* Restore min height */
+                   margin: 25px auto;
+                   padding: 5px;
+               }
+                #notification-container .image-caption {
+                    font-size: 0.9em;
+                    margin-top: -10px;
+                    margin-bottom: 25px;
+                }
+                #notification-container .call-to-action {
+                    margin-top: 30px; padding: 20px; border-left-width: 5px;
+                }
+                 #notification-container .call-to-action p {
+                     margin-bottom: 10px;
+                 }
 
-            #notification-container h2 {
-                font-size: 1.6em;
-            }
 
-            #notification-container img#device-photo {
-                max-width: 90%;
-            }
-
-            .footer {
-                flex-direction: column;
-                align-items: center;
+            #notification-container .footer {
+                flex-direction: row; /* Side-by-side signatures */
+                justify-content: space-between;
+                align-items: flex-start; /* Align top */
+                 margin-top: 30px; padding-top: 20px; gap: 20px;
             }
 
             .signature-column {
-                min-width: 90%;
+                flex: 1; /* Share space */
+                 min-width: 200px; /* Restore min-width */
+                 max-width: none; /* Remove mobile max-width */
+                 width: auto; /* Allow flex to control width */
             }
+             .signature-column strong {
+                margin-bottom: 15px; /* Restore margin */
+            }
+             .signature-wrapper {
+                 height: 120px; /* Restore height */
+                 margin-bottom: 10px;
+             }
+              .signature-column button.clear-sig-button {
+                  font-size: 0.8em; padding: 3px 8px;
+                  display: inline-block; /* Restore inline display */
+                   margin-left: 0; margin-right: 0; /* Reset auto margins */
+              }
+
+            .controls-section {
+                flex: 1; /* Take less space */
+                min-width: 250px; /* Restore min-width */
+                position: sticky; /* Restore sticky behavior */
+                top: 20px;
+                align-self: flex-start; /* Align to top */
+                margin-top: 0; /* Remove top margin */
+                padding: 25px; /* Restore padding */
+                gap: 20px; /* Restore gap */
+            }
+             .control-group label {
+                 font-size: 0.95em; /* Restore label size */
+                 margin-bottom: 0;
+             }
+              .controls-section button {
+                  width: auto; /* Allow button width to be natural */
+                   padding: 12px 18px; /* Restore padding */
+              }
         }
