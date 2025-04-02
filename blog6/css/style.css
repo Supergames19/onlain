@@ -1,4 +1,4 @@
-:root {
+ :root {
             --primary-color: #007bff; /* Biru */
             --secondary-color: #6c757d; /* Abu-abu */
             --light-bg: #f8f9fa; /* Latar belakang terang */
@@ -13,7 +13,6 @@
             --editable-shadow-focus: rgba(0, 123, 255, 0.2);
         }
 
-        /* --- Global Reset & Base --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,44 +26,39 @@
             line-height: 1.6;
             padding: 20px;
             display: flex;
-            flex-direction: column; /* Stack header and main container */
-            align-items: center; /* Center content horizontally */
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
+            flex-wrap: wrap; /* Wrap container utama jika perlu */
         }
 
-         /* --- Page Header --- */
+         /* Header Halaman (dipindah ke atas agar lebih rapi) */
          .page-header {
              width: 100%;
-             max-width: 900px; /* Match main container max-width */
              text-align: center;
              margin-bottom: 30px;
          }
          .page-header h1 {
              font-weight: 700;
              color: var(--dark-text);
-             font-size: 2.2em; /* Slightly larger title */
          }
          .page-header p {
              color: var(--secondary-color);
              font-size: 1.1em;
-             margin-top: 5px;
          }
 
-        /* --- Main Layout --- */
         .main-container {
             display: flex;
             gap: 30px;
             width: 100%;
             max-width: 900px;
             align-items: flex-start;
-            flex-wrap: wrap; /* Allow wrapping if needed, primary wrap handled by media query */
+            flex-wrap: wrap;
         }
 
-        /* --- Promo Editor Area --- */
         #promo-editor {
-             flex: 2; /* Takes more space on wider screens */
-             min-width: 350px; /* Minimum width before wrapping */
-             width: 100%; /* Ensure it takes full width when stacked */
+             flex: 2;
+             min-width: 350px;
         }
 
         #promo-container {
@@ -76,7 +70,6 @@
             transition: box-shadow 0.3s ease;
             position: relative;
             text-align: center;
-            overflow: hidden; /* Contain potential overflows */
         }
         #promo-container:hover {
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -84,26 +77,26 @@
 
         #promo-container img {
             max-width: 100%;
-            height: auto; /* Maintain aspect ratio */
+            height: auto;
             display: block;
             margin: 20px auto;
             border-radius: 6px;
-            object-fit: cover; /* Cover the area nicely */
-            min-height: 150px; /* Default minimum height */
-            background-color: #eee; /* Placeholder bg */
+             object-fit: cover;
+             min-height: 150px;
+             background-color: #eee;
         }
 
-        /* --- Editable Elements Styling --- */
+        /* Gaya umum elemen contenteditable */
         [contenteditable="true"] {
             border: 1px dashed transparent;
-            padding: 5px 8px;
+            padding: 5px 8px; /* Padding sedikit dikurangi agar pas di tombol */
             cursor: text;
-            min-height: 1.2em;
+            min-height: 1.2em; /* Sesuaikan min-height */
             transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
             border-radius: 4px;
-            margin-bottom: 10px; /* Default spacing */
-            display: block; /* Ensure block display for spacing */
-            outline: none; /* Remove default browser outline */
+            margin-bottom: 10px;
+            display: block; /* Agar margin bottom bekerja */
+            outline: none; /* Hilangkan outline default */
         }
          [contenteditable="true"]:hover {
              border-color: var(--border-color);
@@ -121,15 +114,15 @@
             font-weight: 700;
             margin-bottom: 15px;
             color: var(--primary-color);
-            padding: 8px 10px; /* Specific padding for title */
+            padding: 8px 10px; /* Kembalikan padding normal untuk judul */
         }
 
         p[contenteditable="true"] {
             font-size: 1.05em;
             color: var(--secondary-color);
             text-align: center;
-            margin-bottom: 0; /* Reset margin for p, spacing handled by children or link */
-            padding: 8px 10px;
+            margin-bottom: 0;
+            padding: 8px 10px; /* Kembalikan padding normal untuk paragraf */
         }
          p[contenteditable="true"] small {
              display: block;
@@ -138,61 +131,60 @@
              color: #888;
          }
 
-        /* --- "Pesan Sekarang" Link/Button Styling --- */
-        a.order-now-link {
-            display: inline-block; /* Allows padding/margin */
+        /* --- Gaya untuk Link "Pesan Sekarang" (dulu tombol) --- */
+        a.order-now-link { /* Target <a> dengan class spesifik */
+            display: inline-block;
             margin-top: 25px;
             background-color: var(--success-color);
-            color: var(--light-text) !important; /* Force white text */
+            color: var(--light-text) !important; /* Paksa warna teks putih */
             border: none;
             border-radius: 5px;
             font-size: 1.1em;
             font-weight: 600;
-            text-decoration: none !important; /* Remove underline */
-            cursor: default; /* Default cursor for the link wrapper */
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            text-decoration: none !important; /* Hapus garis bawah link */
+            cursor: default; /* Biarkan default, karena link akan aktif di HTML */
+            transition: background-color 0.3s ease, transform 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 0; /* Remove padding from <a> itself */
-            line-height: normal;
-            vertical-align: middle;
+            padding: 0; /* Hapus padding dari <a> agar padding di span bekerja */
+            line-height: normal; /* Reset line height */
+            vertical-align: middle; /* Jaga alignment */
         }
         a.order-now-link:hover {
             background-color: var(--success-hover-color);
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            color: var(--light-text) !important; /* Ensure white on hover */
+            color: var(--light-text) !important; /* Pastikan putih saat hover */
             text-decoration: none !important;
         }
 
-         /* --- Editable Text Span inside the Link --- */
+         /* --- Gaya untuk Teks di dalam Link yang Bisa Diedit --- */
          #order-now-text {
-             display: inline-block; /* Allow padding to work */
-             padding: 12px 30px; /* Button padding is here */
-             margin-bottom: 0; /* Override default editable margin */
-             border-color: transparent; /* Hide default dashed border */
-             color: inherit; /* Inherit text color from parent <a> */
-             min-height: auto; /* Reset min-height */
-             line-height: 1.2; /* Button text line height */
-             cursor: text; /* Text cursor when hovering the text itself */
+             display: inline-block; /* Agar padding bekerja */
+             padding: 12px 30px; /* Padding tombol sekarang di sini */
+             margin-bottom: 0; /* Hapus margin bottom dari [contenteditable] */
+             border-color: transparent; /* Sembunyikan border default */
+             color: inherit; /* Warisi warna dari <a> */
+             min-height: auto; /* Reset min-height jika perlu */
+             line-height: 1.2; /* Sesuaikan line height teks tombol */
          }
-          /* Subtle hover/focus for the editable text part */
           #order-now-text:hover {
-               border-color: rgba(255, 255, 255, 0.3);
-               background-color: transparent; /* Keep button background */
+              /* Beri indikator hover yang halus jika diinginkan, atau biarkan transparan */
+               border-color: rgba(255, 255, 255, 0.3); /* Border putih transparan saat hover */
+               background-color: transparent; /* Jangan ubah background tombol */
           }
           #order-now-text:focus {
-               border: 1px solid rgba(255, 255, 255, 0.8);
-               background-color: rgba(0, 0, 0, 0.1); /* Slightly darken button */
-               box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2); /* White glow */
-               color: var(--light-text); /* Keep text white */
+               border: 1px solid rgba(255, 255, 255, 0.8); /* Border putih lebih jelas saat fokus */
+               background-color: rgba(0, 0, 0, 0.1); /* Sedikit gelap saat edit */
+               box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2); /* Glow putih */
+               color: var(--light-text); /* Pastikan teks tetap putih saat edit */
           }
 
 
-        /* --- Controls Section --- */
+        /* Area Kontrol */
         .controls-section {
-            flex: 1; /* Takes less space on wider screens */
+            flex: 1;
             min-width: 250px;
             padding: 25px;
             background-color: var(--light-text);
@@ -200,36 +192,32 @@
             box-shadow: 0 4px 12px var(--shadow-color);
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Spacing between control groups */
-            width: 100%; /* Ensure it takes full width when stacked */
+            gap: 20px;
         }
 
         .control-group {
              display: flex;
              flex-direction: column;
-             gap: 8px; /* Spacing between label and input */
+             gap: 8px;
         }
 
          .control-group label {
              font-weight: 600;
              color: var(--dark-text);
              font-size: 0.95em;
-             margin-bottom: 2px; /* Small space above input */
          }
 
         .controls-section input[type="file"],
-        .controls-section input[type="url"] {
+        .controls-section input[type="url"] { /* Tambahkan style untuk input URL */
             border: 1px solid var(--border-color);
             padding: 10px;
             border-radius: 5px;
             font-size: 0.9em;
             background-color: #fff;
-            width: 100%; /* Make inputs take full width */
         }
          .controls-section input[type="file"] {
               cursor: pointer;
          }
-         /* Style the button part of file input */
          .controls-section input[type="file"]::file-selector-button {
             margin-right: 10px;
             border: none;
@@ -253,16 +241,12 @@
             cursor: pointer;
             font-size: 1em;
             font-weight: 600;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
         }
         .controls-section button:hover {
             background-color: #0056b3;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        .controls-section button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
         }
          .controls-section button#save-jpg-btn {
              background-color: var(--success-color);
@@ -270,90 +254,23 @@
           .controls-section button#save-jpg-btn:hover {
              background-color: var(--success-hover-color);
          }
-         .controls-section .info-text {
-             font-size: 0.8em;
-             color: var(--secondary-color);
-             text-align: center;
-             margin-top: 10px;
-         }
 
-
-         /* --- Responsiveness / Mobile Styles (Android etc.) --- */
+         /* Responsiveness */
         @media (max-width: 768px) {
-            body {
-                padding: 15px; /* Reduce body padding */
-            }
-
-            .page-header h1 {
-                 font-size: 1.8em; /* Smaller heading on mobile */
-            }
-            .page-header p {
-                 font-size: 1em; /* Slightly smaller subtext */
-            }
-
             .main-container {
-                flex-direction: column; /* Stack editor and controls */
-                align-items: center; /* Center items when stacked */
-                gap: 20px; /* Reduce gap between editor and controls */
+                flex-direction: column;
+                align-items: center;
             }
-
              #promo-editor, .controls-section {
-                 width: 100%; /* Ensure full width */
-                 max-width: 500px; /* Limit max width for better readability */
-                 flex: none; /* Reset flex property */
-                 min-width: unset; /* Reset min-width */
+                 width: 100%;
+                 max-width: 500px;
+                 flex: none;
              }
-
-             #promo-container {
-                padding: 20px; /* Reduce padding inside promo */
+             a.order-now-link { /* Sesuaikan ukuran link/tombol di mobile */
+                 font-size: 1em;
              }
-              #promo-container img {
-                 min-height: 120px; /* Slightly smaller min-height for image */
-              }
-
-             h2[contenteditable="true"] {
-                font-size: 1.6em; /* Smaller promo title */
-             }
-             p[contenteditable="true"] {
-                font-size: 1em; /* Adjust promo text size */
-             }
-             /* Button/Link adjustments */
-             a.order-now-link {
-                 font-size: 1em; /* Adjust button font size */
-                 margin-top: 20px; /* Slightly less top margin */
-             }
-             #order-now-text {
-                 padding: 10px 20px; /* Adjust button padding */
-             }
-
-             .controls-section {
-                padding: 20px; /* Reduce controls padding */
-                gap: 15px; /* Reduce gap within controls */
-             }
-             .control-group label {
-                 font-size: 0.9em; /* Slightly smaller labels */
-             }
-             .controls-section button {
-                 padding: 10px 15px; /* Slightly smaller buttons */
-                 font-size: 0.95em;
+            #order-now-text { /* Sesuaikan padding teks tombol di mobile */
+                 padding: 10px 20px;
              }
         }
 
-         @media (max-width: 480px) {
-              .page-header h1 {
-                  font-size: 1.6em; /* Even smaller on very small screens */
-              }
-               h2[contenteditable="true"] {
-                  font-size: 1.4em;
-              }
-               p[contenteditable="true"] {
-                  font-size: 0.95em;
-              }
-              a.order-now-link {
-                  font-size: 0.95em;
-              }
-               #order-now-text {
-                  padding: 9px 18px;
-              }
-               /* Further adjustments if needed for very small screens */
-         }
