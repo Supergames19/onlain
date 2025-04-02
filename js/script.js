@@ -1,248 +1,208 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Editor Ready!");
 
-    const saveHtmlButton = document.getElementById('save-html-button');
-    const saveJpgButton = document.getElementById('save-jpg-button');
-    const contentToCapture = document.getElementById('editable-content'); // Target element for JPG capture
+        const imageUpload = document.getElementById('image-upload');
+        const promoImage = document.getElementById('promo-image');
+        const saveHtmlBtn = document.getElementById('save-html-btn');
+        const saveJpgBtn = document.getElementById('save-jpg-btn');
+        const promoContainer = document.getElementById('promo-container');
+        const promoTitle = document.getElementById('promo-title');
+        const promoDescription = document.getElementById('promo-description');
+        const orderNowLink = document.getElementById('order-now-link'); // Referensi ke elemen <a>
+        const orderNowText = document.getElementById('order-now-text'); // Referensi ke <span> di dalam <a>
+        const buttonLinkInput = document.getElementById('button-link-input'); // Referensi ke input URL
 
-    // --- Image Editing Feature ---
-    const imageContainers = document.querySelectorAll('.editable-image-container');
-    console.log(`Found ${imageContainers.length} editable image containers.`);
-
-    imageContainers.forEach(container => {
-        const fileInput = container.querySelector('.hidden-file-input');
-        const imageElement = container.querySelector('img'); // Check for direct <img> tag
-
-        if (!fileInput) {
-            console.warn("Skipping image container, missing hidden file input:", container);
-            return;
-        }
-
-        // Use container click to trigger file input for better click area
-        container.addEventListener('click', (e) => {
-            // Prevent triggering if clicking on an interactive element inside (like a future link/button)
-            if (e.target.closest('a, button')) return;
-            console.log("Image container clicked, triggering file input for:", container.dataset.id || container);
-            fileInput.click(); // Trigger the hidden file input
-        });
-
-        // Handle file selection
-        fileInput.addEventListener('change', (event) => {
-             const file = event.target.files[0];
-             console.log("File selected:", file ? file.name : 'None');
-
-            if (file && file.type.startsWith('image/')) {
+        // --- Fungsi Ganti Gambar ---
+        imageUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
                 const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    const dataUrl = e.target.result; // Get image as Data URL
-                    console.log("Image loaded into FileReader for:", container.dataset.id || container);
-
-                    // Apply the image data
-                    if (imageElement) {
-                        // If container has an <img> tag (e.g., featured image)
-                        imageElement.src = dataUrl;
-                        console.log("Updated <img> src.");
-                    } else {
-                        // If container uses background-image (e.g., gallery)
-                        container.style.backgroundImage = `url('${dataUrl}')`;
-                        console.log("Updated background-image style.");
-                    }
-                    // Store the Data URL in the dataset for saving purposes
-                    container.dataset.imageDataUrl = dataUrl;
-                    console.log("Stored data URL in dataset.");
+                reader.onload = function(e) {
+                    promoImage.src = e.target.result;
                 }
-                reader.readAsDataURL(file); // Read file content
-
-            } else if (file) {
-                 alert('Harap pilih file gambar yang valid (JPG, PNG, GIF, dll.).');
-                 console.warn("Invalid file type selected:", file.type);
+                reader.readAsDataURL(file);
             }
-            // Reset input value to allow selecting the same file again if needed
-            event.target.value = null;
         });
-    });
 
-    // --- Function to Save Page as HTML ---
-    function savePageHtml() {
-        console.log("Attempting to save HTML...");
-        // Set loading state
-        saveHtmlButton.classList.add('loading');
-        saveHtmlButton.disabled = true;
-        saveHtmlButton.innerHTML = '<i class="fa-solid fa-spinner"></i> Menyimpan HTML...';
-
-        try {
-            // 1. Clone the entire document to work on a copy
-            const clonedDoc = document.cloneNode(true);
-
-            // 2. Remove unwanted elements from the clone (save buttons, script tags)
-            const elementsToRemove = clonedDoc.querySelectorAll('.save-buttons-container, script#interactive-script, script[src="script.js"]'); // More specific selector
-            elementsToRemove.forEach(el => el.remove());
-            console.log("Removed save buttons and scripts from clone.");
-
-            // 3. Remove 'contenteditable' attribute from all elements in the clone
-            const editableElements = clonedDoc.querySelectorAll('[contenteditable="true"]');
-            editableElements.forEach(el => el.removeAttribute('contenteditable'));
-            console.log("Removed contenteditable attributes from clone.");
-
-            // 4. Apply edited images (using stored Data URLs) to the clone
-            const editedImages = clonedDoc.querySelectorAll('.editable-image-container[data-image-data-url]');
-             console.log(`Applying ${editedImages.length} edited images to clone...`);
-             editedImages.forEach(container => {
-                 const dataUrl = container.dataset.imageDataUrl;
-                 const img = container.querySelector('img');
-                 if(dataUrl){ // Ensure dataUrl exists
-                    if (img) {
-                        img.src = dataUrl; // Update src for <img> tags
-                    } else {
-                        container.style.backgroundImage = `url('${dataUrl}')`; // Update background for divs
-                    }
-                    // Optional: Remove the dataset attribute from the final HTML
-                    // container.removeAttribute('data-image-data-url');
-                 } else {
-                    console.warn("Container has data-image-data-url attribute but no value?", container);
-                 }
-            });
-
-            // 5. Get the final HTML string from the cleaned clone
-            // Use outerHTML of the html element for the full document structure
-            const finalHtml = clonedDoc.documentElement.outerHTML;
-            console.log("Generated final HTML string.");
-
-            // 6. Create a Blob and trigger download
-            const blob = new Blob([finalHtml], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const downloader = document.createElement('a');
-            downloader.href = url;
-
-            // Generate filename from page title
-            const pageTitle = clonedDoc.getElementById('page-title')?.textContent?.trim() || 'halaman-produk-diedit';
-            const filename = pageTitle.toLowerCase().replace(/[\s\W-]+/g, '-') + '.html'; // Sanitize filename
-            downloader.download = filename;
-
-            document.body.appendChild(downloader);
-            downloader.click();
-            document.body.removeChild(downloader);
-            URL.revokeObjectURL(url); // Clean up Blob URL
-            console.log(`HTML saved as "${filename}".`);
-            // alert(`Halaman telah disimpan sebagai "${filename}".`); // Optional success alert
-
-        } catch (error) {
-            console.error("Failed to save HTML:", error);
-            alert("Terjadi kesalahan saat menyimpan halaman HTML. Silakan cek konsol (F12) untuk detail.");
-        } finally {
-             // Reset loading state regardless of success or failure
-            saveHtmlButton.classList.remove('loading');
-            saveHtmlButton.disabled = false;
-            saveHtmlButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan HTML';
-            console.log("Save HTML process finished.");
-        }
-    } // end savePageHtml
-
-    // --- Function to Save Page as JPG ---
-    function savePageJpg() {
-         console.log("Attempting to save JPG...");
-         // Check if html2canvas library is loaded
-         if (typeof html2canvas === 'undefined') {
-            console.error('html2canvas library is not loaded!');
-            alert('Library html2canvas tidak ditemukan. Gagal menyimpan JPG.');
-            return;
-         }
-
-         // Set loading state
-         saveJpgButton.classList.add('loading');
-         saveJpgButton.disabled = true;
-         saveJpgButton.innerHTML = '<i class="fa-solid fa-spinner"></i> Memproses JPG...';
-         alert('Sedang memproses gambar JPG, ini mungkin perlu beberapa saat...'); // Inform user
-
-         // Temporarily hide elements that shouldn't be in the capture (like outlines, maybe overlays)
-         const editableElements = contentToCapture.querySelectorAll('[contenteditable="true"]');
-         const originalOutlines = new Map();
-         editableElements.forEach(el => {
-            originalOutlines.set(el, el.style.outline); // Store original outline
-            el.style.outline = 'none'; // Remove outline for capture
-         });
-          // Hide save buttons container if it's inside the captured area (it shouldn't be with current HTML)
-          // const saveBtnContainer = contentToCapture.querySelector('.save-buttons-container');
-          // if (saveBtnContainer) saveBtnContainer.style.visibility = 'hidden';
-
-         // Options for html2canvas
-         const options = {
-             allowTaint: false, // Prevent tainting canvas if possible
-             useCORS: true,    // Attempt to load cross-origin images
-             scale: window.devicePixelRatio || 1.5, // Use device DPI or slightly higher scale for better quality
-             backgroundColor: getComputedStyle(document.body).backgroundColor || '#ffffff', // Use body background
-             logging: false, // Disable html2canvas console logging
-             scrollX: 0, // Ensure capture starts from the left edge
-             scrollY: 0, // Ensure capture starts from the top edge
-             windowWidth: contentToCapture.scrollWidth, // Use element's scroll width
-             windowHeight: contentToCapture.scrollHeight, // Use element's scroll height
-             onclone: (clonedDoc) => {
-                // Perform actions on the *cloned* document before rendering
-                // Ensure outlines are removed in the clone as well
-                const clonedEditables = clonedDoc.querySelectorAll('[contenteditable="true"]');
-                clonedEditables.forEach(el => el.style.outline = 'none');
-                // Hide save buttons in clone if needed
-                // const clonedSaveBtns = clonedDoc.querySelector('.save-buttons-container');
-                // if(clonedSaveBtns) clonedSaveBtns.style.display = 'none';
-                console.log("Document cloned for html2canvas rendering.");
+        // --- Fungsi Update Link Tombol saat Input URL Berubah ---
+        buttonLinkInput.addEventListener('input', function() {
+            let url = this.value.trim();
+            // Tambahkan http:// jika pengguna tidak menyertakannya (opsional tapi membantu)
+            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                 // Cek sederhana, mungkin perlu validasi lebih baik
+                 // Tapi untuk input type="url", browser biasanya menangani prefix
+                 // Kita atur href ke # jika kosong
+                // url = 'http://' + url; // Bisa diaktifkan jika ingin memaksa http
             }
-         };
+            orderNowLink.href = url || '#'; // Set href ke URL atau '#' jika kosong
+        });
 
-         html2canvas(contentToCapture, options).then(canvas => {
-             console.log("html2canvas processing successful.");
-             // Convert canvas to JPG Data URL
-             // Quality: 0 (low) to 1 (high)
-             const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92); // Use slightly higher quality
-
-             // Trigger download
-             const downloader = document.createElement('a');
-             downloader.href = imageDataUrl;
-             const pageTitle = document.getElementById('page-title')?.textContent?.trim() || 'halaman-produk';
-             const filename = pageTitle.toLowerCase().replace(/[\s\W-]+/g, '-') + '-capture.jpg'; // Sanitize filename
-             downloader.download = filename;
-             document.body.appendChild(downloader);
-             downloader.click();
-             document.body.removeChild(downloader);
-             console.log(`JPG saved as "${filename}".`);
-             // alert(`Gambar JPG telah disimpan sebagai "${filename}".`); // Optional success alert
-
-         }).catch(error => {
-             console.error('Error during html2canvas operation:', error);
-             alert('Gagal membuat gambar JPG. Mungkin ada masalah dengan elemen atau gambar eksternal. Cek konsol (F12).');
-         }).finally(() => {
-              // Restore temporarily hidden elements/styles
-              editableElements.forEach(el => {
-                 el.style.outline = originalOutlines.get(el) || ''; // Restore original outline
-              });
-              // if (saveBtnContainer) saveBtnContainer.style.visibility = 'visible';
-
-              // Reset loading state
-             saveJpgButton.classList.remove('loading');
-             saveJpgButton.disabled = false;
-             saveJpgButton.innerHTML = '<i class="fa-solid fa-file-image"></i> Simpan JPG';
-             console.log("Save JPG process finished.");
-         });
-
-    } // end savePageJpg
+         // Setel nilai awal input link dari href tombol (jika ada)
+         buttonLinkInput.value = orderNowLink.getAttribute('href') === '#' ? '' : orderNowLink.getAttribute('href');
 
 
-    // Add event listeners to the buttons
-    if (saveHtmlButton) {
-        saveHtmlButton.addEventListener('click', savePageHtml);
-    } else {
-        console.error("Save HTML button not found!");
-    }
+        // --- Fungsi Simpan sebagai HTML ---
+        saveHtmlBtn.addEventListener('click', function() {
+            // Ambil konten yang sudah diedit
+            const editedTitleHTML = promoTitle.innerHTML;
+            const editedDescriptionHTML = promoDescription.innerHTML;
+            const editedImageSrc = promoImage.src;
+            const editedButtonTextHTML = orderNowText.innerHTML; // Ambil teks dari span
+            const currentButtonLink = orderNowLink.getAttribute('href') || '#'; // Ambil href dari <a>
 
-    if (saveJpgButton) {
-        saveJpgButton.addEventListener('click', savePageJpg);
-    } else {
-        console.error("Save JPG button not found!");
-    }
-
-    // --- CTA Link Editing (using inline onclick in HTML is sufficient here) ---
-    // No additional JS needed for the link prompt as it's handled inline.
-    // The stopPropagation in the inline span's onclick prevents the link prompt when editing text.
+            // Buat HTML untuk tombol/link
+            // Pastikan class dan href sesuai
+            const orderButtonHTML = `<a href="${currentButtonLink}" class="order-now-link" style="display: inline-block; margin-top: 25px; background-color: var(--success-color); color: var(--light-text); border: none; border-radius: 5px; font-size: 1.1em; font-weight: 600; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 30px; /* Langsung set padding di <a> */ cursor: pointer;">${editedButtonTextHTML}</a>`;
 
 
-}); // End DOMContentLoaded
+            // Buat konten HTML baru
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promosi Tersimpan</title>
+    <style>
+        :root { /* Definisikan variabel warna di HTML tersimpan */
+             --success-color: #28a745;
+             --success-hover-color: #218838;
+             --light-text: #ffffff;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        .container { width: 90%; max-width: 450px; border: 1px solid #dee2e6; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-align: center; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 6px; }
+        h2 { font-size: 1.8em; font-weight: 700; margin-bottom: 15px; color: #007bff; text-align: center; }
+        p { font-size: 1em; line-height: 1.6; color: #6c757d; text-align: center; margin-bottom: 20px; }
+        p small { display: block; margin-top: 8px; font-size: 0.85em; color: #888;}
+        /* Gaya untuk link tombol di HTML tersimpan (inline style di atas lebih prioritas) */
+        .order-now-link { /* Sedikit redundan dengan inline, tapi bisa sbg fallback */
+            display: inline-block;
+            /* Style utama sudah di inline style */
+        }
+        .order-now-link:hover {
+             background-color: var(--success-hover-color) !important; /* Paksa warna hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>${editedTitleHTML}</h2>
+        <img src="${editedImageSrc}" alt="Gambar Promosi">
+        <p>${editedDescriptionHTML}</p>
+        ${orderButtonHTML} <!-- Masukkan HTML link/tombol di sini -->
+    </div>
+</body>
+</html>`;
+
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'promosi_desain_saya.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            console.log('File HTML disimpan.');
+            alert('File HTML berhasil dibuat dan diunduh!');
+        });
+
+        // --- Fungsi Simpan sebagai JPG (menggunakan html2canvas) ---
+        saveJpgBtn.addEventListener('click', function() {
+            const originalStyles = new Map();
+            // Sertakan SEMUA elemen contenteditable untuk reset style
+            const editables = promoContainer.querySelectorAll('[contenteditable="true"]');
+
+             saveJpgBtn.textContent = 'Menyimpan JPG...';
+             saveJpgBtn.disabled = true;
+
+            // Hilangkan sementara border interaktif & shadow focus sebelum screenshot
+             editables.forEach(el => {
+                 // Simpan style spesifik yang diubah saat :focus/:hover
+                 originalStyles.set(el, {
+                     border: el.style.border,
+                     boxShadow: el.style.boxShadow,
+                     backgroundColor: el.style.backgroundColor // Simpan juga background jika berubah
+                 });
+                 // Reset ke tampilan non-edit
+                 el.style.border = '1px dashed transparent'; // Atau sesuai state non-edit
+                 el.style.boxShadow = 'none';
+                 el.style.backgroundColor = 'transparent'; // Reset background jika diubah saat edit
+                 // Khusus untuk span tombol, pastikan border benar2 hilang
+                 if (el.id === 'order-now-text') {
+                    el.style.border = '1px solid transparent'; // Pastikan solid transparan
+                 }
+             });
+
+            // Pastikan border container utama tetap ada
+            const originalContainerBorder = promoContainer.style.border;
+            promoContainer.style.border = '1px solid var(--border-color)';
+
+            // Hilangkan efek transform hover pada link sebelum capture
+            let originalLinkTransform = orderNowLink.style.transform;
+            orderNowLink.style.transform = 'none'; // Reset transform
+
+            html2canvas(promoContainer, {
+                 useCORS: true,
+                 backgroundColor: '#ffffff',
+                 scale: window.devicePixelRatio * 1.5,
+                 logging: false,
+                 onclone: (clonedDoc) => {
+                     // Pastikan di dokumen kloningan, style focus/hover tidak aktif
+                     const clonedEditables = clonedDoc.querySelectorAll('[contenteditable="true"]');
+                     clonedEditables.forEach(el => {
+                         el.style.border = '1px solid transparent'; // Pastikan transparan
+                         el.style.boxShadow = 'none';
+                         el.style.backgroundColor = 'transparent';
+                     });
+                      const clonedLink = clonedDoc.getElementById('order-now-link');
+                       if (clonedLink) clonedLink.style.transform = 'none';
+                       const clonedText = clonedDoc.getElementById('order-now-text');
+                        if (clonedText) {
+                            clonedText.style.border = '1px solid transparent';
+                            clonedText.style.backgroundColor = 'transparent';
+                        }
+
+                 }
+                })
+                .then(canvas => {
+                    const imageDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+
+                    const a = document.createElement('a');
+                    a.href = imageDataUrl;
+                    a.download = 'promosi_desain_saya.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    console.log('File JPG disimpan.');
+                    alert('File JPG berhasil dibuat dan diunduh!');
+
+                })
+                .catch(error => {
+                    console.error('Error saat membuat JPG:', error);
+                    alert('Gagal membuat file JPG. Periksa konsol (F12) untuk detail error.');
+                })
+                .finally(() => {
+                     // Kembalikan style asli elemen editable
+                     editables.forEach(el => {
+                        const styles = originalStyles.get(el);
+                        if (styles) {
+                            el.style.border = styles.border;
+                            el.style.boxShadow = styles.boxShadow;
+                            el.style.backgroundColor = styles.backgroundColor;
+                        } else { // Fallback jika tidak tersimpan
+                             el.style.border = '';
+                             el.style.boxShadow = '';
+                             el.style.backgroundColor = '';
+                        }
+                     });
+                    // Kembalikan border container asli
+                    promoContainer.style.border = originalContainerBorder;
+                    // Kembalikan transform link asli
+                    orderNowLink.style.transform = originalLinkTransform;
+
+                     saveJpgBtn.textContent = 'Simpan sebagai JPG';
+                     saveJpgBtn.disabled = false;
+                });
+        });
+
