@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogPromosi</title>
+    <title>BlogPromosi - Editor Desain</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,6 @@
 
      <!-- Styles -->
      <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog6/css/style.css">
-       
 </head>
 <body>
      <div class="page-header">
@@ -32,12 +31,11 @@
                 <img id="promo-image" src="https://supergames19.github.io/onlain/blog6/img/1.png" alt="Gambar Promosi">
                 <p id="promo-description" contenteditable="true">
                     Dapatkan penawaran terbaik minggu ini untuk produk favorit Anda! Diskon hingga <strong>50%</strong> + Gratis Ongkir*. Jangan lewatkan kesempatan emas ini. Kunjungi toko kami atau belanja online sekarang!
-                </br>
-            </br>
+                    <br><br> <!-- Using br for simple line breaks within contenteditable -->
                     <small>@ 2025 Edy Sahputra. Hak Cipta Dilindungi.</small>
                     <small>Syarat & ketentuan berlaku</small>
                 </p>
-                <!-- Tombol Pesan Sekarang diubah menjadi Link (<a>) dengan span editable di dalamnya -->
+                <!-- Link "Pesan Sekarang" dengan span editable di dalamnya -->
                 <a href="#" id="order-now-link" class="order-now-link">
                     <span id="order-now-text" contenteditable="true">Pesan Sekarang</span>
                 </a>
@@ -54,7 +52,7 @@
              <!-- Input untuk Link Tombol Pesan -->
              <div class="control-group">
                 <label for="button-link-input">🔗 Link Tombol Pesan:</label>
-                <input type="url" id="button-link-input" placeholder="https://wa.me/082367136420">
+                <input type="url" id="button-link-input" placeholder="Contoh: https://wa.me/628xxxxxxxxxx">
             </div>
 
             <div class="control-group">
@@ -62,7 +60,7 @@
                 <button id="save-html-btn">Simpan sebagai HTML</button>
                 <button id="save-jpg-btn">Simpan sebagai JPG</button>
             </div>
-             <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
+             <p class="info-text">
                  Link tombol hanya akan berfungsi di file HTML. File JPG hanya gambar visual.
              </p>
         </div>
