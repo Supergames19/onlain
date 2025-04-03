@@ -1,0 +1,647 @@
+
+        :root {
+            /* Lazada Colors */
+            --lazada-blue: #0F146D;
+            --lazada-orange: #F57224;
+            --lazada-red: #D32F2F;
+            /* Alternative Red */
+            --lazada-lazmall-purple: #9E1A84;
+            --lazada-free-shipping-green: #1DB954;
+            /* Example Green */
+            --lazada-gold-star: #FFC107;
+            /* Slightly different gold */
+            --lazada-bg: #f5f5f5;
+            --lazada-card-bg: #ffffff;
+            --lazada-border: #e0e0e0;
+            --lazada-text-primary: #212121;
+            /* Darker Primary */
+            --lazada-text-secondary: #757575;
+            /* Medium Grey */
+            --lazada-text-light: #bdbdbd;
+            /* Lighter Grey */
+            --lazada-text-white: #ffffff;
+            --lazada-discount-bg: #ffebee;
+            /* Light red bg for discount text */
+            --lazada-discount-text: var(--lazada-red);
+
+            /* Editor specific (using Lazada colors) */
+            --primary-color: var(--lazada-blue);
+            --primary-darker: #0a0e4a;
+            /* Darker blue */
+            --card-bg: var(--lazada-card-bg);
+            --border-color: #dbdbdb;
+            --text-color: var(--lazada-text-primary);
+            --success-color: #2a9d8f;
+            --error-color: #e79551;
+            --loading-color: #e9c46a;
+            --info-color: #adb5bd;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --font-primary: 'Roboto', sans-serif;
+            --toolbar-height: 65px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.4;
+            background: var(--lazada-bg);
+            color: var(--text-color);
+            padding-top: calc(var(--toolbar-height) + 15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 75vh;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+
+        /* --- Toolbar --- */
+        /* Toolbar styles remain largely the same, maybe update primary color */
+        .toolbar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            height: var(--toolbar-height);
+        }
+
+        .toolbar {
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            height: 100%;
+        }
+
+        .toolbar-button,
+        .toolbar label.toolbar-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .toolbar-button:hover,
+        .toolbar label.toolbar-button:hover {
+            background-color: var(--primary-darker);
+        }
+
+        .toolbar-button:disabled,
+        .toolbar label.toolbar-button[aria-disabled="true"] {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #efefef;
+            color: #aaa;
+            box-shadow: none;
+        }
+
+        .toolbar-button.reset {
+            background-color: #efefef;
+            color: var(--lazada-text-primary);
+        }
+
+        .toolbar-button.reset:hover {
+            background-color: #e0e0e0;
+        }
+
+        .toolbar input[type="file"] {
+            display: none;
+        }
+
+        /* --- Status Message --- */
+        /* Status message styles remain the same */
+        .status-message {
+            width: calc(100% - 20px);
+            max-width: 500px;
+            margin: 8px auto 5px auto;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.4s ease, height 0.4s ease, margin-top 0.4s ease;
+            border: 1px solid transparent;
+            z-index: 999;
+            position: relative;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 8px 15px;
+        }
+
+        .status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: var(--success-color);
+        }
+
+        .status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: var(--error-color);
+        }
+
+        .status-message.loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: var(--loading-color);
+        }
+
+        .status-message.info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border-color: var(--info-color);
+        }
+
+        /* --- Main Content Area --- */
+        .main-content {
+            padding: 15px 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        /* --- Lazada Ad Card Styles --- */
+        .lazada-ad-container {
+            background-color: var(--lazada-card-bg);
+            border: 1px solid var(--lazada-border);
+            border-radius: 4px;
+            /* Less rounded than Shopee */
+            width: 100%;
+            max-width: 200px;
+            /* Typical Lazada width */
+            font-size: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            /* Subtle default shadow */
+        }
+
+        .lazada-ad-container:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Slightly stronger hover shadow */
+        }
+
+        /* Ad Media Area */
+        .lazada-ad-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #fafafa;
+            overflow: hidden;
+        }
+
+        .lazada-ad-media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Badges on Image Area */
+        .laz-badge {
+            position: absolute;
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--lazada-text-white);
+            padding: 2px 5px;
+            border-radius: 2px;
+            line-height: 1.2;
+            z-index: 2;
+            text-align: center;
+            /* Make editable */
+            outline: none;
+            border: 1px solid transparent;
+            cursor: text;
+        }
+
+        /* Hide empty badges */
+        .laz-badge:empty {
+            display: none;
+        }
+
+        .laz-badge.lazmall {
+            top: 8px;
+            left: 8px;
+            background-color: var(--lazada-lazmall-purple);
+            /* Optional: Add tiny white border like real LazMall */
+            /* border: 1px solid white; */
+            /* box-shadow: 0 0 0 1px var(--lazada-lazmall-purple); */
+        }
+
+        .laz-badge.discount-perc {
+            top: 8px;
+            right: 8px;
+            background-color: var(--lazada-orange);
+            min-width: 30px;
+        }
+
+        .laz-badge.free-shipping {
+            bottom: 8px;
+            left: 8px;
+            background-color: var(--lazada-free-shipping-green);
+        }
+
+        /* Add more badge types as needed */
+
+
+        /* Ad Content Area */
+        .lazada-ad-content {
+            padding: 8px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lazada-ad-name {
+            font-size: 12px;
+            color: var(--lazada-text-primary);
+            line-height: 1.4;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            margin-bottom: 6px;
+            min-height: calc(1.4em * 2);
+        }
+
+        /* Pricing Area */
+        .lazada-ad-price-row {
+            margin-bottom: 6px;
+        }
+
+        .current-price {
+            color: var(--lazada-orange);
+            /* Use orange for main price */
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1;
+            display: inline-flex;
+            align-items: baseline;
+        }
+
+        .current-price .currency {
+            font-size: 11px;
+            font-weight: 400;
+            margin-right: 2px;
+            vertical-align: baseline;
+        }
+
+        .price-details {
+            /* Container for original price and text discount */
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            margin-top: 2px;
+            /* Space below current price */
+        }
+
+        .original-price {
+            color: var(--lazada-text-light);
+            font-size: 11px;
+            text-decoration: line-through;
+            line-height: 1;
+            display: inline-flex;
+            align-items: baseline;
+        }
+
+        .original-price .currency {
+            font-size: 9px;
+            margin-right: 1px;
+        }
+
+        .discount-text {
+            font-size: 11px;
+            color: var(--lazada-discount-text);
+            /* Optional background: */
+            /* background-color: var(--lazada-discount-bg); */
+            /* padding: 0px 3px; */
+            /* border-radius: 2px; */
+            font-weight: 500;
+        }
+
+        /* Info Row (Rating, Sold/Location) */
+        .lazada-ad-info-row {
+            display: flex;
+            /* justify-content: space-between; */
+            /* Let items space naturally */
+            align-items: center;
+            margin-top: auto;
+            /* Push to bottom */
+            color: var(--lazada-text-secondary);
+            font-size: 10px;
+            gap: 6px;
+            /* Slightly more gap */
+            flex-wrap: wrap;
+            /* Allow wrapping if needed */
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .star-icon {
+            width: 11px;
+            height: 11px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 1px;
+            fill: var(--lazada-gold-star);
+        }
+
+        .rating-count {
+            /* Just the number like (150) */
+            color: var(--lazada-text-light);
+        }
+
+        .shop-info {
+            /* Container for location and sold */
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            /* Push location/sold to the right */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 1;
+            min-width: 0;
+            /* Allow shrinking */
+        }
+
+        .units-sold {
+            /* Optional: Add border */
+            /* border-left: 1px solid var(--lazada-border); */
+            /* padding-left: 6px; */
+            color: var(--lazada-text-secondary);
+            /* Same color as location */
+        }
+
+        .shop-location {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            /* max-width: 80px; */
+            /* Limit width if needed */
+        }
+
+
+        /* Image Upload Overlay */
+        .image-upload-overlay {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            bottom: 8px;
+            right: 8px;
+        }
+
+        label.image-upload-overlay {
+            pointer-events: auto;
+        }
+
+        .lazada-ad-media:hover .image-upload-overlay {
+            opacity: 1;
+        }
+
+        /* Content Editable Styling */
+        [contenteditable="true"] {
+            outline: none;
+            border: 1px solid transparent;
+            padding: 0;
+            margin: 0;
+            cursor: text;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+            border-radius: 2px;
+            display: inline;
+            /* Default */
+        }
+
+        /* Specific padding */
+        .lazada-ad-name[contenteditable="true"],
+        .current-price span[contenteditable="true"],
+        .original-price span[contenteditable="true"],
+        .discount-text[contenteditable="true"],
+        /* Text discount */
+        .rating-section span[contenteditable="true"],
+        /* Rating value & count */
+        .units-sold[contenteditable="true"],
+        .shop-location[contenteditable="true"],
+        .laz-badge[contenteditable="true"] {
+            /* Image badges */
+            padding: 1px 3px;
+            margin: -1px -3px;
+        }
+
+        .lazada-ad-name[contenteditable="true"] {
+            display: block;
+        }
+
+        /* Name is block */
+
+        [contenteditable="true"]:hover {
+            background-color: #e3f2fd;
+            border-color: #90caf9;
+        }
+
+        /* Light blue hover */
+        [contenteditable="true"]:focus {
+            background-color: #bbdefb;
+            border: 1px solid var(--lazada-blue);
+            box-shadow: none;
+        }
+
+        /* JPG Capture Class */
+        .is-capturing {
+            transform: none !important;
+            box-shadow: none !important;
+            border: 1px solid var(--lazada-border) !important;
+            cursor: default !important;
+        }
+
+        .is-capturing [contenteditable="true"],
+        .is-capturing [contenteditable="true"]:hover,
+        .is-capturing [contenteditable="true"]:focus {
+            border-color: transparent !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            cursor: default !important;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Re-apply necessary padding for capture */
+        .is-capturing .lazada-ad-name[contenteditable="true"],
+        .is-capturing .current-price span[contenteditable="true"],
+        .is-capturing .original-price span[contenteditable="true"],
+        .is-capturing .discount-text[contenteditable="true"],
+        .is-capturing .rating-section span[contenteditable="true"],
+        .is-capturing .units-sold[contenteditable="true"],
+        .is-capturing .shop-location[contenteditable="true"],
+        .is-capturing .laz-badge[contenteditable="true"] {
+            padding: 1px 3px;
+            margin: -1px -3px;
+        }
+
+        /* Ensure badges are visible if they have content */
+        .is-capturing .laz-badge:not(:empty) {
+            display: inline-block !important;
+        }
+
+        /* Or 'block' if needed */
+
+        .is-capturing .image-upload-overlay {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 650px) {
+            .toolbar {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .toolbar>* {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: calc(var(--toolbar-height) + 5px);
+            }
+
+            .main-content {
+                padding: 5px;
+            }
+
+            .lazada-ad-container {
+                max-width: calc(50% - 5px);
+            }
+
+            /* 2-column mobile */
+            .toolbar-button,
+            .toolbar label.toolbar-button {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .status-message {
+                max-width: 100%;
+                width: calc(100% - 10px);
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+            /* Mobile size adjustments */
+            .lazada-ad-container {
+                font-size: 11px;
+            }
+
+            .lazada-ad-name {
+                font-size: 11px;
+                min-height: calc(1.4em * 2);
+            }
+
+            .current-price {
+                font-size: 14px;
+            }
+
+            .current-price .currency {
+                font-size: 10px;
+            }
+
+            .original-price {
+                font-size: 10px;
+            }
+
+            .original-price .currency {
+                font-size: 8px;
+            }
+
+            .discount-text {
+                font-size: 10px;
+            }
+
+            .lazada-ad-info-row {
+                font-size: 9px;
+            }
+
+            .star-icon {
+                width: 10px;
+                height: 10px;
+            }
+
+            .laz-badge {
+                font-size: 8px;
+                padding: 1px 4px;
+            }
+
+            .shop-info {
+                margin-left: 0;
+                flex-basis: 100%;
+                margin-top: 4px;
+            }
+
+            /* Stack location/sold below rating on mobile */
+            .rating-section {
+                flex-basis: 100%;
+            }
+
+            /* Ensure rating takes full width before wrap */
+        }
