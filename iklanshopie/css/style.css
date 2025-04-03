@@ -1,0 +1,647 @@
+          :root {
+            /* Shopee Colors */
+            --shopee-orange: #EE4D2D;
+            --shopee-orange-dark: #d73210;
+            --shopee-orange-light: #ff7b5a;
+            --shopee-red-discount: #f04c59;
+            --shopee-red-mall: #d0011b;
+            /* Mall badge color */
+            --shopee-gold-star: #FFCE3D;
+            /* Rating star color */
+            --shopee-orange-star-seller: #f57c0f;
+            /* Star seller badge bg */
+            --shopee-bg: #f5f5f5;
+            --shopee-card-bg: #ffffff;
+            --shopee-border: #e8e8e8;
+            --shopee-text-primary: rgba(0, 0, 0, 0.87);
+            --shopee-text-secondary: rgba(0, 0, 0, 0.54);
+            --shopee-text-light: rgba(0, 0, 0, 0.4);
+            --shopee-text-white: #ffffff;
+
+            /* Editor specific */
+            --primary-color: var(--shopee-orange);
+            --primary-darker: var(--shopee-orange-dark);
+            --card-bg: var(--shopee-card-bg);
+            --border-color: #dbdbdb;
+            --text-color: var(--shopee-text-primary);
+            --success-color: #2a9d8f;
+            --error-color: #e79551;
+            --loading-color: #e9c46a;
+            --info-color: #adb5bd;
+            --shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.05);
+            --font-primary: 'Roboto', sans-serif;
+            --toolbar-height: 65px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.4;
+            background: var(--shopee-bg);
+            color: var(--text-color);
+            padding-top: calc(var(--toolbar-height) + 15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 75vh;
+            overflow-x: hidden;
+            font-size: 14px;
+            /* Base font size */
+        }
+
+        /* --- Toolbar --- */
+        .toolbar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            height: var(--toolbar-height);
+        }
+
+        .toolbar {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            height: 100%;
+        }
+
+        .toolbar-button,
+        .toolbar label.toolbar-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .toolbar-button:hover,
+        .toolbar label.toolbar-button:hover {
+            background-color: var(--primary-darker);
+        }
+
+        .toolbar-button:disabled,
+        .toolbar label.toolbar-button[aria-disabled="true"] {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #efefef;
+            color: #aaa;
+            box-shadow: none;
+        }
+
+        .toolbar-button.reset {
+            background-color: #efefef;
+            color: var(--shopee-text-primary);
+        }
+
+        .toolbar-button.reset:hover {
+            background-color: #e0e0e0;
+        }
+
+        .toolbar input[type="file"] {
+            display: none;
+        }
+
+        /* --- Status Message --- */
+        .status-message {
+            width: calc(100% - 20px);
+            max-width: 500px;
+            margin: 8px auto 5px auto;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.4s ease, height 0.4s ease, margin-top 0.4s ease;
+            border: 1px solid transparent;
+            z-index: 999;
+            position: relative;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 8px 15px;
+        }
+
+        .status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: var(--success-color);
+        }
+
+        .status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: var(--error-color);
+        }
+
+        .status-message.loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: var(--loading-color);
+        }
+
+        .status-message.info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border-color: var(--info-color);
+        }
+
+        /* --- Main Content Area --- */
+        .main-content {
+            padding: 10px 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        /* --- Shopee Ad Card Styles --- */
+        .shopee-ad-container {
+            background-color: var(--shopee-card-bg);
+            border: 1px solid var(--shopee-border);
+            border-radius: 4px;
+            /* Slightly more rounded */
+            width: 100%;
+            max-width: 200px;
+            /* Slightly smaller typical card width */
+            font-size: 12px;
+            /* Base font size for card */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            /* Needed for absolute badge positioning */
+        }
+
+        .shopee-ad-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Slightly stronger hover shadow */
+        }
+
+        /* Ad Media Area */
+        .shopee-ad-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .shopee-ad-media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .sponsored-tag {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background-color: rgba(0, 0, 0, 0.25);
+            /* Slightly darker */
+            color: white;
+            font-size: 9px;
+            font-weight: 500;
+            padding: 2px 4px;
+            border-radius: 2px;
+            z-index: 2;
+            text-transform: capitalize;
+        }
+
+        /* Discount Tag */
+        .discount-tag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--shopee-red-discount);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 4px 2px 4px;
+            text-align: center;
+            z-index: 2;
+            min-width: 38px;
+            /* Adjusted min-width */
+            border-bottom-left-radius: 3px;
+        }
+
+        .discount-tag .percent {
+            font-size: 11px;
+            display: block;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .discount-tag .off {
+            font-size: 8px;
+            display: block;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        /* Seller Badges (Positioned top-right corner OVER content) */
+        .seller-badges {
+            position: absolute;
+            top: 8px;
+            /* Adjust as needed */
+            left: 8px;
+            z-index: 3;
+            /* Above content, below discount/sponsored */
+            display: flex;
+            gap: 4px;
+        }
+
+        .seller-badge {
+            color: var(--shopee-text-white);
+            font-size: 9px;
+            font-weight: 500;
+            padding: 1px 4px;
+            border-radius: 2px;
+            line-height: 1.2;
+            display: inline-block;
+            /* Default hidden */
+            /* Use contenteditable to easily change text or hide */
+        }
+
+        .seller-badge.mall {
+            background-color: var(--shopee-red-mall);
+        }
+
+        .seller-badge.star {
+            background-color: var(--shopee-orange-star-seller);
+        }
+
+        /* Hide empty badges */
+        .seller-badge:empty {
+            display: none;
+        }
+
+        /* Ad Content Area */
+        .shopee-ad-content {
+            padding: 8px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shopee-ad-name {
+            font-size: 12px;
+            /* Slightly smaller name */
+            color: var(--shopee-text-primary);
+            line-height: 1.35;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            /* Reduced margin */
+            min-height: calc(1.35em * 2);
+        }
+
+        .shopee-ad-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            /* Reduced gap */
+            margin-bottom: 5px;
+            /* Reduced margin */
+        }
+
+        .current-price {
+            color: var(--shopee-orange);
+            font-size: 14px;
+            /* Slightly smaller main price */
+            font-weight: 500;
+            line-height: 1;
+            display: inline-flex;
+            align-items: baseline;
+        }
+
+        .current-price .currency {
+            font-size: 10px;
+            /* Smaller Rp */
+            font-weight: 400;
+            margin-right: 1px;
+            vertical-align: baseline;
+            /* Try baseline alignment */
+        }
+
+        .original-price {
+            color: var(--shopee-text-light);
+            font-size: 10px;
+            /* Smaller original price */
+            text-decoration: line-through;
+            line-height: 1;
+            display: inline-flex;
+            align-items: baseline;
+        }
+
+        .original-price .currency {
+            font-size: 9px;
+            margin-right: 1px;
+        }
+
+        /* Info Row (Rating, Sold) */
+        .shopee-ad-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: 4px;
+            color: var(--shopee-text-secondary);
+            font-size: 10px;
+            /* Smaller info text */
+            gap: 5px;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .star-icon {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            /* Align icon better with text */
+            margin-bottom: 1px;
+            /* Fine-tune alignment */
+            fill: var(--shopee-gold-star);
+            /* Use fill for SVG */
+        }
+
+        .rating-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .rating-text .count {
+            color: var(--shopee-text-light);
+        }
+
+        /* Lighter count color */
+
+        .units-sold {
+            white-space: nowrap;
+        }
+
+        /* Shop Location */
+        .shop-location {
+            color: var(--shopee-text-secondary);
+            font-size: 10px;
+            /* Smaller location */
+        }
+
+        /* Image Upload Overlay */
+        .image-upload-overlay {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            bottom: 8px;
+            right: 8px;
+        }
+
+        label.image-upload-overlay {
+            pointer-events: auto;
+        }
+
+        .shopee-ad-media:hover .image-upload-overlay {
+            opacity: 1;
+        }
+
+        /* Content Editable Styling */
+        [contenteditable="true"] {
+            outline: none;
+            border: 1px solid transparent;
+            padding: 0;
+            margin: 0;
+            cursor: text;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+            border-radius: 2px;
+            display: inline;
+            /* Keep inline by default */
+        }
+
+        /* Specific padding for easier clicks */
+        .shopee-ad-name[contenteditable="true"],
+        .current-price span[contenteditable="true"],
+        /* Target inner span for price number */
+        .original-price span[contenteditable="true"],
+        /* Target inner span */
+        .discount-tag[contenteditable="true"],
+        .units-sold[contenteditable="true"],
+        .shop-location[contenteditable="true"],
+        .rating-text span[contenteditable="true"],
+        /* Target inner spans */
+        .seller-badge[contenteditable="true"] {
+            /* Allow badge text edit */
+            padding: 1px 3px;
+            margin: -1px -3px;
+        }
+
+        /* Block display only for name */
+        .shopee-ad-name[contenteditable="true"] {
+            display: block;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: #f0f5ff;
+            border-color: #c0d5ff;
+        }
+
+        [contenteditable="true"]:focus {
+            background-color: #e6f0ff;
+            border: 1px solid var(--shopee-orange);
+            box-shadow: none;
+        }
+
+        /* JPG Capture Class */
+        .is-capturing {
+            transform: none !important;
+            box-shadow: none !important;
+            border: 1px solid var(--shopee-border) !important;
+            cursor: default !important;
+        }
+
+        .is-capturing [contenteditable="true"],
+        .is-capturing [contenteditable="true"]:hover,
+        .is-capturing [contenteditable="true"]:focus {
+            border-color: transparent !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            cursor: default !important;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Re-apply necessary padding for capture */
+        .is-capturing .shopee-ad-name[contenteditable="true"],
+        .is-capturing .current-price span[contenteditable="true"],
+        .is-capturing .original-price span[contenteditable="true"],
+        .is-capturing .discount-tag[contenteditable="true"],
+        .is-capturing .units-sold[contenteditable="true"],
+        .is-capturing .shop-location[contenteditable="true"],
+        .is-capturing .rating-text span[contenteditable="true"],
+        .is-capturing .seller-badge[contenteditable="true"] {
+            padding: 1px 3px;
+            margin: -1px -3px;
+        }
+
+        /* Ensure badges are visible if they have content during capture */
+        .is-capturing .seller-badge:not(:empty) {
+            display: inline-block !important;
+        }
+
+        .is-capturing .image-upload-overlay {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 650px) {
+            .toolbar {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .toolbar>* {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: calc(var(--toolbar-height) + 5px);
+            }
+
+            .main-content {
+                padding: 5px;
+            }
+
+            .shopee-ad-container {
+                max-width: calc(50% - 5px);
+            }
+
+            /* Example 2-column mobile */
+            .toolbar-button,
+            .toolbar label.toolbar-button {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .status-message {
+                max-width: 100%;
+                width: calc(100% - 10px);
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+            /* Further reduce sizes for mobile */
+            .shopee-ad-container {
+                font-size: 11px;
+            }
+
+            .shopee-ad-name {
+                font-size: 11px;
+                min-height: calc(1.35em * 2);
+            }
+
+            .current-price {
+                font-size: 13px;
+            }
+
+            .current-price .currency {
+                font-size: 9px;
+            }
+
+            .original-price {
+                font-size: 9px;
+            }
+
+            .original-price .currency {
+                font-size: 8px;
+            }
+
+            .discount-tag {
+                font-size: 9px;
+                min-width: 34px;
+            }
+
+            .discount-tag .percent {
+                font-size: 10px;
+            }
+
+            .discount-tag .off {
+                font-size: 7px;
+            }
+
+            .shopee-ad-info-row,
+            .shop-location {
+                font-size: 9px;
+            }
+
+            .star-icon {
+                width: 9px;
+                height: 9px;
+            }
+
+            .seller-badge {
+                font-size: 8px;
+            }
+        }
+    
