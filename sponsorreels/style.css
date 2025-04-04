@@ -1,0 +1,433 @@
+/* Reset & Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000;
+    /* Font stack lebih mirip Instagram */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* Kontrol */
+.controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 100;
+    color: white;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.controls p {
+    margin-bottom: 10px;
+}
+
+.controls button {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 8px;
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+}
+
+.controls button:hover {
+    background-color: #0077cc;
+}
+
+.controls button i {
+    margin-right: 6px;
+}
+
+/* Container Reel */
+.reel-container {
+    width: 100%;
+    max-width: 420px;
+    height: 88vh;
+    /* Sedikit lebih tinggi */
+    max-height: 850px;
+    background-color: #111;
+    border-radius: 12px;
+    /* Sedikit lebih bulat */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+}
+
+.reel-sponsored-post {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 1. Konten Utama & Overlay */
+.reel-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.reel-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    /* Indikator bisa ganti gambar */
+}
+
+.reel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradien lebih halus dan lebih gelap di bawah */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* 2. Header */
+.reel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+    /* Gradien atas lebih jelas */
+    color: #fff;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    /* Border sedikit tebal */
+    cursor: pointer;
+    /* Indikator ganti profil */
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.dot {
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.follow-link {
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    /* Hilangkan border */
+    padding: 0;
+    /* Hapus padding */
+    background: none;
+    /* Hapus background */
+    color: #fff;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.follow-link:hover {
+    opacity: 1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.sponsored-label {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.options-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 3. Tombol Aksi Samping */
+.reel-side-actions {
+    position: absolute;
+    bottom: 15px;
+    /* Turunkan sedikit */
+    right: 10px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    /* Jarak lebih besar */
+    color: #fff;
+}
+
+.action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.action-icon {
+    font-size: 28px;
+    /* Ikon sedikit lebih besar */
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.6));
+    transition: transform 0.2s ease;
+}
+
+.action-icon:active {
+    transform: scale(0.9);
+}
+
+.action-count {
+    font-size: 13px;
+    font-weight: 600;
+    /* Lebih bold */
+    margin-top: 5px;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+/* Spinning Audio Icon Styling */
+.spinning-audio-icon-container {
+    margin-top: 10px;
+    /* Jarak dari ikon bookmark */
+    width: 32px;
+    /* Ukuran container */
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    /* background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0.1) 100%); */
+    animation: spin 8s linear infinite;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    /* Border putih */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.audio-profile-pic {
+    /* Gambar di dalamnya */
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Hilangkan animasi spin dari gambar internal jika container sudah berputar */
+    /* animation: spin 8s linear infinite;  <-- Hapus/komentari */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* 4. Info Bawah */
+.reel-bottom-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    padding: 10px 15px 15px 15px;
+    /* Sesuaikan padding */
+    padding-right: 85px;
+    /* Ruang lebih untuk side actions */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    /* Gradien bawah lebih kuat */
+    color: #fff;
+}
+
+/* Caption */
+.reel-caption {
+    font-size: 14px;
+    line-height: 1.45;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.reel-caption .username {
+    margin-right: 6px;
+    font-weight: 600;
+}
+
+.reel-caption .caption-text {
+    /* Optional: batasi jumlah baris jika diinginkan (perlu JS tambahan) */
+    /* display: -webkit-box;
+     -webkit-line-clamp: 2;
+     -webkit-box-orient: vertical;
+     overflow: hidden; */
+}
+
+/* Section Audio & CTA */
+.audio-cta-section {
+    /* Display flex untuk mensejajarkan audio dan CTA (jika diperlukan layout berbeda) */
+    /* Tapi defaultnya biarkan block agar CTA di bawah audio */
+}
+
+/* Info Audio */
+.reel-audio-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Jarak antar item audio */
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    margin-bottom: 12px;
+    /* Jarak ke CTA */
+    overflow: hidden;
+    /* Mencegah teks panjang meluber */
+    white-space: nowrap;
+    /* Jaga agar teks audio tidak wrap */
+    text-overflow: ellipsis;
+    /* Tampilkan ... jika teks terlalu panjang */
+}
+
+.audio-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.audio-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Tampilkan ... jika nama audio/user panjang */
+    flex-grow: 1;
+    /* Ambil sisa ruang */
+    min-width: 0;
+    /* Penting untuk text-overflow di flex item */
+}
+
+.audio-user-pic {
+    /* Gambar profil kecil di ujung */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+    /* Jangan mengecil */
+    cursor: pointer;
+    /* Indikator bisa diganti */
+}
+
+/* Tombol CTA */
+.reel-cta {
+    /* Tidak perlu styling container khusus jika hanya 1 tombol */
+}
+
+.cta-button {
+    display: inline-flex;
+    /* Lebar sesuai konten */
+    align-items: center;
+    width: 100%;
+    /* Atau atur max-width jika tidak ingin full */
+    padding: 9px 14px;
+    /* Padding lebih pas */
+    /* Background lebih transparan */
+    background-color: rgba(255, 255, 255, 0.15);
+    /* Border lebih halus */
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.cta-button span {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+/* Beri jarak ke panah */
+.cta-arrow {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Styling untuk elemen yang bisa diedit */
+.editable[contenteditable="true"] {
+    cursor: text;
+    /* Outline lebih halus saat tidak fokus */
+    outline: 1px dashed rgba(255, 255, 255, 0.3);
+    transition: outline 0.2s ease, background-color 0.2s ease;
+    border-radius: 3px;
+    /* Sedikit rounded corner saat edit */
+    padding: 0 2px;
+    /* Sedikit padding internal saat edit */
+    margin: 0 -2px;
+    /* Kompensasi padding */
+}
+
+.editable[contenteditable="true"]:focus {
+    outline: 1.5px solid #0095f6;
+    /* Outline lebih tipis */
+    background-color: rgba(0, 149, 246, 0.15);
+}
+
+[contenteditable="true"]:focus {
+    outline: none;
+}
+
+/* Hapus default browser */
+.editable {
+    color: #ffffff !important;
+    -webkit-text-fill-color: white;
+}
