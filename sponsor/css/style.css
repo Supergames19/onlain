@@ -295,7 +295,7 @@
             display: block;
             width: 100%;
             max-height: 500px;
-            object-fit: cover;
+            object-fit: contain;
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
         }
