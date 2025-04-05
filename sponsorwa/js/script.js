@@ -1,4 +1,5 @@
 
+
         // --- DOM Elements ---
         const profilePicUploadInput = document.getElementById('profilePicUpload');
         const statusMediaUploadInput = document.getElementById('statusMediaUpload');
@@ -79,7 +80,7 @@
         .status-page-info .status-advertiser-name{font-weight:500;font-size:0.95rem;color:var(--wa-white);margin-bottom:2px;text-shadow:var(--text-shadow-strong);}
         .status-page-info .status-label{font-size:0.75rem;color:var(--wa-text-secondary);text-shadow:var(--text-shadow-strong);}
         .status-media{flex-grow:1;position:relative;background-color:#111;height:100%;overflow:hidden;}
-        .status-media img{display:block;width:100%;height:100%;object-fit:cover;}
+        .status-media img{display:block;width:100%;height:100%;object-fit:contain;}
         .status-text-overlay{position:absolute;bottom:65px;left:0;width:100%;padding:18px 16px 15px 16px;z-index:4;background:linear-gradient(to top,rgba(0,0,0,0.75) 10%,transparent 90%);color:var(--wa-text-primary);font-size:1rem;line-height:1.45;text-shadow:var(--text-shadow-strong);}
         .status-text-overlay p{margin:0;}
         .status-cta-area{position:absolute;bottom:0;left:0;width:100%;padding:0;text-align:center;z-index:5;}
