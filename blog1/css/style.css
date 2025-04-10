@@ -1,0 +1,131 @@
+/* Basic Editable Styles */
+		[contenteditable="true"] {
+            cursor: text;
+            outline: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+			position: relative; /* Allow potential pseudo-elements if needed */
+        }
+        [contenteditable="true"]:hover {
+            background-color: rgba(0, 123, 255, 0.08); /* Light blue highlight */
+        }
+        [contenteditable="true"]:focus {
+            background-color: rgba(0, 123, 255, 0.12);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+        }
+		/* Avoid background on specific elements like title */
+		#page-title:hover, #page-title:focus {
+            background-color: transparent;
+            box-shadow: none;
+            text-decoration: underline dotted rgba(0, 123, 255, 0.5);
+        }
+
+		/* Editable Image Styles */
+		.editable-image-container {
+            position: relative;
+            display: inline-block; /* Adjust as needed, maybe block */
+            cursor: pointer;
+			max-width: 100%; /* Ensure image container doesn't overflow */
+			overflow: hidden; /* Hide potential overflow from zoom */
+        }
+		.editable-image-container img {
+			display: block; /* Remove extra space below image */
+			max-width: 100%;
+			height: auto;
+			transition: transform 0.3s ease;
+		}
+		.editable-image-container:hover img {
+			transform: scale(1.03); /* Slight zoom effect */
+		}
+        .editable-image-container .edit-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            text-align: center;
+            padding: 10px;
+			font-size: 0.9em;
+        }
+        .editable-image-container:hover .edit-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+         .edit-overlay i { font-size: 1.8em; margin-bottom: 8px; }
+         .edit-overlay span { font-weight: 500; }
+        .hidden-file-input { display: none; }
+
+		/* Save Buttons Styles */
+		:root { /* Define some colors for consistency */
+            --save-html-bg: #2ecc71;
+            --save-html-hover: #27ae60;
+			--save-jpg-bg: #ffa726;
+            --save-jpg-hover: #fb8c00;
+			--button-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+			--button-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+		.save-buttons-container {
+            position: sticky;
+            top: 10px;
+            right: 15px;
+            z-index: 1050; /* Higher than default bootstrap nav */
+            text-align: right;
+            padding: 5px 0;
+            margin-bottom: -50px; /* Pull up */
+            pointer-events: none;
+        }
+        .save-buttons-container > .button {
+			display: inline-block;
+            pointer-events: auto;
+            color: #fff;
+            padding: 8px 18px;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease-out;
+            box-shadow: var(--button-shadow);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+			margin-left: 8px;
+			vertical-align: middle;
+        }
+		.save-buttons-container > .button:first-child { margin-left: 0; }
+		.button-save { background-color: var(--save-html-bg); }
+        .button-save:hover { background-color: var(--save-html-hover); box-shadow: var(--button-shadow-hover); transform: translateY(-2px);}
+		.button-save-jpg { background-color: var(--save-jpg-bg); }
+        .button-save-jpg:hover { background-color: var(--save-jpg-hover); box-shadow: var(--button-shadow-hover); transform: translateY(-2px); }
+        .button:active { transform: translateY(0px); box-shadow: var(--button-shadow); }
+		.button.loading { cursor: not-allowed; opacity: 0.7; }
+        .button.loading i.fa-spinner { margin-right: 8px; animation: spin 1s linear infinite; }
+		.button.loading i:not(.fa-spinner) { display: none; } /* Hide original icon when loading */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+		/* Responsive Save Buttons */
+		@media (max-width: 767px) {
+            .save-buttons-container {
+                position: relative; /* Change from sticky */
+                top: 0;
+				right: auto;
+                text-align: center;
+                margin-bottom: 15px; /* Add space below */
+				margin-top: 10px; /* Add space above */
+                padding: 10px 0 0 0;
+            }
+            .save-buttons-container > .button {
+                margin: 5px;
+				font-size: 0.85em;
+				padding: 7px 15px;
+            }
+        }
+
+		/* Specific adjustments for template elements if needed */
+		#logo .editable-image-container { display: inline-block; } /* Keep logo inline */
+		.single-unique-product .editable-image-container { display: block; margin-bottom: 15px; } /* Ensure product image is block */
