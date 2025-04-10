@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title is editable -->
+    <title contenteditable="true" id="page-title">Promosi</title>
+
+    <!-- SEO Meta Tags (Placeholders - Not directly edited by the script) -->
+    <meta name="description" content="Temukan [Nama Produk Anda]! [Deskripsi singkat manfaat utama]. Solusi modern dan efektif untuk [masalah pelanggan]. Beli sekarang!">
+    <meta name="keywords" content="[kata kunci 1], [kata kunci 2], [produk anda], [manfaat produk], modern, solusi, [target pasar]">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png"> <!-- Pastikan file favicon.png ada -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- html2canvas Library (PENTING! For saving as JPG) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Gaya CSS Lokal -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Kontainer Tombol Simpan di Atas (Sticky/Relative depending on screen size via CSS) -->
+    <div class="save-buttons-container">
+        <button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan HTML
+        </button>
+        <button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan halaman sebagai gambar JPG">
+            <i class="fa-solid fa-file-image"></i> Simpan JPG
+        </button>
+    </div>
+
+    <!-- Kontainer Utama Konten yang Bisa Diedit & Ditangkap JPG -->
+    <div class="container" id="editable-content">
+        <article>
+             <header>
+                <!-- Judul Artikel (Editable) -->
+                <h1 contenteditable="true">[Nama Produk Anda]: Solusi Modern & Efektif untuk [Masalah Utama]</h1>
+                <!-- Meta Info (Editable) -->
+                <div class="post-meta">
+                    <span><i class="fa-regular fa-user"></i> Oleh: <span contenteditable="true">[Nama Penulis/Toko]</span></span> |
+                    <span><i class="fa-regular fa-calendar-days"></i> Tanggal: <span contenteditable="true">[Tanggal Publikasi]</span></span> |
+                    <span><i class="fa-regular fa-folder-open"></i> Kategori: <a href="#link-kategori" contenteditable="true">[Nama Kategori]</a></span>
+                </div>
+            </header>
+
+            <main>
+                <!-- Gambar Utama Produk (Editable via Click) -->
+                <div class="editable-image-container" data-id="featured-image" title="Klik untuk Ganti Gambar Utama">
+                    <img src="img/1.png" alt="[Deskripsi gambar produk utama]" id="image-featured-image">
+                    <!-- Overlay muncul saat hover (diatur via CSS) -->
+                    <div class="edit-overlay">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Klik untuk Ganti Gambar</span>
+                    </div>
+                    <!-- Input file tersembunyi -->
+                    <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+
+                <!-- Paragraf Pengantar (Editable) -->
+                <p contenteditable="true">Apakah Anda lelah dengan [masalah spesifik pelanggan]? Di era modern ini, Anda membutuhkan solusi yang tidak hanya efektif tapi juga praktis dan efisien. Perkenalkan <strong contenteditable="true">[Nama Produk Anda]</strong>, jawaban inovatif untuk [masalah utama] yang dirancang khusus untuk [target audiens spesifik, misal: profesional sibuk, ibu rumah tangga modern, dll.].</p>
+
+                <!-- Bagian Keunikan Produk (Editable) -->
+                <section>
+                     <h2 contenteditable="true">Mengapa [Nama Produk Anda] Berbeda?</h2>
+                     <p contenteditable="true">[Jelaskan keunikan produk Anda. Fokus pada teknologi, bahan, desain, atau pendekatan yang membedakannya dari kompetitor. Gunakan bahasa yang menggugah dan berorientasi manfaat.]</p>
+                     <p contenteditable="true">[Tambahkan detail cara kerja atau konsep di balik produk jika relevan dan menarik.]</p>
+                </section>
+
+                <!-- Bagian Fitur Unggulan (Editable) -->
+                <section>
+                     <h2 contenteditable="true">Fitur Unggulan yang Akan Anda Sukai</h2>
+                     <ul class="feature-list">
+                         <li><i class="fa-solid fa-star"></i> <span contenteditable="true"><strong>[Fitur Kunci 1]:</strong> [Penjelasan manfaat fitur 1 dengan bahasa menarik]</span></li>
+                         <li><i class="fa-solid fa-rocket"></i> <span contenteditable="true"><strong>[Fitur Kunci 2]:</strong> [Penjelasan manfaat fitur 2, misal: kecepatan/efisiensi]</span></li>
+                         <li><i class="fa-solid fa-shield-halved"></i> <span contenteditable="true"><strong>[Fitur Kunci 3]:</strong> [Penjelasan manfaat fitur 3, misal: keamanan/ketahanan]</span></li>
+                         <li><i class="fa-solid fa-thumbs-up"></i> <span contenteditable="true"><strong>[Fitur Kunci 4]:</strong> [Penjelasan manfaat fitur 4, misal: kemudahan penggunaan]</span></li>
+                     </ul>
+                </section>
+
+                <!-- Bagian Transformasi/Manfaat (Editable) -->
+                <section>
+                    <h2 contenteditable="true">Transformasi yang Akan Anda Alami</h2>
+                    <p contenteditable="true">Bukan hanya sekadar fitur, inilah perubahan nyata yang akan Anda rasakan saat menggunakan [Nama Produk Anda]:</p>
+                    <ul class="benefit-list">
+                        <li><i class="fa-regular fa-circle-check"></i> <span contenteditable="true"><strong>[Hasil Nyata 1]:</strong> [Contoh: Bekerja lebih cepat dan efisien, menghemat waktu hingga X%].</span></li>
+                        <li><i class="fa-regular fa-face-smile"></i> <span contenteditable="true"><strong>[Hasil Nyata 2]:</strong> [Contoh: Mengurangi stres dan frustrasi karena [masalah sebelumnya]].</span></li>
+                        <li><i class="fa-regular fa-lightbulb"></i> <span contenteditable="true"><strong>[Hasil Nyata 3]:</strong> [Contoh: Meningkatkan kreativitas/produktivitas Anda dalam [aktivitas terkait]].</span></li>
+                        <li><i class="fa-regular fa-gem"></i> <span contenteditable="true"><strong>[Hasil Nyata 4]:</strong> [Contoh: Tampil lebih percaya diri/profesional dengan hasil yang memukau].</span></li>
+                    </ul>
+                </section>
+
+                <!-- Bagian Galeri Produk (Editable) -->
+                <section>
+                     <h2 contenteditable="true">Intip Lebih Dekat [Nama Produk Anda]</h2>
+                     <div class="product-gallery">
+                         <!-- Kontainer Galeri (Gambar via background-image, Editable via Click) -->
+                         <div class="editable-image-container" data-id="gallery-1" style="background-image: url('img/1.png');" title="Klik untuk Ganti Gambar Galeri 1">
+                             <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                             <input type="file" class="hidden-file-input" accept="image/*">
+                         </div>
+                         <div class="editable-image-container" data-id="gallery-2" style="background-image: url('img/1.png');" title="Klik untuk Ganti Gambar Galeri 2">
+                              <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                             <input type="file" class="hidden-file-input" accept="image/*">
+                         </div>
+                         <div class="editable-image-container" data-id="gallery-3" style="background-image: url('img/1.png');" title="Klik untuk Ganti Gambar Galeri 3">
+                             <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                             <input type="file" class="hidden-file-input" accept="image/*">
+                         </div>
+                         <div class="editable-image-container" data-id="gallery-4" style="background-image: url('img/1.png');" title="Klik untuk Ganti Gambar Galeri 4">
+                              <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                             <input type="file" class="hidden-file-input" accept="image/*">
+                         </div>
+                     </div>
+                </section>
+
+                <!-- Bagian Testimoni (Editable) -->
+                <section>
+                     <h2 contenteditable="true">Jangan Hanya Percaya Kata Kami</h2>
+                     <blockquote class="testimonial">
+                         <p contenteditable="true">"[Nama Produk Anda] benar-benar mengubah cara saya [melakukan aktivitas terkait]. Hasilnya luar biasa dan sangat mudah digunakan! Highly recommended!"</p>
+                         <cite contenteditable="true">[Nama Pelanggan], [Profesi/Lokasi Singkat]</cite>
+                     </blockquote>
+                     <blockquote class="testimonial">
+                         <p contenteditable="true">"Setelah mencoba berbagai produk, akhirnya saya menemukan [Nama Produk Anda]. Masalah [masalah spesifik] saya langsung teratasi. Worth every penny!"</p>
+                         <cite contenteditable="true">[Nama Pelanggan Lain]</cite>
+                     </blockquote>
+                </section>
+
+                <!-- Bagian Call to Action (Editable) -->
+                <section class="cta-section">
+                    <h2 contenteditable="true">Siap untuk Pengalaman yang Lebih Baik?</h2>
+                    <p contenteditable="true">Hentikan kompromi dan mulailah menikmati [manfaat utama] dengan <strong contenteditable="true">[Nama Produk Anda]</strong>.</p>
+                    <p class="special-offer" contenteditable="true"><i class="fa-solid fa-tags"></i> Penawaran Terbatas: Dapatkan [Diskon/Bonus Spesial Anda] khusus pembelian hari ini!</p>
+
+                    <!-- Tombol CTA (Teks Editable, Link Editable via Prompt) -->
+                     <a href="[MasukanLinkKamu]" class="button button-cta" title="Klik teks untuk edit | Klik tombol untuk ubah link tujuan" onclick="event.preventDefault(); let currentText = this.querySelector('span').textContent; let newLink = prompt('Masukkan URL Pembelian Baru:', this.href); if(newLink !== null && newLink !== '') { this.href=newLink; alert('Link diperbarui ke: ' + newLink); } return false;">
+                        <span contenteditable="true" onclick="event.stopPropagation(); /* Cegah prompt link saat edit teks */">Pesan Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <small contenteditable="true">Garansi [Sebutkan Garansi, misal: Uang Kembali 30 Hari] | Pengiriman Cepat & Aman</small>
+                </section>
+            </main>
+        </article>
+
+        <!-- Footer (Editable) -->
+        <footer contenteditable="true">
+            <p>© 2025 Di Buat Oleh Edy Sahputra. All Rights Reserved.</p>
+            <p><a href="#link-privacy">Kebijakan Privasi</a> | <a href="#link-terms">Syarat & Ketentuan</a> | <a href="#link-contact">Hubungi Kami</a></p>
+        </footer>
+    </div> <!-- End of .container #editable-content -->
+
+    <!-- Script Lokal -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

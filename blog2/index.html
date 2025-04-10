@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title is editable -->
+  <title contenteditable="true" id="page-title">Onlain Shop</title>
+
+  <!-- Font Awesome 5 (as per original) - Consider upgrading to v6 if desired -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+    crossorigin="anonymous" />
+  <!-- Bootstrap CSS (as per original) -->
+
+  <!-- Original Custom CSS Link (Keep if you have it) -->
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- html2canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Embedded Modern Styles & Editable Support -->
+  <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog2/css/style.css">
+ 
+</head>
+
+<body>
+  <!-- Save Buttons Container -->
+  <div class="save-buttons-container">
+    <button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+      <i class="fas fa-floppy-disk"></i> Simpan HTML
+    </button>
+   
+  </div>
+
+  <header id="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+      <div class="container-fluid px-5">
+        <!-- Logo Editable -->
+        <a class="penguin-logo" href="#">
+          <div class="editable-image-container" data-id="logo-main">
+            <img src="https://supergames19.github.io/onlain/blog2/logo/logo.png" class="img-fluid" alt="Penguin Logo" id="image-logo-main">
+            <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+            <input type="file" class="hidden-file-input" accept="image/*">
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <!-- Search Bar (Not making this editable for simplicity) -->
+          <div class="input-group px-5 penguin-search">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">All</button>
+            <ul class="dropdown-menu overflow-auto mx-5 dropdown-menu-own">
+              <li><a class="dropdown-item" href="#">All Department</a></li>
+              <li><a class="dropdown-item" href="#">Audio</a></li>
+              <li><a class="dropdown-item" href="#">Electronics</a></li>
+              <li><a class="dropdown-item" href="#">Bottles</a></li>
+            </ul>
+            <input type="text" class="form-control" aria-label="Search products">
+            <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+          </div>
+
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll align-items-center hide-nav"
+            style="--bs-scroll-height: 100px;">
+
+            <li class="nav-item dropdown px-2">
+              <a class="nav-link dropdown-toggle" style="width: 45px;" href="#" id="navbarScrollingDropdown"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://supergames19.github.io/onlain/blog2/image/flag.png" class="img-fluid " alt="Language">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+              </ul>
+            </li>
+            <li class="nav-item px-4">
+              <a class="nav-link" href="#" contenteditable="true">Orders</a>
+            </li>
+            <li class="nav-item" style="font-size:30px;">
+              <a class="nav-link" href="#" style=" color:#fff"><i class="fas fa-cart-plus"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Slider Option -->
+  <section class="slider panda-slider-box">
+    <div id="carouselExampleIndicators" class="carousel slide panda-slide container" data-bs-ride="carousel">
+      <div class="carousel-indicators slider-button-color">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="row d-flex align-items-center p-5">
+            <div class="col-md-7 slider-header">
+              <h1 contenteditable="true">Nama Produk<span contenteditable="true">Harga</span></h1>
+              <p contenteditable="true">Keterangan Produk</p>
+              <button class="btn btn-warning"><i class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy
+                  Now</span></button>
+            </div>
+            <div class="col-md-5 slider-img">
+              <div class="editable-image-container" data-id="slider-1">
+                <img src="https://supergames19.github.io/onlain/blog2/image/banner-images/1.png" class="d-block w-100" alt="Winter Fashion Model"
+                  id="image-slider-1">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="row d-flex align-items-center p-5">
+            <div class="col-md-7 slider-header">
+              <h1 contenteditable="true">Nama Produk<span contenteditable="true">Harga</span></h1>
+              <p contenteditable="true">Keterangan Produk</p>
+              <button class="btn btn-warning"><i class="fas fa-shopping-cart"></i> <span contenteditable="true">Shop
+                  Now</span></button>
+            </div>
+            <div class="col-md-5 slider-img">
+              <div class="editable-image-container" data-id="slider-2">
+                <img src="https://supergames19.github.io/onlain/blog2/image/banner-images/1.png" class="d-block w-100" alt="Jacket Model"
+                  id="image-slider-2">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="row d-flex align-items-center p-5">
+            <div class="col-md-7 slider-header">
+              <h1 contenteditable="true">Nama produk<span contenteditable="true">Harga</span></h1>
+              <p contenteditable="true">Keterangan Produk</p>
+              <button class="btn btn-warning"><i class="fas fa-shopping-cart"></i> <span contenteditable="true">Shop
+                  Now</span></button>
+            </div>
+            <div class="col-md-5 slider-img">
+              <div class="editable-image-container" data-id="slider-3">
+                <img src="https://supergames19.github.io/onlain/blog2/image/banner-images/1.png" class="d-block w-100" alt="Another Jacket Model"
+                  id="image-slider-3">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Shopping Option -->
+  <main class="container" id="main-content">
+
+    <section>
+      <div class="shopping-cart">
+        <h1 contenteditable="true">Kategori</h1>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Product 1 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-women-1">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Ladies Jacket" id="image-prod-women-1">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 234</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 2 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-women-2">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Women Leather Jacket"
+                    id="image-prod-women-2">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 299</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 3 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-women-3">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Snowboard Jacket Womens"
+                    id="image-prod-women-3">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 275</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shopping-cart">
+        <h1 contenteditable="true">Men Jacket</h1>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Product 4 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-men-1">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Men Leather Jacket" id="image-prod-men-1">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 310</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 5 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-men-2">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Men Casual Jacket" id="image-prod-men-2">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 180</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 6 -->
+          <div class="col">
+            <div class="shadow shop-box">
+              <div class="card-img">
+                <div class="editable-image-container" data-id="prod-men-3">
+                  <img src="https://supergames19.github.io/onlain/blog2/image/1.png" class="card-img-top" alt="Yellow Coat Jacket" id="image-prod-men-3">
+                  <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                  <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title" contenteditable="true">Nama Produk</h2>
+                <p class="card-text" contenteditable="true">Keterangan produk</p>
+                <div class="row align-items-center">
+                  <div class="col-6 buy-now">
+                    <h1 contenteditable="true">Rp. 245</h1>
+                  </div>
+                  <div class="col-6 text-end buy-now"> <button class="btn btn-success"><i
+                        class="fas fa-shopping-cart"></i> <span contenteditable="true">Buy Now</span></button> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact and other Section -->
+    <section class="contact-section">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-6 col-md-12 ">
+          <div class="row gy-4">
+            <div class="col-12 d-flex align-items-center contact-box shadow">
+              <div class="editable-image-container" data-id="feature-1">
+                <img src="https://supergames19.github.io/onlain/blog2/logo/image 12.png" alt="Fit Feature" id="image-feature-1">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+              <div class="img-details">
+                <h3 contenteditable="true">Find The Perfect Fit</h3>
+                <p contenteditable="true">Everybody is different, which is why we offer styles for every body.</p>
+              </div>
+            </div>
+            <div class="col-12 d-flex align-items-center contact-box shadow">
+              <div class="editable-image-container" data-id="feature-2">
+                <img src="https://supergames19.github.io/onlain/blog2/logo/image 13.png" alt="Shipping Feature" id="image-feature-2">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+              <div class="img-details">
+                <h3 contenteditable="true">Free Shipping</h3>
+                <p contenteditable="true">Enjoy free shipping on all orders over $50. Shop with ease.</p>
+              </div>
+            </div>
+            <div class="col-12 d-flex align-items-center contact-box shadow">
+              <div class="editable-image-container" data-id="feature-3">
+                <img src="https://supergames19.github.io/onlain/blog2/logo/image 14.png" alt="Exchange Feature" id="image-feature-3">
+                <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+              </div>
+              <div class="img-details">
+                <h3 contenteditable="true">Easy Exchanges</h3>
+                <p contenteditable="true">Not the right fit? No worries! We offer hassle-free exchanges.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 ">
+          <div class="editable-image-container" data-id="contact-main">
+            <img src="https://supergames19.github.io/onlain/blog2/logo/XMLID 1.png" class="img-fluid" alt="Fashion Illustration" id="image-contact-main">
+            <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+            <input type="file" class="hidden-file-input" accept="image/*">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section started -->
+  <footer>
+    <h4 class="back-top"><a href="#header">Back to Top</a></h4>
+    <div class="footer">
+      <div class="row container mx-auto footer-box justify-content-evenly gy-4">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <h4 contenteditable="true">Get to Know Us</h4>
+          <ul>
+            <li> <a href="#" contenteditable="true">Careers</a></li>
+            <li> <a href="#" contenteditable="true">Blog</a></li>
+            <li> <a href="#" contenteditable="true">About </a></li>
+            <li> <a href="#" contenteditable="true">Sustainability</a></li>
+            <li> <a href="#" contenteditable="true">Investor Relations</a></li>
+            <li> <a href="#" contenteditable="true"> Device</a></li>
+            <li> <a href="#" contenteditable="true"> Tours</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <h4 contenteditable="true"> Payment Products</h4>
+          <ul>
+            <li> <a href="#" contenteditable="true"> Business Card</a></li>
+            <li> <a href="#" contenteditable="true">Shop with Points</a></li>
+            <li> <a href="#" contenteditable="true">Reload Your Balance</a></li>
+            <li> <a href="#" contenteditable="true"> Currency Converter</a></li>
+            </ul>
+          </br>
+        </br>
+          <footer style="text-align: center; size-adjust: bold; color:#000;">Copyright © 2025 All rights reserved This
+            template is made with Edy Sahputra</footer>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <h4 contenteditable="true">Make Money with Us</h4>
+          <ul>
+            <li> <a href="#" contenteditable="true">Sell products on </a></li>
+            <li> <a href="#" contenteditable="true">Sell apps on </a></li>
+            <li> <a href="#" contenteditable="true">Become an Affiliate</a></li>
+            <li> <a href="#" contenteditable="true">Advertise Your Products</a></li>
+            <li> <a href="#" contenteditable="true">Self-Publish with Us</a></li>
+            <li> <a href="#" contenteditable="true">Host an  Hub</a></li>
+            <li> <a href="#" contenteditable="true">See More Make Money with Us</a></li>
+            
+          </ul>
+          
+        </div>
+      </div>
+    </div> 
+    
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+    <!-- Bootstrap JS Bundle (REQUIRED for Navbar Toggler, Carousel, Dropdowns) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ 
+  <script src="https://supergames19.github.io/onlain/blog2/js/script.js"></script>
+
+</body>
+
+</html>

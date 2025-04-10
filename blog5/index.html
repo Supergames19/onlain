@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Editable Title -->
+    <title contenteditable="true" id="page-title">BlogOnlain</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://supergames19.github.io/onlain/blog5/img/1.pngfavicon.png" type="image/png" id="favicon-link"> <!-- Ganti dengan path favicon Anda -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- html2canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog5/css/style.css">
+</head>
+
+<body>
+
+    <!-- Save Buttons Container -->
+    <div class="save-buttons-container">
+        <button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+            <i class="fa-solid fa-floppy-disk"></i> Simpan HTML
+        </button>
+        <button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan halaman sebagai gambar JPG">
+            <i class="fa-solid fa-file-image"></i> Simpan JPG
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero section">
+        <div class="container">
+            <h1 contenteditable="true">DISKON GILA! <span style="color: var(--accent-color);">[Nama Produk]</span> Hanya Hari Ini!</h1>
+            <p class="subtitle" contenteditable="true">Dapatkan [Manfaat Utama Produk] dengan harga terbaik yang pernah ada. Stok terbatas!</p>
+
+            <div class="editable-image-container" data-id="hero-promo-image">
+                <!-- Ganti src dengan gambar produk utama Anda -->
+                <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Gambar Produk Promo Utama" id="hero-img">
+                <div class="edit-overlay">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Ganti Gambar Utama</span>
+                </div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+            </div>
+
+            <a href="#link-pembelian" class="btn btn-cta editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Pembelian:', this.href); if(newLink) this.href=newLink; return false;">
+                <i class="fa-solid fa-cart-shopping"></i> <span contenteditable="true">Beli Sekarang! Diskon [X]%</span>
+            </a>
+             <a href="#link-info-lanjut" class="btn btn-secondary editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Info Lanjut:', this.href); if(newLink) this.href=newLink; return false;">
+                <span contenteditable="true">Info Lebih Lanjut</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Benefits Section -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 contenteditable="true">Kenapa Anda <span style="color: var(--secondary-color);">Harus</span> Memiliki [Nama Produk]?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 1: Cepat/Efisien]</h3>
+                        <p contenteditable="true">Selesaikan [Tugas Terkait] dalam sekejap mata. Hemat waktu berharga Anda.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fa-solid fa-star"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 2: Kualitas Tinggi]</h3>
+                        <p contenteditable="true">Dibuat dengan [Bahan/Teknologi Terbaik] untuk hasil yang memukau dan tahan lama.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fa-solid fa-face-smile"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 3: Mudah Digunakan]</h3>
+                        <p contenteditable="true">Desain intuitif yang cocok untuk semua orang, bahkan untuk pemula sekalipun.</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 4: Aman/Terpercaya]</h3>
+                        <p contenteditable="true">Dilengkapi fitur [Keamanan/Garansi] untuk ketenangan pikiran Anda.</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 5: Hemat Biaya]</h3>
+                        <p contenteditable="true">Investasi cerdas yang memberikan nilai lebih untuk jangka panjang.</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <div>
+                        <h3 contenteditable="true">[Manfaat 6: Fitur Canggih]</h3>
+                        <p contenteditable="true">[Sebutkan satu fitur canggih yang menonjol dan manfaatnya].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase Section -->
+    <section class="section">
+        <div class="container">
+            <h2 contenteditable="true">Lihat Lebih Dekat <span style="color: var(--secondary-color);">[Nama Produk]</span></h2>
+            <p contenteditable="true">Visual menakjubkan dari produk kami yang akan mengubah [Aktivitas Anda].</p>
+            <div class="showcase-grid">
+                <div class="editable-image-container" data-id="showcase-1">
+                    <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Detail Produk 1" id="showcase-img-1">
+                    <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                    <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+                 <div class="editable-image-container" data-id="showcase-2">
+                    <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Produk Saat Digunakan" id="showcase-img-2">
+                    <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                    <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+                 <div class="editable-image-container" data-id="showcase-3">
+                    <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Produk dalam Gaya Hidup" id="showcase-img-3">
+                    <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                    <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+                 <div class="editable-image-container" data-id="showcase-4">
+                    <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Fitur Produk Close-up" id="showcase-img-4">
+                    <div class="edit-overlay"> <i class="fa-solid fa-camera"></i> <span>Ganti</span> </div>
+                    <input type="file" class="hidden-file-input" accept="image/*">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+     <section class="testimonial section section-light">
+        <div class="container">
+            <h2 contenteditable="true">Apa Kata Mereka yang Sudah Mencoba?</h2>
+             <div class="editable-image-container" data-id="testimonial-avatar">
+                <img src="https://supergames19.github.io/onlain/blog5/img/1.png" alt="Foto Pelanggan" id="testi-avatar-img">
+                <div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Foto</span></div>
+                <input type="file" class="hidden-file-input" accept="image/*">
+            </div>
+            <blockquote>
+                <p contenteditable="true">"[Nama Produk] benar-benar melebihi ekspektasi saya! [Sebutkan hasil positif spesifik]. Sangat merekomendasikan produk ini kepada siapa saja yang ingin [Mencapai Tujuan Terkait]."</p>
+                <cite contenteditable="true">[Nama Pelanggan], [Pekerjaan/Lokasi]</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Offer Section -->
+    <section class="section section-accent">
+        <div class="container offer-box">
+            <h2 contenteditable="true">Penawaran <span style="color: var(--accent-color);">TERBATAS</span> Khusus Untuk Anda!</h2>
+            <p contenteditable="true">Jangan lewatkan kesempatan emas ini! Untuk waktu yang sangat terbatas, dapatkan [Nama Produk] dengan diskon spesial:</p>
+            <span class="offer-highlight" contenteditable="true">Diskon [X]% OFF!</span>
+            <p contenteditable="true">Harga normal <span style="text-decoration: line-through;">Rp [Harga Normal]</span>, sekarang hanya <strong>Rp [Harga Diskon]</strong>!</p>
+            <p contenteditable="true">Promo ini hanya berlaku hingga <strong>[Tanggal Akhir Promo]</strong> atau selama persediaan masih ada. Siapa cepat dia dapat!</p>
+            <a href="#link-pembelian-lagi" class="btn btn-cta editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Pembelian:', this.href); if(newLink) this.href=newLink; return false;">
+                <i class="fa-solid fa-gift"></i> <span contenteditable="true">Klaim Diskon Saya Sekarang!</span>
+            </a>
+        </div>
+    </section>
+
+     <!-- Final CTA Section -->
+    <section class="section final-cta">
+        <div class="container">
+            <h2 contenteditable="true">Masih Ragu? Kami Berikan Garansi!</h2>
+            <p contenteditable="true">Kami sangat yakin Anda akan menyukai [Nama Produk]. Jika dalam [Jumlah Hari, misal: 30] hari Anda tidak puas, kami akan kembalikan uang Anda 100%, tanpa pertanyaan!</p>
+            <a href="#link-pembelian-final" class="btn btn-cta editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Pembelian:', this.href); if(newLink) this.href=newLink; return false;">
+                <i class="fa-solid fa-thumbs-up"></i> <span contenteditable="true">Ya, Saya Mau [Nama Produk] Sekarang!</span>
+            </a>
+             <p class="guarantee" contenteditable="true"><i class="fa-solid fa-shield-heart"></i> Pembelian 100% Aman & Terenkripsi</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p contenteditable="true">© <span id="current-year">2025</span> Edy Sahputra. Hak Cipta Dilindungi.</p>
+            <!-- Optional: Tambahkan link Kebijakan Privasi/Syarat Ketentuan jika perlu -->
+             <p style="font-size: 0.8em;"><a href="#privacy" class="editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Kebijakan Privasi:', this.href); if(newLink) this.href=newLink; return false;">Kebijakan Privasi</a> | <a href="#terms" class="editable-link" onclick="event.preventDefault(); let newLink = prompt('Masukkan URL Syarat Ketentuan:', this.href); if(newLink) this.href=newLink; return false;">Syarat & Ketentuan</a></p>
+        </div>
+    </footer>
+
+    <!-- Custom JS for Editability and Saving -->
+    <script src="https://supergames19.github.io/onlain/blog5/js/script.js"></script>
+   
+
+</body>
+</html>
