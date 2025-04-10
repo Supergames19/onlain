@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reels Post</title>
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/sponsorreels/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- html2canvas library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<!-- Kontrol di Luar Reel -->
+<div class="controls">
+    <p>Klik teks/gambar (utama, profil, audio user) untuk edit. Lalu simpan.</p>
+    <button id="saveHtmlBtn"><i class="fas fa-file-code"></i> Simpan HTML</button>
+    <button id="saveJpgBtn"><i class="fas fa-file-image"></i> Simpan JPG</button>
+    <!-- Input file tersembunyi -->
+    <input type="file" id="imageUploader" accept="image/*" style="display: none;">
+    <input type="file" id="profilePicUploader" accept="image/*" style="display: none;">
+    <input type="file" id="audioUserPicUploader" accept="image/*" style="display: none;"> <!-- Baru -->
+</div>
+
+<!-- Container Reel -->
+<div class="reel-container" id="reelToCapture">
+    <div class="reel-sponsored-post">
+        <!-- 1. Konten Utama -->
+        <div class="reel-content">
+            <img src="https://supergames19.github.io/onlain/sponsorreels/img/1.png" alt="Konten Promosi" class="reel-media" id="mainImage">
+            <div class="reel-overlay"></div>
+        </div>
+
+        <!-- 2. Header -->
+        <div class="reel-header">
+            <div class="header-left">
+                 <img src="https://supergames19.github.io/onlain/sponsorreels/img/1.png" alt="Profil Brand" class="profile-pic" id="profilePic">
+                 <span class="username editable" contenteditable="true" spellcheck="false">NamaBrandKeren</span>
+                 <span class="dot">•</span>
+                 <span class="follow-link editable" contenteditable="true" spellcheck="false">Ikuti</span>
+            </div>
+            <div class="header-right">
+                 <span class="sponsored-label">Bersponsor</span>
+                 <i class="fas fa-ellipsis-h options-icon"></i>
+            </div>
+        </div>
+
+        <!-- 3. Tombol Aksi Samping -->
+        <div class="reel-side-actions">
+            <div class="action-item">
+                <i class="fas fa-heart action-icon"></i>
+                <span class="action-count editable" contenteditable="true" spellcheck="false">2.1K</span>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-comment-dots action-icon"></i>
+                <span class="action-count editable" contenteditable="true" spellcheck="false">456</span>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-paper-plane action-icon"></i>
+                <!-- Share count usually hidden -->
+            </div>
+            <div class="action-item">
+                 <i class="fas fa-bookmark action-icon"></i>
+                 <!-- Save count usually hidden -->
+            </div>
+             <!-- Ikon Audio Berputar (lebih mirip record/cd) -->
+             <div class="spinning-audio-icon-container">
+                 <img src="img/2.png" alt="Audio Art" class="audio-profile-pic" id="spinningAudioIcon">
+             </div>
+        </div>
+
+        <!-- 4. Info Bawah -->
+        <div class="reel-bottom-info">
+            <!-- Section Caption -->
+            <div class="reel-caption">
+                <span class="username editable" contenteditable="true" spellcheck="false">NamaBrandKeren</span>
+                <span class="caption-text editable" contenteditable="true" spellcheck="false">Ini deskripsi promosi yang telah diupdate. Coba edit teks ini juga. #UpgradeVisual #ReelsClone</span>
+                <!-- Expandable text not implemented -->
+            </div>
+             <!-- Section Audio & CTA -->
+             <div class="audio-cta-section">
+                <div class="reel-audio-info">
+                    <i class="fas fa-music audio-icon"></i>
+                    <span class="audio-text editable" contenteditable="true" spellcheck="false">NamaBrandKeren • Audio asli</span>
+                    <img src="https://supergames19.github.io/onlain/sponsorreels/img/1.png" alt="User" class="audio-user-pic" id="audioUserPic"> <!-- Gambar user audio -->
+                </div>
+                 <div class="reel-cta">
+                     <a href="#link-tujuan-anda" class="cta-button">
+                         <span class="editable" contenteditable="true" spellcheck="false">Belanja Sekarang</span>
+                         <i class="fas fa-chevron-right cta-arrow"></i>
+                     </a>
+                 </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://supergames19.github.io/onlain/sponsorreels/script.js"></script>
+
+</body>
+</html>

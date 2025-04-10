@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title -->
+    <title>Pembaca File, Data URL & Tautan Lokal v6</title>
+    <style>
+        /* Reset dasar dan box-sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.6;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 10px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden; /* Changed from visible for better shadow containment */
+        }
+
+        h1, h2 {
+            color: #1d3557;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.4rem; margin-top: 30px; }
+
+        .file-label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #457b9d;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        .file-label:hover {
+            background-color: #1d3557;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        #outputArea {
+            margin-top: 20px;
+            min-height: 50px;
+        }
+
+        /* --- Status/Error Styling --- */
+        .status-message {
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+        .status-message.processing {
+             background-color: #e9ecef; color: #495057; border-color: #ced4da;
+        }
+        .status-message.error {
+             background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;
+        }
+        .status-message.warning {
+            background-color: #fff3cd; color: #856404; border-color: #ffeeba;
+        }
+         .status-message.success { /* Can be used for Blob URL success */
+            background-color: #d4edda; color: #155724; border-color: #c3e6cb;
+        }
+        /* --- End Status/Error Styling --- */
+
+        #fileInfo p, #dataUrlSection p, #previewSection p {
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        #fileInfo code, #dataUrlOutput {
+            background-color: #f8f9fa;
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            word-break: break-all;
+            font-size: 0.9em;
+            color: #495057;
+        }
+        #fileInfo code {
+             display: inline-block; max-width: 100%; white-space: pre-wrap;
+        }
+
+        #dataUrlOutput {
+            display: block; width: 100%; min-height: 150px; max-height: 400px;
+            padding: 10px; margin-top: 10px; resize: vertical;
+        }
+
+        /* Preview Area styles remain the same */
+        #previewArea { margin-top: 15px; }
+        #previewArea img, #previewArea video, #previewArea audio {
+            max-width: 100%; height: auto; display: block; margin-top: 10px;
+            border: 1px solid #dee2e6; border-radius: 4px; background-color: #f8f9fa;
+        }
+        #previewArea iframe {
+            width: 100%; height: 450px; margin-top: 10px; border: 1px solid #ccc;
+            border-radius: 4px; background-color: #fff;
+        }
+        #previewArea pre {
+            background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px;
+            margin-top: 10px; max-height: 450px; overflow: auto; white-space: pre-wrap;
+            word-wrap: break-word; font-size: 0.9em; color: #495057; border-radius: 4px;
+        }
+
+        .section {
+            margin-top: 25px; padding-top: 20px; border-top: 1px solid #e9ecef;
+        }
+
+        /* --- Button Styles --- */
+        .action-button {
+            color: white; border: none; padding: 10px 15px; border-radius: 5px;
+            cursor: pointer; margin-top: 12px; font-size: 0.95em;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: 500; margin-right: 10px; /* Add margin between buttons */
+        }
+        .action-button:last-of-type {
+             margin-right: 0; /* No margin on the last button */
+        }
+        .action-button:hover { opacity: 0.9; }
+        .action-button:active { transform: scale(0.98); }
+        .action-button:disabled { background-color: #adb5bd !important; cursor: not-allowed; transform: none; opacity: 0.7; }
+
+        #copyDataUrlButton { background-color: #2a9d8f; } /* Teal */
+        #copyDataUrlButton:hover { background-color: #264653; }
+
+        #createBlobLinkButton { background-color: #007bff; } /* Blue */
+        #createBlobLinkButton:hover { background-color: #0056b3; }
+        /* --- End Button Styles --- */
+
+        /* --- Blob URL Result Area --- */
+        #blobUrlResultArea {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px dashed #ced4da; /* Dashed border to signify difference */
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        #blobUrlResultArea p {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        #blobUrlResultArea strong { /* Warning emphasis */
+             color: #dc3545; /* Red for warning */
+             font-weight: 600;
+        }
+        #blobUrlResultArea a {
+            display: inline-block; /* Allows padding/margin */
+            margin-top: 5px;
+            padding: 8px 12px;
+            background-color: #28a745; /* Green for download */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        #blobUrlResultArea a:hover {
+            background-color: #218838;
+        }
+        #blobUrlResultArea code { /* Style for displaying the blob url text */
+             font-size: 0.85em;
+             word-break: break-all;
+             color: #6c757d;
+        }
+         /* Hide initially */
+        #blobUrlResultArea:empty {
+            display: none;
+            border: none; /* Hide border when empty */
+            padding: 0;
+            margin: 0;
+        }
+        /* --- End Blob URL Result Area --- */
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body { padding: 5px; }
+            .container { padding: 15px; margin: 10px auto; }
+            h1 { font-size: 1.6rem; } h2 { font-size: 1.25rem; }
+            .file-label { padding: 10px 15px; font-size: 0.95rem; }
+            #previewArea iframe, #previewArea pre { height: 350px; }
+        }
+        @media (max-width: 480px) {
+             h1 { font-size: 1.4rem; } h2 { font-size: 1.1rem; }
+             .container { padding: 10px; }
+             #fileInfo p, #dataUrlSection p, #previewSection p { font-size: 0.95rem; }
+             #fileInfo code, #dataUrlOutput, #previewArea pre { font-size: 0.85em; }
+             /* Stack buttons on small screens */
+             .action-button { width: 100%; margin-right: 0; margin-bottom: 10px; }
+             .action-button:last-of-type { margin-bottom: 0; }
+             #previewArea iframe, #previewArea pre { height: 300px; }
+             #blobUrlResultArea a { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pembaca File, Data URL & Tautan Lokal v6</h1>
+
+        <label for="fileInput" class="file-label">Pilih File...</label>
+        <input type="file" id="fileInput">
+
+        <div id="outputArea">
+            <p>Silakan pilih file untuk melihat informasinya, menghasilkan Data URL, dan membuat tautan unduh lokal.</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Script v6 mulai dimuat."); // LOG 1
+
+            // --- Variabel dan Konstanta ---
+            const fileInput = document.getElementById('fileInput');
+            const outputArea = document.getElementById('outputArea');
+            const MAX_FILE_SIZE_MB = 50;
+            const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+            let currentBlobUrl = null; // To store and revoke the current Blob URL
+            let currentFileNameForBlob = 'downloaded_file'; // Default download name
+
+            // --- Validasi Elemen Penting ---
+            if (!fileInput || !outputArea) {
+                console.error("Error Kritis: Elemen UI #fileInput atau #outputArea tidak ditemukan!");
+                if (outputArea) {
+                   outputArea.innerHTML = '<div class="status-message error">Error Kritis: Gagal memuat komponen UI dasar. Coba refresh halaman.</div>';
+                }
+                return;
+            }
+            console.log("Elemen UI dasar ditemukan."); // LOG 2
+
+            // --- Event Listeners ---
+            fileInput.addEventListener('change', handleFileSelect);
+            // Dynamic listeners for copy/create blob buttons added later
+
+            console.log("Event listener untuk input file ditambahkan."); // LOG 3
+
+            // --- Fungsi Utama Handler File ---
+            function handleFileSelect(event) {
+                console.log("handleFileSelect dipanggil."); // LOG 4
+                revokeCurrentBlobUrl(); // Revoke any previous Blob URL
+                outputArea.innerHTML = '<div class="status-message processing">Memproses file...</div>';
+                const file = event.target.files[0];
+                currentFileNameForBlob = file ? file.name : 'downloaded_file'; // Store filename
+
+                if (!file) {
+                    console.log("Tidak ada file yang dipilih.");
+                    outputArea.innerHTML = '<p>Tidak ada file yang dipilih.</p>';
+                    event.target.value = null;
+                    return;
+                }
+                console.log(`File dipilih: ${file.name}, Ukuran: ${file.size} bytes, Tipe: ${file.type}`); // LOG 5
+
+                if (file.size > MAX_FILE_SIZE_BYTES) {
+                    const errorMsg = `File terlalu besar (${formatBytes(file.size)}). Batas maksimal ${MAX_FILE_SIZE_MB} MB. Hanya info file yang ditampilkan.`;
+                    console.warn(errorMsg); // LOG 6
+                    const warningDiv = document.createElement('div');
+                    warningDiv.className = 'status-message warning';
+                    warningDiv.textContent = errorMsg;
+                    outputArea.innerHTML = '';
+                    outputArea.appendChild(warningDiv);
+                    displayFileInfo(file).then(infoDiv => { if (infoDiv) outputArea.appendChild(infoDiv); });
+                    event.target.value = null;
+                    return;
+                }
+
+                const existingContent = outputArea.querySelectorAll(':not(.status-message)');
+                existingContent.forEach(el => el.remove());
+
+                Promise.all([
+                    displayFileInfo(file),
+                    readFileAsDataURLPromise(file),
+                    readFileForPreviewPromise(file)
+                ]).then(([infoDiv, dataUrlResult, previewResult]) => {
+                    console.log("Semua promise pembacaan file selesai."); // LOG 15
+                    const statusMsg = outputArea.querySelector('.status-message.processing');
+                    if (statusMsg) statusMsg.remove();
+
+                    if (infoDiv) outputArea.appendChild(infoDiv);
+                    if (dataUrlResult) {
+                        outputArea.appendChild(dataUrlResult);
+                        // Add listeners for buttons *inside* dataUrlResult NOW
+                        const copyBtn = dataUrlResult.querySelector('#copyDataUrlButton');
+                        const blobBtn = dataUrlResult.querySelector('#createBlobLinkButton');
+                        if (copyBtn) {
+                            copyBtn.addEventListener('click', handleCopyDataUrl);
+                            console.log("Listener ditambahkan ke #copyDataUrlButton"); // LOG 16
+                        } else { console.warn("#copyDataUrlButton tidak ditemukan di DOM"); }
+                        if (blobBtn) {
+                            blobBtn.addEventListener('click', handleCreateBlobLink);
+                            console.log("Listener ditambahkan ke #createBlobLinkButton"); // LOG 17
+                        } else { console.warn("#createBlobLinkButton tidak ditemukan di DOM"); }
+                    }
+                    if (previewResult) outputArea.appendChild(previewResult);
+
+                }).catch(error => {
+                    console.error("Error dalam Promise.all (pembaca file):", error); // LOG 18
+                    const statusMsg = outputArea.querySelector('.status-message');
+                    const errorText = `Error: ${error.message || 'Gagal memproses file.'}`;
+                    if (statusMsg && statusMsg.classList.contains('processing')) {
+                       statusMsg.textContent = errorText;
+                       statusMsg.className = 'status-message error';
+                    } else {
+                        outputArea.innerHTML = `<div class="status-message error">${errorText}</div>`; // Overwrite if no processing msg
+                    }
+                }).finally(() => {
+                    console.log("Proses file selesai (finally). Reset input."); // LOG 19
+                    event.target.value = null; // Reset input file
+                });
+            }
+
+            // --- Fungsi Pembacaan File (Minor changes for new button) ---
+            function displayFileInfo(file) {
+                 console.log("displayFileInfo dipanggil."); // LOG 8
+                 // No changes needed here
+                 return new Promise((resolve) => { /* ... same as v5 ... */
+                     const fileInfoDiv = document.createElement('div');
+                    fileInfoDiv.id = 'fileInfo';
+                    fileInfoDiv.classList.add('section');
+                    try {
+                        fileInfoDiv.innerHTML = `
+                            <h2>Informasi File</h2>
+                            <p><strong>Nama File:</strong> <code>${escapeHtml(file.name)}</code></p>
+                            <p><strong>Ukuran File:</strong> ${formatBytes(file.size)}</p>
+                            <p><strong>Tipe MIME:</strong> <code>${escapeHtml(file.type) || 'Tidak diketahui'}</code></p>
+                            <p><strong>Terakhir Diubah:</strong> ${file.lastModifiedDate ? file.lastModifiedDate.toLocaleString('id-ID') : 'Tidak diketahui'}</p>
+                        `;
+                        resolve(fileInfoDiv);
+                    } catch (e) {
+                        console.error("Error di displayFileInfo:", e);
+                        resolve(null);
+                    }
+                 });
+            }
+
+            function readFileAsDataURLPromise(file) {
+                 console.log("readFileAsDataURLPromise dipanggil."); // LOG 9
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                         console.log("FileReader (DataURL) - onload selesai."); // LOG 10
+                        if (!event.target || typeof event.target.result !== 'string' || !event.target.result.startsWith('data:')) {
+                            console.error("FileReader (DataURL) - Hasil kosong atau tidak valid."); // LOG 10a
+                            reject(new Error("Gagal mendapatkan hasil Data URL yang valid."));
+                            return;
+                        }
+                        const dataUrlSection = document.createElement('div');
+                        dataUrlSection.id = 'dataUrlSection';
+                        dataUrlSection.classList.add('section');
+                        // Added the new button and result area div
+                        dataUrlSection.innerHTML = `
+                            <h2>Data URL & Tautan Lokal</h2>
+                            <p>Representasi Base64 dari isi file. Gunakan untuk menyematkan data langsung (misal, di <code><img src="...data:..."></code>) atau salin.</p>
+                            <textarea id="dataUrlOutput" readonly>${event.target.result}</textarea>
+                            <button id="copyDataUrlButton" class="action-button">Salin Data URL</button>
+                            <button id="createBlobLinkButton" class="action-button">Buat Tautan Unduh Lokal (Blob URL)</button>
+                            <div id="blobUrlResultArea" aria-live="polite">
+                                <!-- Hasil Blob URL akan muncul di sini -->
+                            </div>
+                        `;
+                        resolve(dataUrlSection);
+                    };
+                    reader.onerror = function(event) { /* ... same as v5 ... */
+                        console.error("FileReader (DataURL) - onerror:", event.target.error); // LOG 11
+                        reject(new Error(`Gagal membaca file sebagai Data URL: ${event.target.error.name || 'Unknown error'}`));
+                     };
+                    reader.onabort = function() { /* ... same as v5 ... */
+                         console.warn("FileReader (DataURL) - onabort: Pembacaan dibatalkan."); // LOG 11a
+                         reject(new Error("Pembacaan file Data URL dibatalkan."));
+                    };
+                    try {
+                        reader.readAsDataURL(file);
+                        console.log("FileReader (DataURL) - readAsDataURL dimulai."); // LOG 11b
+                    } catch (e) {
+                        console.error("Error saat memulai readAsDataURL:", e); // LOG 11c
+                        reject(new Error("Gagal memulai pembacaan file Data URL."));
+                    }
+                });
+            }
+
+            function readFileForPreviewPromise(file) {
+                 console.log("readFileForPreviewPromise dipanggil."); // LOG 12
+                 // No significant changes needed here
+                 return new Promise((resolve, reject) => { /* ... same as v5 ... */
+                    const previewSection = document.createElement('div');
+                    previewSection.id = 'previewSection';
+                    previewSection.classList.add('section');
+                    previewSection.innerHTML = `<h2>Pratinjau File</h2>`;
+                    const previewArea = document.createElement('div');
+                    previewArea.id = 'previewArea';
+                    previewSection.appendChild(previewArea);
+
+                    const fileType = file.type;
+                    const reader = new FileReader();
+
+                    reader.onload = function(event) {
+                         console.log(`FileReader (Preview type: ${fileType}) - onload selesai.`); // LOG 13
+                          if (!event.target || typeof event.target.result === 'undefined') {
+                              console.error("FileReader (Preview) - Hasil tidak valid.");
+                              previewArea.innerHTML = '<p>Gagal mendapatkan hasil pratinjau yang valid.</p>';
+                              resolve(previewSection);
+                              return;
+                          }
+                        let previewElement;
+                        const result = event.target.result;
+
+                        try {
+                            if (fileType.startsWith('image/')) {
+                                previewElement = document.createElement('img');
+                                previewElement.src = result;
+                                previewElement.alt = `Pratinjau ${escapeHtml(file.name)}`;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau gambar.</p>'; };
+                            } else if (fileType.startsWith('video/')) {
+                                previewElement = document.createElement('video');
+                                previewElement.src = result;
+                                previewElement.controls = true;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau video.</p>'; };
+                            } else if (fileType.startsWith('audio/')) {
+                                previewElement = document.createElement('audio');
+                                previewElement.src = result;
+                                previewElement.controls = true;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau audio.</p>'; };
+                            } else if (fileType === 'text/html') {
+                                previewElement = document.createElement('iframe');
+                                previewElement.src = result;
+                                previewElement.sandbox = 'allow-same-origin';
+                                previewElement.title = `Pratinjau HTML: ${escapeHtml(file.name)}`;
+                                previewElement.onload = () => { console.log("Iframe pratinjau HTML dimuat (jika berhasil).");};
+                                previewElement.onerror = () => {
+                                     console.warn("Gagal memuat HTML di iframe via Data URL.");
+                                     previewArea.innerHTML = '<p>Gagal memuat pratinjau HTML dalam iframe (kemungkinan diblokir atau terlalu panjang).</p>';
+                                };
+                            } else if (fileType.startsWith('text/')) {
+                                previewElement = document.createElement('pre');
+                                previewElement.textContent = result;
+                            } else {
+                                previewArea.innerHTML = `<p>Pratinjau tidak tersedia untuk tipe file: <code>${escapeHtml(fileType) || 'Tidak diketahui'}</code>.</p>`;
+                                resolve(previewSection);
+                                return;
+                            }
+                            if (previewElement) {
+                                previewArea.appendChild(previewElement);
+                            }
+                            resolve(previewSection);
+                        } catch (e) {
+                             console.error("Error saat membuat elemen pratinjau:", e);
+                             previewArea.innerHTML = `<div class="status-message error">Error saat menampilkan pratinjau: ${escapeHtml(e.message)}</div>`;
+                             resolve(previewSection);
+                        }
+                    };
+
+                    reader.onerror = function(event) { /* ... same as v5 ... */
+                        console.error(`FileReader (Preview type: ${fileType}) - onerror:`, event.target.error); // LOG 14
+                        previewArea.innerHTML = `<div class="status-message error">Gagal membaca file untuk pratinjau: ${escapeHtml(event.target.error.name || 'Unknown error')}</div>`;
+                        resolve(previewSection); // Resolve even on error
+                    };
+                     reader.onabort = function() { /* ... same as v5 ... */
+                         console.warn(`FileReader (Preview type: ${fileType}) - onabort: Pembacaan dibatalkan.`); // LOG 14a
+                         previewArea.innerHTML = `<div class="status-message warning">Pembacaan file pratinjau dibatalkan.</div>`;
+                         resolve(previewSection);
+                     };
+
+                    try { /* ... same as v5 ... */
+                        if (fileType.startsWith('image/') || fileType.startsWith('video/') || fileType.startsWith('audio/') || fileType === 'text/html') {
+                            reader.readAsDataURL(file);
+                        } else if (fileType.startsWith('text/')) {
+                            reader.readAsText(file);
+                        } else {
+                            previewArea.innerHTML = `<p>Pratinjau tidak tersedia untuk tipe file: <code>${escapeHtml(fileType) || 'Tidak diketahui'}</code>.</p>`;
+                            resolve(previewSection);
+                        }
+                    } catch (e) { /* ... same as v5 ... */
+                         console.error("Error saat memulai pembacaan file preview:", e); // LOG 14b
+                         reject(new Error("Gagal memulai pembacaan file pratinjau."));
+                    }
+                 });
+            }
+
+            // --- Fungsi Handler untuk Tombol Copy Data URL ---
+            function handleCopyDataUrl(event) {
+                handleGenericCopy(event.target, '#dataUrlOutput');
+            }
+
+            // --- Fungsi Handler untuk Tombol Buat Blob Link ---
+            function handleCreateBlobLink(event) {
+                console.log("handleCreateBlobLink dipanggil."); // LOG 20
+                const button = event.target;
+                button.disabled = true; // Disable while processing
+                const section = button.closest('#dataUrlSection');
+                const dataUrlOutput = section ? section.querySelector('#dataUrlOutput') : null;
+                const blobResultArea = section ? section.querySelector('#blobUrlResultArea') : null;
+
+                if (!dataUrlOutput || !blobResultArea) {
+                    console.error("Elemen #dataUrlOutput atau #blobUrlResultArea tidak ditemukan.");
+                    if(blobResultArea) blobResultArea.innerHTML = `<p class="status-message error">Error: Komponen UI hilang.</p>`;
+                    button.disabled = false;
+                    return;
+                }
+
+                const dataUrl = dataUrlOutput.value;
+                if (!dataUrl || !dataUrl.startsWith('data:')) {
+                    console.error("Data URL tidak valid atau kosong."); // LOG 21
+                    blobResultArea.innerHTML = `<p class="status-message error">Error: Tidak ada Data URL yang valid untuk diproses.</p>`;
+                    button.disabled = false;
+                    return;
+                }
+
+                blobResultArea.innerHTML = `<p class="status-message processing">Membuat Blob URL...</p>`;
+
+                try {
+                    const blob = dataURLtoBlob(dataUrl);
+                    if (!blob) {
+                         throw new Error("Gagal mengonversi Data URL menjadi Blob.");
+                    }
+                    console.log(`Blob dibuat: Type=${blob.type}, Size=${blob.size}`); // LOG 22
+
+                    revokeCurrentBlobUrl(); // Revoke previous URL before creating new one
+                    currentBlobUrl = URL.createObjectURL(blob);
+                    console.log(`Blob URL dibuat: ${currentBlobUrl}`); // LOG 23
+
+                    blobResultArea.innerHTML = `
+                        <p class="status-message success">Tautan unduh lokal (Blob URL) berhasil dibuat:</p>
+                        <p><strong>PENTING:</strong> Tautan ini hanya berfungsi di browser Anda saat ini dan bersifat <strong>sementara</strong>. Tautan ini <strong>tidak dapat dibagikan</strong> ke orang lain atau digunakan setelah Anda menutup tab/browser.</p>
+                        <a href="${currentBlobUrl}" download="${escapeHtml(currentFileNameForBlob || 'download')}" title="Unduh file menggunakan Blob URL">
+                            Unduh File (${escapeHtml(currentFileNameForBlob || 'file')})
+                        </a>
+                        <p><small>URL Sebenarnya (hanya untuk info): <code>${currentBlobUrl}</code></small></p>
+                    `;
+
+                } catch (error) {
+                    console.error("Error saat membuat Blob URL:", error); // LOG 24
+                    revokeCurrentBlobUrl(); // Clean up if error occurred
+                    blobResultArea.innerHTML = `<p class="status-message error">Gagal membuat tautan: ${escapeHtml(error.message)}</p>`;
+                } finally {
+                     button.disabled = false; // Re-enable button
+                }
+            }
+
+            // --- Helper: Konversi Data URL ke Blob ---
+            function dataURLtoBlob(dataurl) {
+                try {
+                    // Split metadata from data
+                    const arr = dataurl.split(',');
+                    if (arr.length < 2) return null; // Invalid format
+
+                    // Get MIME type
+                    const mimeMatch = arr[0].match(/:(.*?);/);
+                    const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream'; // Default MIME
+
+                    // Decode Base64
+                    const bstr = atob(arr[1]); // Decode base64 string
+                    let n = bstr.length;
+                    const u8arr = new Uint8Array(n); // Create an array buffer
+
+                    // Convert binary string characters to uint8 values
+                    while (n--) {
+                        u8arr[n] = bstr.charCodeAt(n);
+                    }
+
+                    return new Blob([u8arr], { type: mime });
+                } catch (e) {
+                    console.error("Error in dataURLtoBlob:", e);
+                    return null; // Return null on conversion error
+                }
+            }
+
+            // --- Helper: Revoke Blob URL ---
+            function revokeCurrentBlobUrl() {
+                if (currentBlobUrl) {
+                    console.log(`Mencabut Blob URL: ${currentBlobUrl}`); // LOG 25
+                    URL.revokeObjectURL(currentBlobUrl);
+                    currentBlobUrl = null;
+                    // Also clear the result area if needed, or let the new file process handle it
+                     const blobResultArea = outputArea.querySelector('#blobUrlResultArea');
+                     if (blobResultArea) {
+                         blobResultArea.innerHTML = ''; // Clear the area when revoking
+                     }
+                }
+            }
+
+            // --- Fungsi Generik untuk Menyalin (Sama seperti v5) ---
+            function handleGenericCopy(button, selector) {
+                 const section = button.closest('.section'); // Find parent section
+                 const elementToCopyFrom = section ? section.querySelector(selector) : null;
+                 console.log(`handleGenericCopy: Mencari ${selector} di dalam section.`); // LOG 26
+
+                 if (elementToCopyFrom && navigator.clipboard && !button.disabled) {
+                     copyToClipboard(elementToCopyFrom.value, button);
+                 } else if (!navigator.clipboard) {
+                     console.warn("navigator.clipboard tidak tersedia (perlu HTTPS?)."); // LOG 27
+                     alert('Fitur salin otomatis tidak didukung (mungkin bukan HTTPS?). Salin manual.');
+                 } else if (!elementToCopyFrom) {
+                     console.error(`Gagal menyalin: Elemen ${selector} tidak ditemukan.`); // LOG 28
+                 } else { /* Button disabled */ }
+            }
+
+            // --- Fungsi Inti Copy ke Clipboard (Sama seperti v5) ---
+            function copyToClipboard(textToCopy, buttonElement) {
+                if (!textToCopy) {
+                    console.warn("Tidak ada teks untuk disalin."); return; // LOG 29
+                }
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                     console.log("Teks berhasil disalin."); // LOG 30
+                     const originalText = buttonElement.textContent;
+                     buttonElement.textContent = 'Disalin!';
+                     buttonElement.disabled = true;
+                     setTimeout(() => {
+                         buttonElement.textContent = originalText;
+                         buttonElement.disabled = false;
+                     }, 2000);
+                 }).catch(err => {
+                     console.error('Gagal menyalin teks: ', err); // LOG 31
+                     const originalText = buttonElement.textContent;
+                     buttonElement.textContent = 'Gagal!';
+                     // Re-enable after a delay, maybe allow retry
+                     setTimeout(() => {
+                         buttonElement.textContent = originalText;
+                         // buttonElement.disabled = false; // Decide if re-enabling on fail
+                     }, 2500);
+                     alert('Gagal menyalin otomatis. Perizinan clipboard mungkin ditolak. Salin manual.');
+                 });
+            }
+
+            // --- Fungsi Helper Lainnya (Sama seperti v5) ---
+            function formatBytes(bytes, decimals = 2) { /* ... same as v5 ... */
+                if (!+bytes || bytes < 0) return '0 Bytes';
+                const k = 1024;
+                const dm = decimals < 0 ? 0 : decimals;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                const i = bytes === 0 ? 0 : Math.floor(Math.log(bytes) / Math.log(k));
+                const index = Math.max(0, Math.min(i, sizes.length - 1));
+                const size = parseFloat((bytes / Math.pow(k, index)).toFixed(dm));
+                return `${size} ${sizes[index]}`;
+            }
+            function escapeHtml(unsafe) { /* ... same as v5 ... */
+                 if (typeof unsafe !== 'string') { return String(unsafe); }
+                 return unsafe
+                     .replace(/&/g, "&")
+                     .replace(/</g, "<")
+                     .replace(/>/g, ">")
+                     
+                     .replace(/'/g, "'");
+            }
+
+            console.log("Script v6 selesai dimuat dan siap."); // LOG Terakhir
+
+        }); // Akhir DOMContentLoaded
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPromosi</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Library html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+     <!-- Styles -->
+     <link rel="stylesheet" href="https://supergames19.github.io/onlain/blog6/css/style.css">
+</head>
+<body>
+     <div class="page-header">
+         <h1>Desain Promosi Anda</h1>
+         <p>Klik pada teks untuk mengedit, ganti gambar, atur link, lalu simpan hasilnya!</p>
+     </div>
+
+    <div class="main-container">
+
+        <!-- Area Desain Promosi -->
+        <div id="promo-editor">
+            <div id="promo-container">
+                <h2 id="promo-title" contenteditable="true">✨ PROMO SPESIAL ✨</h2>
+                <img id="promo-image" src="https://supergames19.github.io/onlain/blog6/img/1.png" alt="Gambar Promosi">
+                <p id="promo-description" contenteditable="true">
+                    Dapatkan penawaran terbaik minggu ini untuk produk favorit Anda! Diskon hingga <strong>50%</strong> + Gratis Ongkir*. Jangan lewatkan kesempatan emas ini. Kunjungi toko kami atau belanja online sekarang!
+                    <br><br> <!-- Using br for simple line breaks within contenteditable -->
+                    <small>@ 2025 Edy Sahputra. Hak Cipta Dilindungi.</small>
+                    <small>Syarat & ketentuan berlaku</small>
+                </p>
+                <!-- Link "Pesan Sekarang" dengan span editable di dalamnya -->
+                <a href="#" id="order-now-link" class="order-now-link">
+                    <span id="order-now-text" contenteditable="true">Pesan Sekarang</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Kontrol Edit dan Simpan -->
+        <div class="controls-section">
+            <div class="control-group">
+                <label for="image-upload">🖼️ Ganti Gambar Produk:</label>
+                <input type="file" id="image-upload" accept="image/*">
+            </div>
+
+             <!-- Input untuk Link Tombol Pesan -->
+             <div class="control-group">
+                <label for="button-link-input">🔗 Link Tombol Pesan:</label>
+                <input type="url" id="button-link-input" placeholder="Contoh: https://wa.me/628xxxxxxxxxx">
+            </div>
+
+            <div class="control-group">
+                 <label>💾 Simpan Desain:</label>
+                <button id="save-html-btn">Simpan sebagai HTML</button>
+                <button id="save-jpg-btn">Simpan sebagai JPG</button>
+            </div>
+             <p class="info-text">
+                 Link tombol hanya akan berfungsi di file HTML. File JPG hanya gambar visual.
+             </p>
+        </div>
+
+    </div>
+
+    <!-- Custom JS for Editability and Saving -->
+    <script src="https://supergames19.github.io/onlain/blog6/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+ :root {
+            --primary-color: #28a745; /* Green for completed/success */
+            --secondary-color: #555;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --dark-text: #343a40;
+            --light-text: #ffffff;
+            --border-color: #dee2e6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --editable-border-color: var(--primary-color);
+            --editable-bg-hover: #e9f7ef;
+            --editable-shadow-focus: rgba(40, 167, 69, 0.25);
+            --success-color: #007bff; /* Blue for JPG */
+            --success-hover-color: #0056b3;
+            --signature-border-color: #ccc;
+            --info-color: #17a2b8; /* Teal for PNG */
+            --info-hover-color: #138496;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 15px; /* Mobile padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .page-header {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            margin-bottom: 20px; /* Mobile margin */
+        }
+
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--dark-text);
+            font-size: 1.7em; /* Mobile font size */
+        }
+
+        .page-header p {
+            color: var(--secondary-color);
+            font-size: 1em; /* Mobile font size */
+        }
+
+        .main-container {
+            display: flex;
+            gap: 25px; /* Mobile gap */
+            width: 100%;
+            max-width: 900px;
+            align-items: flex-start;
+             /* Default to column for mobile-first */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #service-editor {
+            flex: 3;
+            width: 100%; /* Full width on mobile */
+            min-width: 100%;
+        }
+
+        #receipt-container {
+            border: 1px solid var(--border-color);
+            padding: 20px; /* Mobile padding */
+            background-color: var(--white-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        #receipt-container:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        #receipt-container h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px; /* Mobile margin */
+            font-size: 1.5em; /* Mobile font size */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px; /* Mobile padding */
+        }
+
+        #receipt-container p,
+        #receipt-container div,
+        #receipt-container strong,
+        #receipt-container span {
+            color: var(--secondary-color);
+            margin-bottom: 12px; /* Mobile margin */
+            font-size: 0.95em; /* Mobile font size */
+        }
+
+        #receipt-container p {
+            text-align: left;
+        }
+
+        #receipt-container strong[contenteditable="true"] {
+            display: inline;
+        }
+
+        /* --- Image Styles --- */
+        #receipt-container img#device-photo {
+            max-width: 90%; /* Mobile max width */
+            height: auto;
+            display: block;
+            margin: 20px auto; /* Mobile margin */
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px; /* Mobile padding */
+            background-color: #f0f0f0;
+            object-fit: cover;
+            min-height: 100px; /* Mobile min height */
+        }
+
+        #receipt-container .image-caption {
+            text-align: center;
+            font-size: 0.85em; /* Mobile font size */
+            color: #777;
+            margin-top: -10px;
+            margin-bottom: 20px; /* Mobile margin */
+        }
+        /* --- End Image Styles --- */
+
+        #receipt-container .payment-status {
+            text-align: center;
+            margin: 15px 0; /* Mobile margin */
+            padding: 10px; /* Mobile padding */
+            background-color: #e9f7ef;
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.05em; /* Mobile font size */
+            color: var(--primary-color);
+        }
+
+        #receipt-container .warranty-info {
+            margin-top: 15px; /* Mobile margin */
+            padding: 12px; /* Mobile padding */
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 4px;
+            font-size: 0.9em; /* Mobile font size */
+        }
+
+        #receipt-container .warranty-info p {
+            margin-bottom: 5px;
+        }
+
+        #receipt-container .footer {
+            margin-top: 25px; /* Mobile margin */
+            border-top: 1px solid #eee;
+            padding-top: 15px; /* Mobile padding */
+            display: flex;
+            /* Stack vertically on mobile */
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .signature-column {
+            flex: 1;
+            width: 100%; /* Full width when stacked */
+            max-width: 350px; /* Limit width on mobile */
+            min-width: 90%;
+            text-align: center;
+        }
+
+        .signature-column p {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .signature-column strong {
+            color: var(--dark-text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .signature-wrapper {
+            position: relative;
+            width: 100%;
+            height: 110px; /* Mobile height */
+            border: 1px dashed var(--signature-border-color);
+            border-radius: 4px;
+            margin: 0 auto 8px auto;
+            background-color: #fdfdfd;
+            touch-action: none; /* Crucial for mobile drawing */
+             -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        .signature-wrapper canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .signature-column button.clear-sig-button {
+            font-size: 0.75em;
+            padding: 4px 10px; /* Mobile padding */
+            margin-top: 0px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+            display: block; /* Center easily */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .signature-column button.clear-sig-button:hover {
+            opacity: 1;
+        }
+
+        /* Content Editable Styles */
+        [contenteditable="true"] {
+            border: 1px dashed transparent;
+            padding: 5px 7px; /* Mobile padding */
+            cursor: text;
+            min-height: 1.3em;
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 4px;
+            outline: none;
+            margin-bottom: 0 !important;
+            display: inline-block;
+            vertical-align: baseline;
+            background-color: transparent;
+            -webkit-user-modify: read-write-plaintext-only;
+        }
+
+        h2[contenteditable="true"],
+        p[contenteditable="true"],
+        div[contenteditable="true"] {
+            display: block;
+            width: 100%;
+            padding: 6px 8px;
+        }
+
+        .payment-status[contenteditable="true"],
+        .warranty-info p[contenteditable="true"] {
+            display: block;
+            width: 100%;
+        }
+
+        .signature-column p[contenteditable="true"],
+        .signature-column strong[contenteditable="true"],
+        .signature-column span[contenteditable="true"] {
+            display: inline-block;
+            width: auto;
+            padding: 2px 4px;
+            text-align: center;
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: var(--editable-bg-hover);
+            border-color: var(--border-color);
+        }
+
+        [contenteditable="true"]:focus {
+            border: 1px solid var(--editable-border-color);
+            background-color: var(--white-bg);
+            box-shadow: 0 0 0 2px var(--editable-shadow-focus);
+        }
+
+        /* Controls Section Styles */
+        .controls-section {
+            flex: 1;
+            width: 100%; /* Full width on mobile */
+            min-width: 100%;
+            padding: 20px; /* Mobile padding */
+            background-color: var(--white-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Mobile gap */
+            margin-top: 25px; /* Space below editor */
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 0.9em; /* Mobile font size */
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .controls-section input[type="file"] {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            background-color: #fff;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .controls-section input[type="file"]::file-selector-button {
+            margin-right: 10px; border: none; background: var(--secondary-color);
+            padding: 8px 12px; border-radius: 4px; color: var(--light-text);
+            cursor: pointer; transition: background-color 0.2s ease-in-out;
+        }
+        .controls-section input[type="file"]::file-selector-button:hover { background: #333; }
+
+        .controls-section button {
+            padding: 14px 18px; /* Mobile padding */
+            color: var(--light-text); border: none; border-radius: 5px; cursor: pointer;
+            font-size: 1em; font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            text-align: center; font-family: 'Poppins', sans-serif;
+            width: 100%; /* Full width buttons */
+        }
+        .controls-section button:hover:not(:disabled) { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        .controls-section button:disabled { background-color: #bdc3c7 !important; cursor: not-allowed; opacity: 0.7; }
+
+        .controls-section button#save-html-btn { background-color: var(--primary-color); }
+        .controls-section button#save-html-btn:hover:not(:disabled) { background-color: #218838; }
+        .controls-section button#save-jpg-btn { background-color: var(--success-color); }
+        .controls-section button#save-jpg-btn:hover:not(:disabled) { background-color: var(--success-hover-color); }
+        .controls-section button#save-png-btn { background-color: var(--info-color); }
+        .controls-section button#save-png-btn:hover:not(:disabled) { background-color: var(--info-hover-color); }
+
+        .signature-placeholder {
+            display: flex; justify-content: center; align-items: center; min-height: 80px;
+            border: 1px dashed #ccc; border-radius: 4px; font-style: italic; color: #999;
+            font-size: 0.9em; padding: 10px; box-sizing: border-box; text-align: center;
+            margin-bottom: 10px; background-color: #f9f9f9;
+        }
+        .signature-column img.signature-image {
+            max-width: 90%; height: auto; display: block; margin: 0 auto 10px auto;
+            border-bottom: 1px solid #eee; padding-bottom: 5px;
+        }
+
+        /* --- Media Query for Larger Screens (Desktop) --- */
+        @media (min-width: 769px) {
+             body { padding: 20px; } /* Restore desktop padding */
+             .page-header h1 { font-size: 2.0em; } /* Restore desktop font size */
+             .page-header p { font-size: 1.1em; }
+             .main-container {
+                flex-direction: row; /* Row layout for desktop */
+                gap: 30px;
+                align-items: flex-start; /* Align top */
+            }
+             #service-editor {
+                 min-width: 400px; /* Restore desktop min-width */
+                 width: auto; /* Let flexbox handle width */
+             }
+             #receipt-container { padding: 35px; } /* Restore desktop padding */
+             #receipt-container h2 { font-size: 1.8em; margin-bottom: 25px; padding-bottom: 15px; }
+             #receipt-container p, #receipt-container div, #receipt-container strong, #receipt-container span { font-size: 1em; margin-bottom: 15px; }
+             #receipt-container img#device-photo { max-width: 70%; margin: 25px auto; min-height: 120px; padding: 5px; }
+             #receipt-container .image-caption { font-size: 0.9em; margin-top: -10px; margin-bottom: 25px; }
+             #receipt-container .payment-status { font-size: 1.1em; padding: 12px; margin: 20px 0; }
+             #receipt-container .warranty-info { font-size: 0.95em; padding: 15px; margin-top: 20px; }
+
+             #receipt-container .footer {
+                 flex-direction: row; /* Side-by-side signatures */
+                 justify-content: space-between;
+                 align-items: flex-start;
+                 margin-top: 30px; padding-top: 20px; gap: 20px;
+             }
+             .signature-column {
+                flex: 1; min-width: 200px; max-width: none; width: auto;
+             }
+              .signature-column strong { margin-bottom: 15px; }
+              .signature-wrapper { height: 120px; margin-bottom: 10px; }
+              .signature-column button.clear-sig-button { font-size: 0.8em; padding: 3px 8px; display: inline-block; margin: 0; }
+
+             .controls-section {
+                flex: 1; min-width: 250px; width: auto;
+                position: sticky; /* Restore sticky */
+                top: 20px;
+                align-self: flex-start;
+                margin-top: 0; /* Remove mobile margin */
+                padding: 25px; /* Restore desktop padding */
+                gap: 20px; /* Restore desktop gap */
+             }
+              .control-group label { font-size: 0.95em; }
+              .controls-section button { width: auto; padding: 12px 18px; } /* Restore auto width */
+        }

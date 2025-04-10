@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/sponsor/css/style.css">
+</head>
+
+<body>
+
+    <!-- Toolbar Container -->
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <!-- Image Upload Buttons -->
+            <label for="profilePicUpload" class="toolbar-button" title="Ganti Foto Profil Halaman">👤 Ganti
+                Profil</label>
+            <input type="file" id="profilePicUpload" accept="image/*">
+            <label for="adImageUpload" class="toolbar-button" title="Ganti Gambar Utama Iklan">🖼️ Ganti Gambar</label>
+            <input type="file" id="adImageUpload" accept="image/*">
+
+            <!-- CTA Link Input -->
+            <div class="toolbar-link-group">
+                <label for="ctaLinkInput">Link Tombol:</label>
+                <input type="url" id="ctaLinkInput" placeholder="https://wa.me/0823XXXXXXXX">
+            </div>
+
+            <!-- Action Buttons -->
+            <button id="saveHtmlBtn" class="toolbar-button" title="Simpan sebagai file HTML">💾 Simpan HTML</button>
+            <button id="saveJpgBtn" class="toolbar-button" title="Simpan sebagai gambar JPG">📷 Simpan JPG</button>
+            <button id="resetBtn" class="toolbar-button reset" title="Kembalikan ke template awal">🔄 Reset</button>
+        </div>
+        <!-- Status Message Area -->
+        <div id="statusMessage" class="status-message" aria-live="polite"></div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="ad-container" id="adCard"> <!-- Target ID for saving -->
+            <!-- Header Iklan -->
+            <div class="ad-header">
+                <div class="profile-pic-wrapper">
+                    <img src="img/white.svg" alt="Logo Toko" class="profile-pic"
+                        id="profilePicDisplay" data-initial-src="img/white.svg">
+                    <label for="profilePicUpload" class="image-upload-overlay" title="Ganti foto profil">Ganti</label>
+                </div>
+                <div class="page-info">
+                    <div class="page-name" contenteditable="true" data-initial-html="Toko Kacamata Trendi 😎">Toko
+                        Kacamata Trendi 😎</div>
+                    <div class="sponsored-label">Sponsored</div>
+                </div>
+            </div>
+            <!-- Teks Iklan -->
+            <div class="ad-body">
+                <div class="ad-text" contenteditable="true"
+                    data-initial-html="<p>👓 Upgrade gayamu dengan kacamata terbaru kami! ✨<br><br>Desain stylish, bahan berkualitas, dan harga TERJANGKAU. 😎<br><br>🔥 DISKON SPESIAL 30% khusus minggu ini! Jangan sampai kehabisan stok favoritmu.<br><br>Klik tombol di bawah untuk lihat koleksi lengkap! 👇<br>#kacamata #fashion #style #promo #diskon</p>">
+                    <p>👓 Upgrade gayamu dengan kacamata terbaru kami! ✨<br><br>Desain stylish, bahan berkualitas, dan
+                        harga TERJANGKAU. 😎<br><br>🔥 DISKON SPESIAL 30% khusus minggu ini! Jangan sampai kehabisan
+                        stok favoritmu.<br><br>Klik tombol di bawah untuk lihat koleksi lengkap! 👇<br>#kacamata
+                        #fashion #style #promo #diskon</p>
+                </div>
+            </div>
+            <!-- Media (Gambar Produk) -->
+            <div class="ad-media">
+                <img src="img/2.jpg"
+                    alt="Kacamata Model Terbaru" id="adImageDisplay"
+                    data-initial-src="img/2.jpg">
+                <label for="adImageUpload" class="image-upload-overlay" title="Ganti gambar iklan">Ganti Gambar</label>
+            </div>
+            <!-- Area Link & Tombol CTA -->
+            <div class="ad-link-cta">
+                <div class="link-info">
+                    <div class="link-domain" contenteditable="true" data-initial-html="TOKOKACAMATATRENDI.COM">
+                        TOKOKACAMATATRENDI.COM</div>
+                    <div class="link-headline" contenteditable="true"
+                        data-initial-html="Koleksi Kacamata Pria & Wanita 2024">Koleksi Kacamata Pria & Wanita 2024
+                    </div>
+                    <div class="link-description" contenteditable="true"
+                        data-initial-html="Temukan gaya sempurnamu sekarang!">Temukan gaya sempurnamu sekarang!</div>
+                </div>
+                <!-- Button text is editable, link is controlled by input -->
+                <a href="https://wa.me/0823xxxxxxxx" class="cta-button primary" id="ctaButton" contenteditable="true"
+                    data-initial-html="Shop Now" data-initial-href="https://wa.me/0823xxxxxxxx">Shop Now</a>
+            </div>
+        </div> <!-- End ad-container -->
+    </div> <!-- End main-content -->
+
+    <script src="https://supergames19.github.io/onlain/sponsor/js/script.js"></script>
+
+</body>
+
+</html>

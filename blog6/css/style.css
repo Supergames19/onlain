@@ -1,0 +1,276 @@
+ :root {
+            --primary-color: #007bff; /* Biru */
+            --secondary-color: #6c757d; /* Abu-abu */
+            --light-bg: #f8f9fa; /* Latar belakang terang */
+            --dark-text: #343a40; /* Teks gelap */
+            --light-text: #ffffff; /* Teks putih */
+            --border-color: #dee2e6; /* Warna border */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --success-color: #28a745; /* Hijau */
+            --success-hover-color: #218838;
+            --editable-border-color: var(--primary-color);
+            --editable-bg-hover: #f8f8f8;
+            --editable-shadow-focus: rgba(0, 123, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-wrap: wrap; /* Wrap container utama jika perlu */
+        }
+
+         /* Header Halaman (dipindah ke atas agar lebih rapi) */
+         .page-header {
+             width: 100%;
+             text-align: center;
+             margin-bottom: 30px;
+         }
+         .page-header h1 {
+             font-weight: 700;
+             color: var(--dark-text);
+         }
+         .page-header p {
+             color: var(--secondary-color);
+             font-size: 1.1em;
+         }
+
+        .main-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 900px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        #promo-editor {
+             flex: 2;
+             min-width: 350px;
+        }
+
+        #promo-container {
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            background-color: var(--light-text);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: box-shadow 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+        #promo-container:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        #promo-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 6px;
+             object-fit: cover;
+             min-height: 150px;
+             background-color: #eee;
+        }
+
+        /* Gaya umum elemen contenteditable */
+        [contenteditable="true"] {
+            border: 1px dashed transparent;
+            padding: 5px 8px; /* Padding sedikit dikurangi agar pas di tombol */
+            cursor: text;
+            min-height: 1.2em; /* Sesuaikan min-height */
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: block; /* Agar margin bottom bekerja */
+            outline: none; /* Hilangkan outline default */
+        }
+         [contenteditable="true"]:hover {
+             border-color: var(--border-color);
+             background-color: var(--editable-bg-hover);
+         }
+         [contenteditable="true"]:focus {
+            border: 1px solid var(--editable-border-color);
+            background-color: var(--light-text);
+            box-shadow: 0 0 0 2px var(--editable-shadow-focus);
+         }
+
+        h2[contenteditable="true"] {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            padding: 8px 10px; /* Kembalikan padding normal untuk judul */
+        }
+
+        p[contenteditable="true"] {
+            font-size: 1.05em;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 0;
+            padding: 8px 10px; /* Kembalikan padding normal untuk paragraf */
+        }
+         p[contenteditable="true"] small {
+             display: block;
+             margin-top: 8px;
+             font-size: 0.85em;
+             color: #888;
+         }
+
+        /* --- Gaya untuk Link "Pesan Sekarang" (dulu tombol) --- */
+        a.order-now-link { /* Target <a> dengan class spesifik */
+            display: inline-block;
+            margin-top: 25px;
+            background-color: var(--success-color);
+            color: var(--light-text) !important; /* Paksa warna teks putih */
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none !important; /* Hapus garis bawah link */
+            cursor: default; /* Biarkan default, karena link akan aktif di HTML */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0; /* Hapus padding dari <a> agar padding di span bekerja */
+            line-height: normal; /* Reset line height */
+            vertical-align: middle; /* Jaga alignment */
+        }
+        a.order-now-link:hover {
+            background-color: var(--success-hover-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: var(--light-text) !important; /* Pastikan putih saat hover */
+            text-decoration: none !important;
+        }
+
+         /* --- Gaya untuk Teks di dalam Link yang Bisa Diedit --- */
+         #order-now-text {
+             display: inline-block; /* Agar padding bekerja */
+             padding: 12px 30px; /* Padding tombol sekarang di sini */
+             margin-bottom: 0; /* Hapus margin bottom dari [contenteditable] */
+             border-color: transparent; /* Sembunyikan border default */
+             color: inherit; /* Warisi warna dari <a> */
+             min-height: auto; /* Reset min-height jika perlu */
+             line-height: 1.2; /* Sesuaikan line height teks tombol */
+         }
+          #order-now-text:hover {
+              /* Beri indikator hover yang halus jika diinginkan, atau biarkan transparan */
+               border-color: rgba(255, 255, 255, 0.3); /* Border putih transparan saat hover */
+               background-color: transparent; /* Jangan ubah background tombol */
+          }
+          #order-now-text:focus {
+               border: 1px solid rgba(255, 255, 255, 0.8); /* Border putih lebih jelas saat fokus */
+               background-color: rgba(0, 0, 0, 0.1); /* Sedikit gelap saat edit */
+               box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2); /* Glow putih */
+               color: var(--light-text); /* Pastikan teks tetap putih saat edit */
+          }
+
+
+        /* Area Kontrol */
+        .controls-section {
+            flex: 1;
+            min-width: 250px;
+            padding: 25px;
+            background-color: var(--light-text);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+             display: flex;
+             flex-direction: column;
+             gap: 8px;
+        }
+
+         .control-group label {
+             font-weight: 600;
+             color: var(--dark-text);
+             font-size: 0.95em;
+         }
+
+        .controls-section input[type="file"],
+        .controls-section input[type="url"] { /* Tambahkan style untuk input URL */
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            background-color: #fff;
+        }
+         .controls-section input[type="file"] {
+              cursor: pointer;
+         }
+         .controls-section input[type="file"]::file-selector-button {
+            margin-right: 10px;
+            border: none;
+            background: var(--secondary-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .controls-section input[type="file"]::file-selector-button:hover {
+            background: #5a6268;
+        }
+
+        .controls-section button {
+            padding: 12px 18px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .controls-section button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+         .controls-section button#save-jpg-btn {
+             background-color: var(--success-color);
+         }
+          .controls-section button#save-jpg-btn:hover {
+             background-color: var(--success-hover-color);
+         }
+
+         /* Responsiveness */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+             #promo-editor, .controls-section {
+                 width: 100%;
+                 max-width: 500px;
+                 flex: none;
+             }
+             a.order-now-link { /* Sesuaikan ukuran link/tombol di mobile */
+                 font-size: 1em;
+             }
+            #order-now-text { /* Sesuaikan padding teks tombol di mobile */
+                 padding: 10px 20px;
+             }
+        }
+

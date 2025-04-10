@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo</title>
+    <!-- Sertakan library html2canvas untuk Simpan JPG -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .instructions {
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            max-width: 400px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .instructions code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        /* Kartu Produk */
+        .product-offer-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 360px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        .product-image {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .product-image:hover::after {
+            content: 'Klik untuk ganti gambar';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none; /* Agar tidak mengganggu klik */
+        }
+        .product-image:hover::after {
+            opacity: 1;
+        }
+
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Label Promo */
+        .promo-badge {
+            position: absolute;
+            top: 15px;
+            left: -5px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 15px 6px 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            line-height: 1.2;
+            min-width: 80px;
+            min-height: 1.2em;
+        }
+        .promo-badge::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            border-style: solid;
+            border-width: 0 8px 8px 0;
+            border-color: transparent #a83326 transparent transparent;
+        }
+
+        .product-details {
+            padding: 25px;
+            text-align: left;
+        }
+
+        .product-details h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.3;
+            min-height: 1.3em;
+        }
+
+        .product-details .description {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 20px;
+            min-height: 65px;
+            line-height: 1.6;
+        }
+
+        .price-section {
+            margin-bottom: 20px; /* Kurangi sedikit margin bawah */
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            min-height: 2em;
+        }
+
+        .price-section .current-price {
+            font-size: 2em;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-right: 15px;
+        }
+
+        .price-section .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1em;
+        }
+
+        .price-section .normal-price {
+            font-size: 2em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* --- Styling untuk Input Link Tombol --- */
+        .cta-link-container {
+            margin-top: 10px; /* Jarak dari harga */
+            margin-bottom: 20px; /* Jarak ke tombol */
+        }
+        .cta-link-container label {
+            display: block;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .cta-link-container input[type="url"] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+            box-sizing: border-box; /* Agar padding tidak menambah lebar */
+            transition: border-color 0.3s ease;
+        }
+        .cta-link-container input[type="url"]:focus {
+            border-color: #2f80ed;
+            outline: none;
+        }
+        /* --- Akhir Styling Input Link --- */
+
+        .cta-button {
+            background: linear-gradient(to right, #56ccf2, #2f80ed);
+            color: white !important; /* Paksa warna putih, cegah warisan warna link */
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none !important; /* Hapus garis bawah link */
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(47, 128, 237, 0.4);
+            text-align: center;
+            min-width: 150px;
+            line-height: normal; /* Reset line-height jika perlu */
+        }
+        .cta-button:hover {
+             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(47, 128, 237, 0.5);
+            text-decoration: none !important;
+        }
+
+        /* Style untuk elemen yang bisa diedit */
+        [contenteditable="true"] {
+            cursor: text;
+            outline: none;
+            padding: 2px 4px;
+            border: 1px dashed transparent;
+            transition: border 0.2s ease, background-color 0.2s ease;
+        }
+        /* Khusus untuk tombol, jangan beri background saat hover/focus jika dia juga link */
+        [contenteditable="true"]:not(a):hover {
+            background-color: rgba(47, 128, 237, 0.05);
+        }
+         [contenteditable="true"]:not(a):focus {
+            border: 1px dashed #2f80ed;
+            background-color: rgba(47, 128, 237, 0.1);
+            box-shadow: 0 0 5px rgba(47, 128, 237, 0.3);
+        }
+         /* Styling focus untuk tombol yang contenteditable */
+         a[contenteditable="true"]:focus {
+             outline: 2px solid #56ccf2; /* Beri outline saja */
+             outline-offset: 2px;
+         }
+
+
+        /* Input file tersembunyi */
+        #imageUpload {
+            display: none;
+        }
+
+        /* Tombol Kontrol */
+        .controls {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .control-button.save-html {
+            background-color: #2ecc71; /* Hijau */
+            color: white;
+        }
+        .control-button.save-jpg {
+            background-color: #e67e22; /* Oranye */
+            color: white;
+        }
+        .control-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .control-button:active {
+             transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="instructions">
+        <p><strong>Petunjuk Penggunaan:</strong></p>
+        <p>Klik teks (judul, deskripsi, harga, promo, teks tombol) untuk edit.</p>
+        <p>Klik area gambar untuk pilih gambar.</p>
+        <p>Gunakan kolom <strong>"Link Tombol (URL)"</strong> di bawah harga untuk mengatur tujuan tombol.</p>
+        <p>Klik "Simpan HTML" atau "Simpan JPG" untuk mengunduh.</p>
+    </div>
+
+    <!-- === KARTU PRODUK YANG BISA DIEDIT === -->
+    <div class="product-offer-card" id="productCard">
+        <div class="product-image" id="imageContainer">
+             <!-- Label Promo -->
+            <div class="promo-badge" contenteditable="true" id="promoText">
+                <span>Promo Spesial!</span>
+            </div>
+            <!-- Gambar Produk -->
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Gambar Produk" id="productImage">
+        </div>
+
+        <div class="product-details">
+            <!-- Judul Produk -->
+            <h2 contenteditable="true" id="productTitle">Sepatu Lari Ultraboost X</h2>
+
+            <!-- Deskripsi Produk -->
+            <p class="description" contenteditable="true" id="productDescription">
+                Rasakan kenyamanan maksimal dan performa lari terbaik dengan teknologi bantalan revolusioner. Ringan, responsif, dan stylish.
+            </p>
+
+            <!-- Harga -->
+            <div class="price-section">
+                <span class="current-price" contenteditable="true" id="currentPrice">Rp 1.499.000</span>
+                <span class="original-price" contenteditable="true" id="originalPrice">Rp 1.999.000</span>
+            </div>
+
+            <!-- ===>>> INPUT UNTUK LINK TOMBOL CTA <<<=== -->
+            <div class="cta-link-container">
+                <label for="ctaLinkInput">Link Tombol (URL):</label>
+                <input type="url" id="ctaLinkInput" placeholder="https://wa,me/0823XXXXXXXX" value="https://wa,me/0823XXXXXXXX">
+            </div>
+            <!-- ===>>> AKHIR INPUT LINK <<<=== -->
+
+
+            <!-- Tombol CTA (Teks bisa diedit, link diatur dari input di atas) -->
+            <a href="#" class="cta-button" contenteditable="true" id="ctaButton">Pesan Sekarang</a>
+        </div>
+    </div>
+    <!-- === AKHIR KARTU PRODUK === -->
+
+    <!-- Input File Tersembunyi -->
+    <input type="file" id="imageUpload" accept="image/*">
+
+    <!-- === TOMBOL KONTROL SIMPAN === -->
+    <div class="controls">
+        <button id="saveHtmlBtn" class="control-button save-html">Simpan HTML</button>
+        <button id="saveJpgBtn" class="control-button save-jpg">Simpan JPG</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Referensi elemen
+            const imageContainer = document.getElementById('imageContainer');
+            const imageUpload = document.getElementById('imageUpload');
+            const productImage = document.getElementById('productImage');
+            const productCard = document.getElementById('productCard');
+            const saveHtmlBtn = document.getElementById('saveHtmlBtn');
+            const saveJpgBtn = document.getElementById('saveJpgBtn');
+            const ctaButton = document.getElementById('ctaButton');
+            const ctaLinkInput = document.getElementById('ctaLinkInput'); // Referensi input link baru
+
+            // 1. FUNGSI GANTI GAMBAR (Sama seperti sebelumnya)
+            imageContainer.addEventListener('click', () => {
+                imageUpload.click();
+            });
+
+            imageUpload.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        productImage.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // ===>>> 2. FUNGSI UPDATE LINK TOMBOL CTA <<<===
+            ctaLinkInput.addEventListener('input', () => {
+                let url = ctaLinkInput.value.trim();
+                 // Jika kosong, set ke '#' agar tetap bisa diklik tapi tidak kemana-mana
+                if (url === '') {
+                    url = '#';
+                }
+                ctaButton.href = url;
+                console.log("CTA href updated to:", url);
+            });
+            // Setel href awal tombol sesuai nilai awal input
+             ctaButton.href = ctaLinkInput.value || '#';
+
+
+            // 3. FUNGSI SIMPAN HTML (Sama, sudah mencakup href yang diupdate)
+             saveHtmlBtn.addEventListener('click', () => {
+                let styleContent = '';
+                const styleTags = document.head.getElementsByTagName('style');
+                for (let i = 0; i < styleTags.length; i++) {
+                    styleContent += styleTags[i].innerHTML;
+                }
+
+                const editableElements = productCard.querySelectorAll('[contenteditable="true"]');
+                editableElements.forEach(el => el.setAttribute('contenteditable', 'false'));
+
+                // Nonaktifkan juga input URL sebelum menyimpan
+                const tempInputDisabled = ctaLinkInput.disabled; // Simpan state awal
+                ctaLinkInput.disabled = true;
+
+                const cardToSave = productCard.cloneNode(true);
+
+                // Hapus elemen input link dari versi yang disimpan (opsional, agar lebih bersih)
+                const linkInputContainerInClone = cardToSave.querySelector('.cta-link-container');
+                 if (linkInputContainerInClone) {
+                     linkInputContainerInClone.parentNode.removeChild(linkInputContainerInClone);
+                 }
+
+
+                const cardHTML = cardToSave.outerHTML;
+
+                const fullHtml = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Produk Tersimpan</title>
+    <style>
+        ${styleContent}
+        body { justify-content: center; align-items: center; display: flex; min-height: 100vh; padding: 20px; background: #f0f0f0; }
+        [contenteditable="true"]:hover, [contenteditable="true"]:focus { background-color: transparent; border: 1px dashed transparent; box-shadow: none; cursor: default; }
+         a[contenteditable="true"]:focus { outline: none; }
+        .product-image:hover::after { display: none; }
+    </style>
+</head>
+<body>
+    ${cardHTML}
+</body>
+</html>`;
+
+                const blob = new Blob([fullHtml], { type: 'text/html' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'kartu_produk.html';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+
+                // Aktifkan kembali contenteditable dan input
+                editableElements.forEach(el => el.setAttribute('contenteditable', 'true'));
+                ctaLinkInput.disabled = tempInputDisabled; // Kembalikan state input
+
+                 alert('File HTML berhasil dibuat!');
+            });
+
+
+            // 4. FUNGSI SIMPAN JPG (Sama seperti sebelumnya)
+            saveJpgBtn.addEventListener('click', () => {
+                 const editableElements = productCard.querySelectorAll('[contenteditable="true"]');
+                 editableElements.forEach(el => el.style.border = '1px dashed transparent');
+                 // Sembunyikan input link saat capture
+                 const originalDisplay = ctaLinkInput.parentNode.style.display;
+                 ctaLinkInput.parentNode.style.display = 'none';
+
+
+                html2canvas(productCard, {
+                    useCORS: true,
+                    scale: 2,
+                    // Abaikan elemen tertentu saat render jika perlu (misal: input link)
+                    // ignoreElements: (element) => element.id === 'ctaLinkInput' || element.tagName === 'LABEL' && element.htmlFor === 'ctaLinkInput'
+                 }).then(canvas => {
+                     editableElements.forEach(el => el.style.border = '');
+                     ctaLinkInput.parentNode.style.display = originalDisplay; // Kembalikan display input
+
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.download = 'kartu_produk.jpg';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                     alert('File JPG berhasil dibuat!');
+                }).catch(err => {
+                     editableElements.forEach(el => el.style.border = '');
+                     ctaLinkInput.parentNode.style.display = originalDisplay; // Kembalikan display input jika error
+
+                    console.error("Error saat membuat JPG:", err);
+                    alert("Maaf, terjadi kesalahan saat membuat file JPG. Cek console log (F12) untuk detail.");
+                });
+            });
+
+            // Tidak perlu lagi event listener blur pada tombol CTA untuk set href
+            // karena sudah ditangani oleh input link terpisah.
+
+        });
+    </script>
+
+</body>
+</html>

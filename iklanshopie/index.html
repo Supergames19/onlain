@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Iklan Shopee (Pro)</title>
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- html2canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Link your CSS -->
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/iklanshopie/css/style.css"> <!-- Pastikan path ini benar -->
+
+</head>
+
+<body>
+
+    <!-- Toolbar Container -->
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <label for="productImageUpload" class="toolbar-button" title="Ganti Gambar Produk">🖼️ Ganti Gambar</label>
+            <input type="file" id="productImageUpload" accept="image/*">
+            <button id="saveHtmlBtn" class="toolbar-button" title="Simpan sebagai file HTML (pastikan style.css di folder yg sama)">💾 HTML</button>
+            <button id="saveJpgBtn" class="toolbar-button" title="Simpan sebagai gambar JPG">📷 JPG</button>
+            <button id="resetBtn" class="toolbar-button reset" title="Kembalikan ke template awal">🔄 Reset</button>
+        </div>
+    </div>
+
+    <!-- Status Message Area -->
+    <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Shopee Ad Card -->
+        <div class="shopee-ad-container" id="shopeeAdCard">
+            <!-- Media Area: Image, Overlays -->
+            <div class="shopee-ad-media">
+                <!-- Product Image -->
+                <img src="https://supergames19.github.io/onlain/iklanshopie/img/1.png" alt="Gambar Produk"
+                    id="productImageDisplay"
+                    data-initial-src="https://supergames19.github.io/onlain/iklanshopie/img/1.png">
+
+                <!-- Sponsored Tag (Editable) -->
+                <span class="sponsored-tag" contenteditable="true" data-initial-html="Sponsored">Sponsored</span>
+
+                <!-- Discount Tag (Editable) -->
+                <div class="discount-tag" contenteditable="true"
+                    data-initial-html="<span class='percent'>50%</span><span class='off'>OFF</span>">
+                    <span class="percent">50%</span><span class="off">OFF</span>
+                </div>
+
+                 <!-- Seller Badges (Editable) - Positioned via CSS -->
+                <div class="seller-badges">
+                    <!-- Mall Badge -->
+                    <span class="seller-badge mall" contenteditable="true" data-initial-html="Mall">Mall</span>
+                    <!-- Star Badge (Initially empty, will be hidden by CSS/JS) -->
+                    <span class="seller-badge star" contenteditable="true" data-initial-html=""></span> <!-- Add Star text here to show it -->
+                </div>
+
+                <!-- Image Upload Button Overlay -->
+                <label for="productImageUpload" class="image-upload-overlay" title="Ganti gambar produk">Ganti</label>
+            </div>
+
+            <!-- Content Area: Text Info -->
+            <div class="shopee-ad-content">
+                <div class="shopee-ad-name" contenteditable="true"
+                    data-initial-html="Nama Produk Keren Anda Ditampilkan Di Sini Bisa Dua Baris Teks Yang Cukup Panjang">Nama Produk Keren Anda Ditampilkan Di Sini Bisa Dua Baris Teks Yang Cukup Panjang</div>
+                <div class="shopee-ad-price-row">
+                    <span class="current-price">
+                        <span class="currency">Rp</span><span contenteditable="true"
+                            data-initial-html="50.000">50.000</span>
+                    </span>
+                    <span class="original-price">
+                        <span class="currency">Rp</span><span contenteditable="true"
+                            data-initial-html="100.000">100.000</span>
+                    </span>
+                </div>
+                <div class="shopee-ad-info-row">
+                    <span class="rating-section">
+                        <!-- SVG Star Icon -->
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                            </path>
+                        </svg>
+                        <span class="rating-text">
+                            <span contenteditable="true" data-initial-html="4.8">4.8</span>
+                            <span class="count">(<span contenteditable="true" data-initial-html="150">150</span>)</span>
+                        </span>
+                    </span>
+                    <span class="units-sold" contenteditable="true" data-initial-html="1,2RB Terjual">1,2RB Terjual</span>
+                </div>
+                <div class="shop-location" contenteditable="true" data-initial-html="Jakarta Barat">Jakarta Barat</div>
+            </div>
+        </div> <!-- End shopee-ad-container -->
+    </div> <!-- End main-content -->
+
+   <script src="https://supergames19.github.io/onlain/iklanshopie/js/script.js"></script> <!-- Pastikan path ini benar -->
+
+</body>
+
+</html>

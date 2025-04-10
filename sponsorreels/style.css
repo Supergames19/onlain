@@ -1,0 +1,462 @@
+/* Reset & Basic Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* Improves behavior on mobile with dynamic toolbars */
+    height: -webkit-fill-available;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Use dynamic viewport height if available, fallback to vh */
+    min-height: 100vh;
+    min-height: 97dvh;
+    background-color: #000;
+    /* Font stack more closely matching Instagram */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    overflow: hidden; /* Prevent body scroll */
+    /* Ensure body takes full height for centering */
+    height: 97%;
+    width: 100%;
+}
+
+/* Kontrol (No functional changes, keep as is) */
+.controls {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 100;
+    color: white;
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: calc(100% - 20px); /* Prevent overflow on narrow screens */
+}
+
+.controls p {
+    margin-bottom: 10px;
+}
+
+.controls button {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 8px;
+    margin-bottom: 5px; /* Allow wrapping */
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+}
+
+.controls button:hover {
+    background-color: #0077cc;
+}
+
+.controls button i {
+    margin-right: 6px;
+}
+
+/* Container Reel - Enhanced for Responsiveness */
+.reel-container {
+    width: 100%; /* Take full width available */
+    max-width: 450px; /* Max width like a phone */
+    /* Use viewport height, constrained by max-height */
+    height: 100vh;
+    height: 100dvh;
+    max-height: 950px; /* Adjust max device height if needed */
+    background-color: #111; /* Fallback */
+    background-color: #000; /* Closer to IG */
+    /* border-radius: 12px; */ /* IG often has sharper corners on device */
+    border-radius: 0; /* Or small value like 4px if preferred */
+    overflow: hidden;
+    position: relative; /* Crucial for absolute positioning inside */
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+    margin: auto; /* Center vertically and horizontally in flex container */
+    display: flex; /* Use flex to ensure inner content stretches */
+}
+
+.reel-sponsored-post {
+    width: 100%;
+    height: 100%;
+    position: relative; /* Child container for absolute positioning */
+    display: flex; /* Ensure it fills the container */
+    flex-direction: column; /* Stack content vertically (though most is absolute) */
+}
+
+/* 1. Konten Utama & Overlay */
+.reel-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.reel-media {
+    width: 100%;
+    height: 100%;
+    object-fit: contain ; /* Cover the area, might crop */
+    display: block;
+    cursor: pointer;
+}
+
+.reel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Enhanced gradient: Darker at bottom, subtle at top */
+    background: linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0) 30%,
+        rgba(0, 0, 0, 0) 55%,
+        rgba(0, 0, 0, 0.8) 100%);
+    z-index: 2;
+    pointer-events: none; /* Allow clicks through to elements below if needed */
+}
+
+/* 2. Header */
+.reel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px; /* Slightly more padding */
+    z-index: 10;
+    /* Stronger top gradient for visibility */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+    color: #fff;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 9px; /* Reduced gap slightly */
+    /* Prevent shrinking */
+    flex-shrink: 0;
+    /* Allow growing but prevent pushing right side too far */
+    flex-grow: 1;
+    min-width: 0; /* Important for ellipsis on username */
+}
+
+.profile-pic {
+    width: 32px; /* Standard IG size */
+    height: 32px;
+    border-radius: 50%;
+    /* More subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    /* Prevent username from wrapping excessively */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Limit width */
+}
+.username.editable {
+    max-width: none; /* Allow editing full name */
+}
+
+
+.dot {
+    font-weight: bold;
+    opacity: 0.7;
+    padding: 0 2px; /* Spacing around dot */
+}
+
+.follow-link {
+    font-weight: 600;
+    font-size: 14px; /* Match username */
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: none;
+    color: #fff;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.follow-link:hover {
+    opacity: 1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Adjust gap */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.sponsored-label {
+    font-size: 12px; /* Smaller */
+    font-weight: 400; /* Lighter weight */
+    opacity: 0.85;
+}
+
+.options-icon {
+    font-size: 22px; /* Slightly larger */
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+/* 3. Tombol Aksi Samping */
+.reel-side-actions {
+    position: absolute;
+    /* Adjust bottom based on bottom info height roughly */
+    bottom: calc(15px + 60px); /* Start higher, adjust based on final bottom info height */
+    right: 8px; /* Closer to edge */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Slightly adjusted gap */
+    color: #fff;
+}
+
+.action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.action-icon {
+    font-size: 26px; /* Slightly smaller icons */
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7)); /* Sharper shadow */
+    transition: transform 0.2s ease;
+}
+.action-icon.fa-paper-plane {
+    transform: scaleX(-1); /* Flip paper plane */
+    margin-left: -3px; /* Adjust position after flip */
+}
+
+
+.action-icon:active {
+    transform: scale(0.9);
+}
+
+.action-count {
+    font-size: 12px; /* Smaller count text */
+    font-weight: 500; /* Lighter weight */
+    margin-top: 4px; /* Closer to icon */
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
+}
+
+/* Spinning Audio Icon Styling */
+.spinning-audio-icon-container {
+    margin-top: 8px; /* Reduced margin */
+    width: 28px; /* Smaller */
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    animation: spin 6s linear infinite; /* Faster spin */
+    border: 2px solid rgba(255, 255, 255, 0.9); /* Brighter border */
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    background-color: rgba(0,0,0,0.3); /* Darker center */
+}
+
+.audio-profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    /* No spin on inner image */
+    cursor: pointer; /* Indicate change possible */
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+/* 4. Info Bawah */
+.reel-bottom-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    padding: 10px 95px 15px 15px; /* More padding-right for side actions */
+    /* Stronger bottom gradient */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+    color: #fff;
+    display: flex; /* Use flex to layout children */
+    flex-direction: column; /* Stack vertically */
+    gap: 10px; /* Space between caption and audio/cta section */
+}
+
+/* Caption */
+.reel-caption {
+    font-size: 14px;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+    /* Allow caption to wrap */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.reel-caption .username {
+    margin-right: 5px;
+    font-weight: 700; /* Bolder username in caption */
+    max-width: none; /* Allow full username display here */
+    /* Reset potential limits from header */
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.reel-caption .caption-text {
+    /* Optional: Limit lines (requires JS for 'more') */
+    /* display: -webkit-box; */
+    /* -webkit-line-clamp: 2; */
+    /* -webkit-box-orient: vertical; */
+    /* overflow: hidden; */
+}
+
+/* Section Audio & CTA */
+.audio-cta-section {
+    display: flex; /* Arrange audio and CTA */
+    flex-direction: column; /* Stack audio above CTA */
+    gap: 12px; /* Space between audio and CTA */
+}
+
+/* Info Audio */
+.reel-audio-info {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Reduced gap */
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.audio-icon {
+    font-size: 12px;
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.audio-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1; /* Take available space */
+    min-width: 0; /* Crucial for ellipsis */
+}
+
+.audio-user-pic {
+    width: 18px; /* Slightly smaller */
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+/* Tombol CTA */
+.reel-cta {
+    /* Container takes full width minus padding */
+}
+
+.cta-button {
+    display: flex; /* Use flex for alignment */
+    align-items: center;
+    width: 100%; /* Full width */
+    padding: 10px 14px; /* Adjusted padding */
+    /* More subtle background with blur */
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-align: left;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px; /* Standard radius */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    /* Frosted glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    /* Ensure text is readable */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+.cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Span takes up remaining space */
+.cta-button span.editable {
+    flex-grow: 1;
+    margin-right: 8px;
+}
+
+.cta-arrow {
+    font-size: 11px; /* Smaller arrow */
+    opacity: 0.7;
+    flex-shrink: 0; /* Prevent arrow shrinking */
+}
+
+/* Styling untuk elemen yang bisa diedit */
+.editable[contenteditable="true"] {
+    cursor: text;
+    /* Subtle indication during editing */
+    outline: 1px dashed rgba(255, 255, 255, 0.4);
+    transition: outline 0.2s ease, background-color 0.2s ease;
+    border-radius: 3px;
+    padding: 1px 3px; /* Slight padding when editable */
+    margin: -1px -3px; /* Compensate padding */
+    /* Ensure background isn't fully white */
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.editable[contenteditable="true"]:focus {
+    /* Clearer focus indication */
+    outline: 1.5px solid #0095f6;
+    background-color: rgba(0, 149, 246, 0.15);
+}
+
+/* Remove browser default focus outline */
+[contenteditable="true"]:focus {
+    outline: none;
+}
+
+/* Ensure editable text color remains white */
+.editable {
+    color: #ffffff !important;
+    -webkit-text-fill-color: white !important;
+}

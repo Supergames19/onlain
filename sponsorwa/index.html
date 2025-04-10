@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Force mobile viewport, prevent scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SponsorWa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/sponsorwa/css/style.css">
+</head>
+
+<body>
+
+    <!-- Toolbar Container -->
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <label for="profilePicUpload" class="toolbar-button" title="Ganti Foto Profil">👤 Ganti Profil</label>
+            <input type="file" id="profilePicUpload" accept="image/*">
+            <label for="statusMediaUpload" class="toolbar-button" title="Ganti Gambar/Video Status">🖼️ Ganti
+                Media</label>
+            <input type="file" id="statusMediaUpload" accept="image/*">
+            <div class="toolbar-link-group">
+                <label for="ctaLinkInput">Link CTA:</label>
+                <input type="url" id="ctaLinkInput" placeholder="https://wa.me/123...">
+            </div>
+            <button id="saveHtmlBtn" class="toolbar-button" title="Simpan sebagai file HTML">💾 HTML</button>
+            <button id="saveJpgBtn" class="toolbar-button" title="Simpan sebagai gambar JPG">📷 JPG</button>
+            <button id="resetBtn" class="toolbar-button reset" title="Kembalikan ke template awal">🔄 Reset</button>
+        </div>
+    </div>
+
+    <!-- Status Message Area -->
+    <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="whatsapp-status-container" id="statusCard">
+            <div class="status-header">
+                <div class="status-profile-pic-wrapper">
+                    <img src="img/1.png" alt="Profil" class="status-profile-pic"
+                        id="profilePicDisplay" data-initial-src="img/1.png">
+                    <label for="profilePicUpload" class="image-upload-overlay" title="Ganti foto profil">Ganti</label>
+                </div>
+                <div class="status-page-info">
+                    <div class="status-advertiser-name" contenteditable="true" data-initial-html="Nama Brand Anda">Nama
+                        Brand Anda</div>
+                    <div class="status-label" contenteditable="true" data-initial-html="Sponsored">Sponsored</div>
+                </div>
+            </div>
+            <div class="status-media">
+                <img src="img/2.jpg" alt="Media Status"
+                    id="statusMediaDisplay"
+                    data-initial-src="img/2.jpg">
+                <label for="statusMediaUpload" class="image-upload-overlay" title="Ganti media status">Ganti
+                    Media</label>
+            </div>
+            <div class="status-text-overlay" contenteditable="true"
+                data-initial-html="<p>Tulis deskripsi singkat atau penawaran Anda di sini. Jaga agar tetap ringkas!</p>">
+                <p>Tulis deskripsi singkat atau penawaran Anda di sini. Jaga agar tetap ringkas!</p>
+            </div>
+            <div class="status-cta-area">
+                <a href="https://wa.me/0823xxxxxx" id="ctaLinkWrapper" data-initial-href="https://wa.me/0823xxxxxx"
+                    rel="noopener noreferrer" target="_blank">
+                    <span class="status-cta-icon">
+                        <!-- Simple SVG Chevron Up -->
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 8.5l-6 6 1.5 1.5L12 11.5l4.5 4.5L18 14.5z"></path>
+                        </svg>
+                    </span>
+                    <span class="status-cta-text" contenteditable="true" data-initial-html="Lihat Lainnya">Lihat
+                        Lainnya</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://supergames19.github.io/onlain/sponsorwa/js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Editor Iklan Lazada</title>
+    <!-- Font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/iklanlazada/css/style.css"> <!-- Updated path if needed -->
+
+</head>
+
+<body>
+
+    <!-- Toolbar Container -->
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <label for="productImageUpload" class="toolbar-button" title="Ganti Gambar Produk">🖼️ Ganti Gambar</label>
+            <input type="file" id="productImageUpload" accept="image/*">
+            <button id="saveHtmlBtn" class="toolbar-button" title="Simpan sebagai file HTML">💾 HTML</button>
+            <button id="saveJpgBtn" class="toolbar-button" title="Simpan sebagai gambar JPG">📷 JPG</button>
+            <button id="resetBtn" class="toolbar-button reset" title="Kembalikan ke template awal">🔄 Reset</button>
+            <!-- Add buttons to toggle common badges? Maybe later -->
+        </div>
+    </div>
+
+    <!-- Status Message Area -->
+    <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Lazada Ad Card -->
+        <div class="lazada-ad-container" id="lazadaAdCard">
+            <div class="lazada-ad-media">
+                <img src="https://supergames19.github.io/onlain/iklanlazada/img/1.png" alt="Gambar Produk"
+                    id="productImageDisplay"
+                    data-initial-src="https://supergames19.github.io/onlain/iklanlazada/img/1.png"> <!-- Updated initial image -->
+                <!-- Image Badges -->
+                <span class="laz-badge lazmall" contenteditable="true" data-initial-html="LazMall">LazMall</span>
+                <span class="laz-badge discount-perc" contenteditable="true" data-initial-html="-50%">-50%</span>
+                <span class="laz-badge free-shipping" contenteditable="true" data-initial-html="Gratis Ongkir">Gratis Ongkir</span>
+                <!-- Add more badges here if needed, give them data-initial-html="" if empty initially -->
+                <!-- <span class="laz-badge another-badge" contenteditable="true" data-initial-html=""></span> -->
+                <label for="productImageUpload" class="image-upload-overlay" title="Ganti gambar produk">Ganti</label>
+            </div>
+            <div class="lazada-ad-content">
+                <div class="lazada-ad-name" contenteditable="true"
+                    data-initial-html="Nama Produk Anda Tampil di Sini Maksimal Dua Baris Silakan Diedit Sesuai Kebutuhan">Nama Produk Anda Tampil di Sini Maksimal Dua Baris Silakan Diedit Sesuai Kebutuhan</div>
+                <div class="lazada-ad-price-row">
+                    <span class="current-price">
+                        <span class="currency">Rp</span><span contenteditable="true" data-initial-html="75.000">75.000</span>
+                    </span>
+                    <div class="price-details">
+                        <span class="original-price">
+                            <span class="currency">Rp</span><span contenteditable="true" data-initial-html="150.000">150.000</span>
+                        </span>
+                        <span class="discount-text" contenteditable="true" data-initial-html="-50%">-50%</span>
+                        <!-- Discount text often matches badge -->
+                    </div>
+                </div>
+                <div class="lazada-ad-info-row">
+                    <span class="rating-section">
+                        <!-- Star Icons (Example: 4.5 stars) -->
+                        <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <svg class="star-icon" viewBox="0 0 24 24" style="fill: var(--lazada-text-light);"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        <!-- Example half star would need different SVG/masking -->
+                        <!-- Rating value (optional, often just stars + count) -->
+                        <!-- <span contenteditable="true" data-initial-html="4.8">4.8</span> -->
+                        <span class="rating-count">(<span contenteditable="true" data-initial-html="125">125</span>)</span>
+                    </span>
+                    <span class="shop-info">
+                        <!-- Optional Sold Count -->
+                         <span class="units-sold" contenteditable="true" data-initial-html="1.1k terjual">1.1k terjual</span>
+                         <!-- Separator often implied by space -->
+                        <span class="shop-location" contenteditable="true" data-initial-html="DKI Jakarta">DKI Jakarta</span>
+                    </span>
+                </div>
+            </div>
+        </div> <!-- End lazada-ad-container -->
+    </div> <!-- End main-content -->
+
+    <!-- Link to JS -->
+    <script src="https://supergames19.github.io/onlain/iklanlazada/js/script.js"></script> <!-- Updated path if needed -->
+
+</body>
+</html>

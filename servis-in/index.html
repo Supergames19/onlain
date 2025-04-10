@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Notifikasi-Servis</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Library html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Library Signature Pad -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/servis-in/css/style.css">
+    <script src="https://supergames19.github.io/onlain/servis-in/js/script.js"></script>
+
+    
+</head>
+
+<body>
+
+    <div class="page-header">
+        <h1>Editor Notifikasi Servis Pelanggan</h1>
+        <p>Klik teks untuk edit, ganti gambar, tambahkan TTD, lalu simpan.</p>
+    </div>
+
+    <div class="main-container">
+
+        <!-- Area Editor Notifikasi -->
+        <div id="service-editor">
+            <div id="notification-container">
+                <!-- Konten Notifikasi -->
+                <h2 contenteditable="true">Informasi Penting Servis Perangkat Anda</h2>
+                <p contenteditable="true">Kepada Yth. Bapak/Ibu <strong contenteditable="true">[Nama
+                        Pelanggan]</strong>,</p>
+                <p contenteditable="true">Kami ingin memberitahukan hasil pemeriksaan teknisi kami terhadap perangkat
+                    <strong contenteditable="true">[Jenis Perangkat, misal: Smartphone Samsung A51]</strong> dengan
+                    nomor servis <strong contenteditable="true">[Nomor Servis/Nota]</strong> yang Anda serahkan.</p>
+                <p contenteditable="true">Setelah pengecekan, ditemukan kerusakan pada komponen <strong
+                        contenteditable="true">IC (Integrated Circuit)</strong> di bagian <strong
+                        contenteditable="true">[Sebutkan bagian spesifik, misal: Power Management]</strong>. Kerusakan
+                    ini menyebabkan masalah <strong contenteditable="true">[Sebutkan gejala, misal: perangkat mati total
+                        dan tidak bisa diisi daya]</strong>.</p>
+                <p contenteditable="true">Perbaikan memerlukan penggantian komponen IC tersebut.</p>
+                <div class="cost-section">
+                    <p contenteditable="true">Estimasi biaya untuk perbaikan ini adalah:</p>
+                    <span class="highlight" contenteditable="true"
+                        style="font-size: 1.6em; display: block; margin: 5px 0;">Rp 500.000,-</span>
+                    <small contenteditable="true" style="display: block; font-size: 0.9em; color: #666;">(Sudah termasuk
+                        komponen IC dan jasa pemasangan)</small>
+                </div>
+                <p contenteditable="true" class="image-caption">Berikut adalah foto unit perangkat Anda saat ini:</p>
+                <img id="device-photo" src="https://supergames19.github.io/onlain/servis/img/1.png"
+                    alt="Foto Unit Perangkat">
+                <div class="call-to-action">
+                    <p contenteditable="true"><strong contenteditable="true">Mohon konfirmasi Anda</strong> segera
+                        apakah setuju untuk melanjutkan proses perbaikan dengan estimasi biaya di atas.</p>
+                    <p contenteditable="true">Anda dapat membalas pesan ini atau menghubungi kami di <strong
+                            contenteditable="true">[Nomor Telepon/WA Anda]</strong> untuk persetujuan atau pertanyaan.
+                    </p>
+                    <p contenteditable="true">Perbaikan akan kami proses setelah konfirmasi diterima.</p>
+                </div>
+
+                <!-- Akhir Konten Notifikasi -->
+
+                <!-- Footer dengan Area Tanda Tangan -->
+                <div class="footer">
+                    <div class="signature-column">
+                        <p contenteditable="true">Hormat kami,</p>
+                        <div class="signature-wrapper"> <canvas id="provider-signature-pad"></canvas> </div>
+                        <button class="clear-sig-button" id="clear-provider-sig">Hapus TTD</button>
+                        <strong contenteditable="true">[Nama Toko/Servis Anda]</strong>
+                        <span contenteditable="true" style="display: block; font-size: 0.9em;">[Jabatan/Nama Teknisi -
+                            Opsional]</span>
+                    </div>
+                    <div class="signature-column">
+                        <p contenteditable="true">Tanda Tangan Persetujuan Konsumen:</p>
+                        <div class="signature-wrapper"> <canvas id="customer-signature-pad"></canvas> </div>
+                        <button class="clear-sig-button" id="clear-customer-sig">Hapus TTD</button>
+                        <strong contenteditable="true">[Nama Pelanggan]</strong>
+                        <span contenteditable="true" style="display: block; font-size: 0.9em;">Tanggal: [Tanggal
+                            Persetujuan]</span>
+                    </div>
+                    
+                </div>
+                <!-- Akhir Footer -->
+            </div>
+        </div>
+
+        <!-- Kontrol Edit dan Simpan -->
+        <div class="controls-section">
+            <div class="control-group">
+                <label for="image-upload">🖼️ Ganti Foto Unit:</label>
+                <input type="file" id="image-upload" accept="image/*">
+            </div>
+            <div class="control-group">
+                <label>💾 Simpan Hasil Edit:</label>
+                <button id="save-html-btn">Simpan sebagai HTML</button>
+                <button id="save-jpg-btn">Simpan sebagai JPG</button>
+                <button id="save-png-btn">Simpan sebagai PNG</button>
+            </div>
+            <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
+                JPG: ukuran file kecil (kompresi). PNG: kualitas terbaik (lossless).
+            </p>
+        </div>
+    </div>
+
+</body>
+
+</html>

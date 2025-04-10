@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sponsor IG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://supergames19.github.io/onlain/sponsorig/css/style.css">
+</head>
+
+<body>
+
+    <!-- Toolbar Container -->
+    <div class="toolbar-container">
+        <div class="toolbar">
+            <label for="profilePicUpload" class="toolbar-button" title="Ganti Foto Profil">👤 Ganti Profil</label>
+            <input type="file" id="profilePicUpload" accept="image/*">
+            <label for="mainMediaUpload" class="toolbar-button" title="Ganti Gambar/Video Utama">🖼️ Ganti Media</label>
+            <input type="file" id="mainMediaUpload" accept="image/*,video/*">
+            <div class="toolbar-link-group">
+                <label for="ctaLinkInput">Link CTA:</label>
+                <input type="url" id="ctaLinkInput" placeholder="https://shop-now.com">
+            </div>
+            <button id="saveHtmlBtn" class="toolbar-button" title="Simpan sebagai file HTML">💾 HTML</button>
+            <button id="saveJpgBtn" class="toolbar-button" title="Simpan sebagai gambar JPG">📷 JPG</button>
+            <button id="resetBtn" class="toolbar-button reset" title="Kembalikan ke template awal">🔄 Reset</button>
+        </div>
+    </div>
+
+    <!-- Status Message Area -->
+    <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="ig-post-container" id="igPostCard">
+
+            <!-- Header -->
+            <div class="ig-header">
+                <div class="ig-header-left">
+                    <div class="ig-profile-pic-wrapper">
+                        <img src="img/1.png" alt="Profil" class="ig-profile-pic"
+                            id="profilePicDisplay" data-initial-src="img/1.png">
+                        <label for="profilePicUpload" class="image-upload-overlay"
+                            title="Ganti foto profil">Ganti</label>
+                    </div>
+                    <div class="ig-user-info">
+                        <span class="ig-advertiser-username" contenteditable="true"
+                            data-initial-html="your_brand_name">your_brand_name</span>
+                        <span class="ig-sponsored-label">Sponsored</span>
+                    </div>
+                </div>
+                <span class="ig-more-options">
+                    <svg aria-label="More options" fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                        width="24">
+                        <circle cx="12" cy="12" r="1.5"></circle>
+                        <circle cx="6" cy="12" r="1.5"></circle>
+                        <circle cx="18" cy="12" r="1.5"></circle>
+                    </svg>
+                </span>
+            </div>
+
+            <!-- Media -->
+            <div class="ig-media">
+                <img src="img/1.png" alt="Post Media"
+                    id="mainMediaDisplay"
+                    data-initial-src="img/1.png">
+                <label for="mainMediaUpload" class="image-upload-overlay" title="Ganti media">Ganti Media</label>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="ig-action-bar">
+                <div class="ig-actions-left">
+                    <span class="ig-icon like" title="Like">
+                        <svg aria-label="Like" fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                            width="24">
+                            <path
+                                d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.227-3.04 2.688-3.04 2.688s-.528-.461-3.04-2.688C5.152 14.08 2.5 12.193 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.118-1.763a4.17 4.17 0 0 1 3.675-1.94z">
+                            </path>
+                        </svg>
+                        <!-- Liked state: <svg aria-label="Unlike" ... fill="#ed4956"... > -->
+                    </span>
+                    <span class="ig-icon comment" title="Comment">
+                        <svg aria-label="Comment" fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                            width="24">
+                            <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none"
+                                stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </span>
+                    <span class="ig-icon share" title="Share Post">
+                        <svg aria-label="Share Post" fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                            width="24">
+                            <line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22"
+                                x2="9.218" y1="3" y2="10.083"></line>
+                            <polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"
+                                stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon>
+                        </svg>
+                    </span>
+                </div>
+                <div class="ig-actions-right">
+                    <span class="ig-icon save" title="Save">
+                        <svg aria-label="Save" fill="currentColor" height="24" role="img" viewBox="0 0 24 24"
+                            width="24">
+                            <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon>
+                        </svg>
+                        <!-- Saved state: <svg aria-label="Remove" ... fill="currentColor" ...> -->
+                    </span>
+                </div>
+            </div>
+
+            <!-- Engagement -->
+            <div class="ig-engagement">
+                <span class="ig-likes">Liked by <strong contenteditable="true"
+                        data-initial-html="user_who_liked">user_who_liked</strong> and <strong contenteditable="true"
+                        data-initial-html="1,233">1,233</strong> others</span>
+            </div>
+
+            <!-- Caption -->
+            <div class="ig-caption">
+                <span class="ig-caption-content">
+                    <span class="ig-caption-username" contenteditable="true"
+                        data-initial-html="your_brand_name">your_brand_name</span>
+                    <span class="ig-caption-text" contenteditable="true"
+                        data-initial-html=" Your ad caption goes here. Make it snappy! ✨ Check out our new collection. Use <span class='hashtag'>#NewArrivals</span> or tag <span class='mention'>@collaborator</span>. Link in bio! ">
+                        Your ad caption goes here. Make it snappy! ✨ Check out our new collection. Use <span
+                            class='hashtag'>#NewArrivals</span> or tag <span class='mention'>@collaborator</span>. Link
+                        in bio! </span>
+                    <span class="caption-more-link">more</span>
+                </span>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="ig-cta-bar">
+                <a href="https://your-website.com" class="ig-cta-button" id="ctaLinkWrapper"
+                    data-initial-href="https://your-website.com" rel="noopener noreferrer" target="_blank">
+                    <span contenteditable="true" data-initial-html="Learn More">Learn More</span>
+                </a>
+            </div>
+
+            <!-- Timestamp -->
+            <div class="ig-timestamp">
+                <span contenteditable="true" data-initial-html="2 HOURS AGO">2 HOURS AGO</span>
+            </div>
+
+        </div> <!-- End ig-post-container -->
+    </div> <!-- End main-content -->
+
+    <script>
+        // --- DOM Elements ---
+        const profilePicUploadInput = document.getElementById('profilePicUpload');
+        const mainMediaUploadInput = document.getElementById('mainMediaUpload');
+        const profilePicDisplay = document.getElementById('profilePicDisplay');
+        const mainMediaDisplay = document.getElementById('mainMediaDisplay');
+        const saveHtmlBtn = document.getElementById('saveHtmlBtn');
+        const saveJpgBtn = document.getElementById('saveJpgBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const igPostCard = document.getElementById('igPostCard');
+        const statusMessageEl = document.getElementById('statusMessage');
+        const ctaLinkInput = document.getElementById('ctaLinkInput');
+        const ctaLinkWrapper = document.getElementById('ctaLinkWrapper'); // The <a> tag itself
+        const allActionButtons = document.querySelectorAll('.toolbar-container .toolbar-button, .toolbar-container label.toolbar-button');
+        const editableElements = igPostCard.querySelectorAll('[contenteditable="true"]');
+        const allImageInputs = document.querySelectorAll('input[type="file"]');
+
+        // --- Initial State Storage ---
+        function storeInitialState() { /* ... (logic unchanged) ... */
+            [profilePicDisplay, mainMediaDisplay].forEach(imgEl => { if (imgEl) { const i = imgEl.dataset.initialSrc || imgEl.src; imgEl.src = i; if (!imgEl.dataset.initialSrc) imgEl.dataset.initialSrc = i; } });
+            editableElements.forEach(el => { if (typeof el.dataset.initialHtml === 'undefined') el.dataset.initialHtml = el.innerHTML; el.innerHTML = el.dataset.initialHtml; });
+            if (ctaLinkWrapper) { const i = ctaLinkWrapper.dataset.initialHref || ctaLinkWrapper.getAttribute('href') || '#'; if (!ctaLinkWrapper.dataset.initialHref) ctaLinkWrapper.dataset.initialHref = i; ctaLinkWrapper.setAttribute('href', i); if (ctaLinkInput) ctaLinkInput.value = i; }
+            console.log("Initial Instagram Ad state loaded/restored.");
+        }
+
+        // --- Status Message ---
+        let statusTimeout; function showStatus(m, t = 'info', d = 4000) { clearTimeout(statusTimeout); let i = ''; switch (t) { case 'success': i = '✅ '; break; case 'error': i = '❌ '; break; case 'loading': i = '⏳ '; break; case 'info': i = 'ℹ️ '; break; }statusMessageEl.textContent = i + m; statusMessageEl.className = `status-message ${t} show`; if (d > 0) statusTimeout = setTimeout(() => statusMessageEl.classList.remove('show'), d); }
+
+        // --- Button State ---
+        function disableButtons(l = null) { allActionButtons.forEach(b => { if (b.tagName === 'BUTTON') b.disabled = !0; else if (b.tagName === 'LABEL') { b.style.pointerEvents = 'none'; b.setAttribute('aria-disabled', 'true'); } b.style.opacity = b === l ? '1' : '0.6'; if (b === l) { b.dataset.originalText = b.innerHTML; b.innerHTML = '⏳ Proses...'; } }); allImageInputs.forEach(i => i.disabled = !0); if (ctaLinkInput) ctaLinkInput.disabled = !0; }
+        function enableButtons() { allActionButtons.forEach(b => { if (b.tagName === 'BUTTON') b.disabled = !1; else if (b.tagName === 'LABEL') { b.style.pointerEvents = 'auto'; b.removeAttribute('aria-disabled'); } if (b.dataset.originalText) { b.innerHTML = b.dataset.originalText; delete b.dataset.originalText; } b.style.opacity = '1'; }); allImageInputs.forEach(i => i.disabled = !1); if (ctaLinkInput) ctaLinkInput.disabled = !1; }
+
+        // --- Image Upload ---
+        function handleImageUpload(event, displayElement) { /* ... (logic unchanged) ... */ const f = event.target.files[0]; if (f && (f.type.startsWith('image/') || f.type.startsWith('video/'))) { const r = new FileReader(); r.onload = function (e) { if (displayElement) { if (displayElement.tagName === 'IMG') { displayElement.src = e.target.result; showStatus('Media berhasil diganti.', 'success'); }/* Handle video */ } }; r.onerror = function () { showStatus('Gagal memuat pratinjau.', 'error'); }; r.readAsDataURL(f); } else if (f) { showStatus('Format file tidak valid.', 'error'); } event.target.value = null; }
+
+        // --- Update CTA Link ---
+        function updateCtaLink() { if (ctaLinkWrapper && ctaLinkInput) { ctaLinkWrapper.setAttribute('href', ctaLinkInput.value || '#'); } }
+
+        // --- Reset ---
+        function resetContent() { if (confirm('Yakin reset semua ke template awal?')) { disableButtons(resetBtn); showStatus('Mereset...', 'loading', 0); setTimeout(() => { try { storeInitialState(); showStatus('Konten direset.', 'success'); } catch (e) { console.error("Reset Error:", e); showStatus('Gagal mereset.', 'error'); } finally { enableButtons(); } }, 50); } }
+
+        // --- Filename ---
+        function generateFilename(ext) { const u = igPostCard.querySelector('.ig-advertiser-username'); let b = 'instagram_post'; if (u && u.textContent.trim()) { b = u.textContent.trim(); } const s = b.replace(/[^a-z0-9]/gi, '_').toLowerCase().substring(0, 30); const t = new Date().toISOString().slice(0, 19).replace(/[-:T]/g, ''); return `${s || 'post'}_${t}.${ext}`; }
+
+        // --- Save HTML ---
+        function saveHtml() {
+            disableButtons(saveHtmlBtn); showStatus('Menyiapkan file HTML...', 'loading', 0);
+            setTimeout(() => {
+                try {
+                    const postClone = igPostCard.cloneNode(true);
+                    postClone.querySelectorAll('[contenteditable="true"]').forEach(el => { el.removeAttribute('contenteditable'); el.removeAttribute('data-initial-html'); });
+                    postClone.querySelectorAll('[data-initial-src]').forEach(el => { el.removeAttribute('data-initial-src'); });
+                    postClone.querySelectorAll('[data-initial-href]').forEach(el => { el.removeAttribute('data-initial-href'); });
+                    postClone.querySelectorAll('.image-upload-overlay').forEach(el => el.remove());
+
+                    // Embed more comprehensive CSS
+                    const embeddedCSS = `
+        :root{--ig-bg:#fafafa;--ig-card-bg:#fff;--ig-border:#dbdbdb;--ig-text-primary:#262626;--ig-text-secondary:#8e8e8e;--ig-text-link:#00376b;--ig-blue-button:#0095f6;}
+        body{margin:0;background-color:var(--ig-bg);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;}
+        .ig-post-container{background-color:var(--ig-card-bg);border:1px solid var(--ig-border);border-radius:8px;width:100%;max-width:614px;margin:0 auto;}
+        .ig-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;}
+        .ig-header-left{display:flex;align-items:center;}
+        .ig-profile-pic{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block;margin-right:12px;}
+        .ig-user-info .ig-advertiser-username{font-weight:600;color:var(--ig-text-primary);line-height:1.3;display:block;}
+        .ig-user-info .ig-sponsored-label{font-size:12px;color:var(--ig-text-secondary);line-height:1.2;display:block;padding-top:1px;}
+        .ig-more-options svg{width:20px;height:20px;display:block;fill:var(--ig-text-primary);}
+        .ig-media img{display:block;width:100%;height:auto;object-fit:contain;}
+        .ig-action-bar{display:flex;justify-content:space-between;padding:10px 16px 8px 16px;}
+        .ig-actions-left,.ig-actions-right{display:flex;align-items:center;gap:16px;}
+        .ig-icon svg{width:24px;height:24px;display:block;fill:var(--ig-text-primary);}
+        .ig-engagement{padding:0 16px 8px 16px;}
+        .ig-likes{font-size:14px;color:var(--ig-text-primary);} .ig-likes strong{font-weight:600;}
+        .ig-caption{padding:0 16px 8px 16px;line-height:1.45;} .ig-caption-content{display:block;}
+        .ig-caption-username{font-weight:600;color:var(--ig-text-primary);margin-right:5px;}
+        .ig-caption-text{word-break:break-word;} .ig-caption-text .hashtag,.ig-caption-text .mention{color:var(--ig-text-link);}
+        .caption-more-link{color:var(--ig-text-secondary);margin-left:4px;}
+        .ig-cta-bar{padding:0px 16px 12px 16px;}
+        a.ig-cta-button{display:block;background-color:transparent;border:1px solid var(--ig-border);border-radius:6px;padding:7px 16px;font-size:14px;font-weight:600;color:var(--ig-blue-button);text-align:center;text-decoration:none;}
+        .ig-timestamp{padding:0 16px 16px 16px;color:var(--ig-text-secondary);font-size:10px;text-transform:uppercase;letter-spacing:0.2px;}
+                    `;
+                    const finalHtml = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Instagram Post</title><style>${embeddedCSS}</style></head><body>${postClone.outerHTML}</body></html>`;
+                    const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' }); const f = generateFilename('html'); const l = document.createElement('a'); l.href = URL.createObjectURL(blob); l.download = f; document.body.appendChild(l); l.click(); document.body.removeChild(l); URL.revokeObjectURL(l.href); showStatus(`File "${f}" (HTML) berhasil diunduh!`, 'success');
+                } catch (e) { console.error('Save HTML Error:', e); showStatus('Gagal menyimpan HTML.', 'error', 6000); }
+                finally { enableButtons(); }
+            }, 50);
+        }
+
+        // --- Save JPG ---
+        function saveJpg() { /* ... (logic unchanged) ... */
+            disableButtons(saveJpgBtn); showStatus('Memproses gambar JPG...', 'loading', 0); igPostCard.classList.add('is-capturing');
+            setTimeout(() => {
+                html2canvas(igPostCard, { useCORS: true, allowTaint: true, scale: 2, logging: false, backgroundColor: '#ffffff' })
+                    .then(canvas => { const i = canvas.toDataURL('image/jpeg', 0.92); const f = generateFilename('jpg'); const l = document.createElement('a'); l.href = i; l.download = f; document.body.appendChild(l); l.click(); document.body.removeChild(l); showStatus(`File "${f}" (JPG) berhasil diunduh!`, 'success'); })
+                    .catch(e => { console.error('JPG Error:', e); showStatus(`Gagal membuat JPG: ${e.message}.`, 'error', 6000); })
+                    .finally(() => { igPostCard.classList.remove('is-capturing'); enableButtons(); });
+            }, 150);
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => { storeInitialState(); console.log("Instagram Ad Editor Initialized (v2)."); });
+        profilePicUploadInput.addEventListener('change', (e) => handleImageUpload(e, profilePicDisplay));
+        mainMediaUploadInput.addEventListener('change', (e) => handleImageUpload(e, mainMediaDisplay));
+        saveHtmlBtn.addEventListener('click', saveHtml); saveJpgBtn.addEventListener('click', saveJpg); resetBtn.addEventListener('click', resetContent);
+        if (ctaLinkInput) ctaLinkInput.addEventListener('input', updateCtaLink);
+        editableElements.forEach(el => { /* ... (focus/blur unchanged) ... */ el.addEventListener('focus', () => el.classList.add('editable-focus')); el.addEventListener('blur', () => el.classList.remove('editable-focus')); });
+
+    </script>
+
+</body>
+
+</html>

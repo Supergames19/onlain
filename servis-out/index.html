@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Konfirmasi Servis Selesai & Lunas (+Foto)</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Library html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Library Signature Pad -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/servis-out/style.css">
+    <script src="https://supergames19.github.io/onlain/servis-out/script.js"></script>
+
+   
+</head>
+
+<body>
+
+    <div class="page-header">
+        <h1>Konfirmasi Pengambilan Servis & Pelunasan</h1>
+        <p>Edit detail, ganti/tambahkan foto final unit, tambahkan TTD, lalu simpan.</p>
+    </div>
+
+    <div class="main-container">
+
+        <!-- Area Editor Konfirmasi -->
+        <div id="service-editor">
+            <div id="receipt-container">
+                <!-- Konten Konfirmasi -->
+                <h2 contenteditable="true">Bukti Pengambilan Barang Servisan</h2>
+                <p contenteditable="true">Kepada Yth. Bapak/Ibu <strong contenteditable="true">[Nama
+                        Pelanggan]</strong>,</p>
+                <p contenteditable="true">Dengan ini kami konfirmasikan bahwa proses servis untuk perangkat <strong
+                        contenteditable="true">[Jenis Perangkat, misal: Laptop Acer Aspire 5]</strong> dengan nomor
+                    servis <strong contenteditable="true">[Nomor Servis/Nota]</strong> telah selesai.</p>
+                <p contenteditable="true">Perangkat tersebut telah <strong contenteditable="true">diambil</strong> oleh
+                    Anda/perwakilan Anda pada tanggal <strong contenteditable="true">[Tanggal Pengambilan, misal: 25
+                        Desember 2023]</strong>.</p>
+
+                <!-- --- Foto Unit --- -->
+                <p contenteditable="true" class="image-caption">Foto unit setelah perbaikan (sebelum diambil):</p>
+                <img id="device-photo" src="https://via.placeholder.com/350x250.png/e8e8e8/999999?text=Foto+Final+Unit"
+                    alt="Foto Final Unit Perangkat">
+                <!-- --- End Foto Unit --- -->
+
+                <!-- Status Pembayaran -->
+                <div class="payment-status" contenteditable="true">
+                    Pembayaran sejumlah <strong contenteditable="true">[Jumlah Pembayaran, misal: Rp 750.000,-]</strong>
+                    telah kami terima dan dinyatakan <strong
+                        style="color: var(--primary-color); font-weight: bold;">LUNAS</strong>.
+                </div>
+
+                <p contenteditable="true">Detail perbaikan yang telah dilakukan meliputi: <strong
+                        contenteditable="true">[Ringkasan Perbaikan, misal: Penggantian Keyboard dan Pembersihan
+                        Internal]</strong>.</p>
+
+                <!-- Informasi Garansi (Opsional) -->
+                <div class="warranty-info">
+                    <p contenteditable="true"><strong>Informasi Garansi (jika ada):</strong></p>
+                    <p contenteditable="true">Garansi servis untuk <strong contenteditable="true">[Sebutkan
+                            komponen/servis yg digaransi]</strong> berlaku selama <strong
+                            contenteditable="true">[Periode Garansi, misal: 1 Bulan]</strong> terhitung sejak tanggal
+                        pengambilan, dengan syarat dan ketentuan berlaku.</p>
+                    <p contenteditable="true"><small>Harap simpan bukti ini untuk klaim garansi.</small></p>
+                </div>
+
+                <p contenteditable="true" style="text-align: center; margin-top: 25px;">Terima kasih telah mempercayakan
+                    servis perangkat Anda kepada kami.</p>
+                <!-- Akhir Konten Konfirmasi -->
+
+                <!-- Footer dengan Area Tanda Tangan (Same) -->
+                <div class="footer">
+                    <div class="signature-column">
+                        <p contenteditable="true">Hormat kami,</p>
+                        <div class="signature-wrapper"> <canvas id="provider-signature-pad"></canvas> </div>
+                        <button class="clear-sig-button" id="clear-provider-sig">Hapus TTD</button>
+                        <strong contenteditable="true">[Nama Toko/Servis Anda]</strong>
+                        <span contenteditable="true" style="display: block; font-size: 0.9em;">[Nama Staff/Teknisi -
+                            Opsional]</span>
+                    </div>
+                    <div class="signature-column">
+                        <p contenteditable="true">Tanda Terima Konsumen:</p>
+                        <div class="signature-wrapper"> <canvas id="customer-signature-pad"></canvas> </div>
+                        <button class="clear-sig-button" id="clear-customer-sig">Hapus TTD</button>
+                        <strong contenteditable="true">[Nama Pelanggan]</strong>
+                        <span contenteditable="true" style="display: block; font-size: 0.9em;">Tanggal Terima: [Tanggal
+                            Pengambilan]</span>
+                    </div>
+                </div>
+                <!-- Akhir Footer -->
+            </div>
+        </div>
+
+        <!-- Kontrol Edit dan Simpan -->
+        <div class="controls-section">
+            <!-- --- Image Upload Control Added Back --- -->
+            <div class="control-group">
+                <label for="image-upload">🖼️ Ganti Foto Final Unit:</label>
+                <input type="file" id="image-upload" accept="image/*">
+            </div>
+            <!-- --- End Image Upload Control --- -->
+            <div class="control-group">
+                <label>💾 Simpan Bukti Pengambilan:</label>
+                <button id="save-html-btn">Simpan sebagai HTML</button>
+                <button id="save-jpg-btn">Simpan sebagai JPG</button>
+                <button id="save-png-btn">Simpan sebagai PNG</button>
+            </div>
+            <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
+                Simpan bukti ini sebagai arsip digital.
+            </p>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>
