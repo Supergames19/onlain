@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<!-- Changed language to Indonesian -->
+<html lang="id" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="https://supergames19.github.io/onlain/blog1/img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title (Made Editable) -->
+	<title contenteditable="true" id="page-title">Onlain Shop</title>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+
+	<!-- Font Awesome CDN (for save buttons icons) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!--
+			CSS
+			============================================= -->
+	<!-- Assuming these paths are correct -->
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/linearicons.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/font-awesome.min.css">
+	<!-- Template's own FA -->
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/bootstrap.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/magnific-popup.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/nice-select.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/animate.min.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/owl.carousel.css">
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/main.css">
+
+	<!-- html2canvas Library (PENTING untuk Simpan JPG!) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+		integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- Custom Styles for Editability and Save Buttons -->
+
+	<link rel="stylesheet" href="https://supergames19.github.io/onlain/blog1/css/style.css">
+
+</head>
+
+<body>
+
+	<!-- Kontainer Tombol Simpan di Atas -->
+	<div class="save-buttons-container">
+		<button class="button button-save" id="save-html-button" title="Simpan perubahan sebagai file HTML baru">
+			<i class="fa-solid fa-floppy-disk"></i> Simpan HTML
+		</button>
+		<button class="button button-save-jpg" id="save-jpg-button" title="Simpan tampilan konten sebagai gambar JPG">
+			<i class="fa-solid fa-file-image"></i> Simpan JPG
+		</button>
+	</div>
+
+	<!-- Wrapper for JPG Capture Area -->
+	<div id="capture-area">
+
+		<header id="header" id="home"> <!-- Note: Duplicate ID 'id="home"' removed from header -->
+			<div class="container">
+				<div class="row align-items-center justify-content-between d-flex">
+					<div id="logo">
+						<!-- Make logo editable -->
+						<div class="editable-image-container" data-id="logo-image">
+							<a href="https://supergames19.github.io/onlain/blog1/index.html"><img
+									src="https://supergames19.github.io/onlain/blog1/img/logo.png" alt="Logo" title=""
+									id="logo-img-element" /></a>
+							<div class="edit-overlay">
+								<i class="fa-solid fa-camera"></i>
+								<span>Ganti Logo</span>
+							</div>
+							<input type="file" class="hidden-file-input" accept="image/*">
+						</div>
+					</div>
+					<nav id="nav-menu-container">
+						<ul class="nav-menu">
+							<!-- Make nav links editable -->
+							<li class="menu-active"><a href="#home" contenteditable="true">Home</a></li>
+							<li><a href="#about" contenteditable="true">About</a></li>
+							<li><a href="#service" contenteditable="true">Service</a></li>
+							<li><a href="#unique" contenteditable="true">Unique Feature</a></li>
+							<li><a href="#review" contenteditable="true">Review</a></li>
+							<li><a href="#faq" contenteditable="true">Faq</a></li>
+							<li class="menu-has-children"><a href="" contenteditable="true">Pages</a>
+								<ul>
+									<li><a href="#" contenteditable="true">Generic</a></li>
+									<li><a href="#" contenteditable="true">Elements</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav><!-- #nav-menu-container -->
+				</div>
+			</div>
+		</header><!-- #header -->
+
+
+		<!-- start banner Area -->
+		<section class="banner-area" id="home">
+			<!-- Note: Editing background images is complex with this script. Text is editable. -->
+			<div class="container">
+				<div class="row fullscreen d-flex align-items-center justify-content-center">
+					<div class="banner-content col-lg-10">
+						<h5 class="text-white text-uppercase" contenteditable="true">Now you can feel the Heat</h5>
+						<h1 contenteditable="true">
+							Smart New Future
+						</h1>
+						<a href="#" class="primary-btn text-uppercase" contenteditable="true">Buy Now</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End banner Area -->
+
+
+		<!-- Start top-course Area -->
+		<section class="top-course-area section-gap">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="menu-content pb-60 col-lg-10">
+						<div class="title text-center">
+							<h1 class="mb-10" contenteditable="true">Top Courses That are open for Students</h1>
+							<p contenteditable="true">Who are in extremely love with eco friendly system.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center align-items-center">
+					<div class="col-lg-3 course-left">
+						<div class="single-course">
+							<span class="lnr lnr-rocket"></span>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
+							<p contenteditable="true">
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
+								ut labore et dolore magna aliqua.
+							</p>
+						</div>
+						<div class="single-course">
+							<span class="lnr lnr-cog"></span>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
+							<p contenteditable="true">
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
+								ut labore et dolore magna aliqua.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6 course-middle">
+						<!-- Make course image editable -->
+						<div class="editable-image-container" data-id="course-image">
+							<img class="img-fluid mx-auto d-block"
+								src="https://supergames19.github.io/onlain/blog1/img/1.png" alt="Course Image">
+							<div class="edit-overlay">
+								<i class="fa-solid fa-camera"></i>
+								<span>Ganti Gambar</span>
+							</div>
+							<input type="file" class="hidden-file-input" accept="image/*">
+						</div>
+					</div>
+					<div class="col-lg-3 course-right">
+						<div class="single-course">
+							<span class="lnr lnr-apartment"></span>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
+							<p contenteditable="true">
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
+								ut labore et dolore magna aliqua.
+							</p>
+						</div>
+						<div class="single-course">
+							<span class="lnr lnr-phone"></span>
+							<a href="#">
+								<h4 contenteditable="true">High Performance</h4>
+							</a>
+							<p contenteditable="true">
+								Lorem ipsum dolor sit amet, consectetur adipisic ing elit, seddo eiusmod tempor
+								incid.idunt
+								ut labore et dolore magna aliqua.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End top-course Area -->
+
+		<!-- Start home-about Area -->
+		<section class="home-about-area">
+			<div class="container-fluid">
+				<div class="row justify-content-center align-items-center">
+					<div class="col-lg-6 no-padding home-about-left">
+						<!-- Make about image editable -->
+						<div class="editable-image-container" data-id="about-image">
+							<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+								alt="About Image">
+							<div class="edit-overlay">
+								<i class="fa-solid fa-camera"></i>
+								<span>Ganti Gambar</span>
+							</div>
+							<input type="file" class="hidden-file-input" accept="image/*">
+						</div>
+					</div>
+					<div class="col-lg-6 no-padding home-about-right">
+						<h1 contenteditable="true">Globally Connected <br>
+							by Large Network</h1>
+						<p contenteditable="true">
+							<span>We are here to listen from you deliver exellence</span>
+						</p>
+						<p contenteditable="true">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+							ut
+							labore et dolore magna aliqua.
+							Ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor.
+						</p>
+						<a class="text-uppercase primary-btn" href="#" contenteditable="true">get details</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End home-about Area -->
+
+		<!-- Start service Area -->
+		<section class="service-area section-gap" id="service">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-8 pb-40 header-text">
+						<h1 contenteditable="true">Some Features that Made us Unique</h1>
+						<p contenteditable="true">
+							Who are in extremely love with eco friendly system.
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-user"></span>Expert Technicians</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-license"></span>Professional Service</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-phone"></span>Great Support</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-rocket"></span>Technical Skills</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-diamond"></span>Highly Recomended</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-service">
+							<h4 contenteditable="true"><span class="lnr lnr-bubble"></span>Positive Reviews</h4>
+							<p contenteditable="true">
+								Usage of the Internet is becoming more common due to rapid advancement of technology and
+								power.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End service Area -->
+
+		<!-- Start unique-feature Area -->
+		<section class="unique-feature-area section-gap" id="unique">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="menu-content pb-60 col-lg-10">
+						<div class="title text-center">
+							<h1 class="mb-10 text-white" contenteditable="true">Some Features that Made us Unique</h1>
+							<p contenteditable="true">Who are in extremely love with eco friendly system.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Product 1 -->
+					<div class="col-lg-3 col-md-6">
+						<div class="single-unique-product">
+							<div class="editable-image-container" data-id="unique-1">
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 1">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
+								<input type="file" class="hidden-file-input" accept="image/*">
+							</div>
+							<div class="desc">
+								<h4 contenteditable="true">Apple Watch White</h4>
+								<h6 contenteditable="true">Rp. 399.000</h6>
+								<a class="text-uppercase primary-btn" href="#" contenteditable="true">Pre Order</a>
+							</div>
+						</div>
+					</div>
+					<!-- Product 2 -->
+					<div class="col-lg-3 col-md-6">
+						<div class="single-unique-product">
+							<div class="editable-image-container" data-id="unique-2">
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 2">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
+								<input type="file" class="hidden-file-input" accept="image/*">
+							</div>
+							<div class="desc">
+								<h4 contenteditable="true">Apple Watch Black</h4>
+								<h6 contenteditable="true">Rp. 450.000</h6>
+								<a class="text-uppercase primary-btn" href="#" contenteditable="true">Pre Order</a>
+							</div>
+						</div>
+					</div>
+					<!-- Product 3 -->
+					<div class="col-lg-3 col-md-6">
+						<div class="single-unique-product">
+							<div class="editable-image-container" data-id="unique-3">
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 3">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
+								<input type="file" class="hidden-file-input" accept="image/*">
+							</div>
+							<div class="desc">
+								<h4 contenteditable="true">Apple Watch Sport</h4>
+								<h6 contenteditable="true">Rp. 350.000</h6>
+								<a class="text-uppercase primary-btn" href="#" contenteditable="true">Pre Order</a>
+							</div>
+						</div>
+					</div>
+					<!-- Product 4 -->
+					<div class="col-lg-3 col-md-6">
+						<div class="single-unique-product">
+							<div class="editable-image-container" data-id="unique-4">
+								<img class="img-fluid" src="https://supergames19.github.io/onlain/blog1/img/1.png"
+									alt="Product 4">
+								<div class="edit-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Gambar</span>
+								</div>
+								<input type="file" class="hidden-file-input" accept="image/*">
+							</div>
+							<div class="desc">
+								<h4 contenteditable="true">Apple Watch Gold</h4>
+								<h6 contenteditable="true">Rp. 599.000</h6>
+								<a class="text-uppercase primary-btn" href="#" contenteditable="true">Pre Order</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End unique-feature Area -->
+
+		<!-- Start review Area -->
+		<section class="review-area section-gap" id="review">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="menu-content pb-60 col-lg-10">
+						<div class="title text-center">
+							<h1 class="mb-10" contenteditable="true">What Our Customers Say</h1>
+							<p contenteditable="true">Feedback from our valued clients.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Cody Hines</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<!-- Stars are usually static, but could be made editable with more complex JS -->
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Chad Herrera</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Andre Gonzalez</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+					<!-- Add contenteditable to other reviews if needed -->
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Jon Banks</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Landon Houston</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="single-review">
+							<h4 contenteditable="true">Nelle Wade</h4>
+							<p contenteditable="true">
+								Accessories Here you can find the best computer accessory for your laptop, monitor,
+								printer,
+								scanner, speaker.
+							</p>
+							<div class="star">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End review Area -->
+
+		<!-- Start faq Area -->
+		<section class="faq-area section-gap" id="faq">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="menu-content pb-60 col-lg-10">
+						<div class="title text-center">
+							<h1 class="mb-10" contenteditable="true">Frequently Asked Questions</h1>
+							<p contenteditable="true" style="color:#0e0d0d">Who are in extremely love with eco friendly
+								system.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-start">
+					<div class="col-lg-6 faq-left">
+						<div id="accordion">
+							<!-- FAQ Item 1 -->
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h5 class="mb-0">
+										<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne" contenteditable="true">
+											Are your Templates responsive?
+										</button>
+									</h5>
+								</div>
+								<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+									data-parent="#accordion">
+									<div class="card-body" contenteditable="true" style="color:#070707">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
+										exercitation ullamco laboris.
+									</div>
+								</div>
+							</div>
+							<!-- FAQ Item 2 -->
+							<div class="card">
+								<div class="card-header" id="headingTwo">
+									<h5 class="mb-0">
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+											contenteditable="true">
+											Does it have all the plugin as mentioned?
+										</button>
+									</h5>
+								</div>
+								<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+									data-parent="#accordion">
+									<div class="card-body" contenteditable="true">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
+										exercitation ullamco laboris.
+									</div>
+								</div>
+							</div>
+							<!-- FAQ Item 3 -->
+							<div class="card">
+								<div class="card-header" id="headingThree">
+									<h5 class="mb-0">
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseThree" aria-expanded="false"
+											aria-controls="collapseThree" contenteditable="true">
+											Can i use the these theme for my client?
+										</button>
+									</h5>
+								</div>
+								<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+									data-parent="#accordion">
+									<div class="card-body" contenteditable="true">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
+										exercitation ullamco laboris.
+									</div>
+								</div>
+							</div>
+							<!-- FAQ Item 4 (Corrected ID) -->
+							<div class="card">
+								<div class="card-header" id="headingFour"> <!-- Corrected ID -->
+									<h5 class="mb-0">
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseFour" aria-expanded="false"
+											aria-controls="collapseFour" contenteditable="true">
+											Are your Templates responsive? <!-- Example: Different Question -->
+										</button>
+									</h5>
+								</div>
+								<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+									data-parent="#accordion"> <!-- Corrected ID -->
+									<div class="card-body" contenteditable="true">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+										nostrud
+										exercitation ullamco laboris.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Could add another col-lg-6 here for more FAQs if needed -->
+				</div>
+			</div>
+		</section>
+		<!-- End faq Area -->
+
+		<!-- start footer Area -->
+		<footer class="footer-area section-gap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-6 col-sm-6">
+						<div class="single-footer-widget">
+							<h6 contenteditable="true">About Us</h6>
+							<p contenteditable="true">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt
+								ut labore dolore magna aliqua.
+							</p>
+							<!-- Keep copyright dynamic, but allow editing the text around it -->
+							<p class="footer-text" style="color: #f1efef; " contenteditable="true">
+								Copyright ©
+								<script>document.write(new Date().getFullYear());</script> All rights reserved | This
+								template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#"
+									target="_blank">Edy
+									Sahputra</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-5  col-md-6 col-sm-6">
+						<div class="single-footer-widget">
+							<h6 contenteditable="true">Newsletter</h6>
+							<p contenteditable="true">Stay update with our latest</p>
+							<div class="" id="mc_embed_signup">
+								<!-- Mailchimp form - generally not editable directly -->
+								<form target="_blank" novalidate="true" action="#" method="get" class="form-inline">
+									<input class="form-control" name="EMAIL" placeholder="Enter Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+										required="" type="email">
+									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
+											aria-hidden="true"></i></button>
+									<div style="position: absolute; left: -5000px;">
+										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
+											type="text">
+									</div>
+									<div class="info"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+						<div class="single-footer-widget">
+							<h6 contenteditable="true">Follow Us</h6>
+							<p contenteditable="true">Let us be social</p>
+							<div class="footer-social d-flex align-items-center">
+								<!-- Social links - hrefs might need editing via prompt if needed -->
+								<a href="#"><i class="fa fa-facebook"></i></a>
+								<a href="#"><i class="fa fa-twitter"></i></a>
+								<a href="#"><i class="fa fa-dribbble"></i></a>
+								<a href="#"><i class="fa fa-behance"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+		<!-- End footer Area -->
+
+	</div> <!-- End capture-area -->
+
+
+	<!-- Template's Original JS Files -->
+	<!-- Assuming these paths are correct -->
+	<script src="https://supergames19.github.io/onlain/blog1/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/vendor/bootstrap.min.js"></script>
+	<!-- Google Maps API Key is required here for the map to work if template uses it -->
+	<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script> -->
+	<script src="https://supergames19.github.io/onlain/blog1/js/easing.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/hoverIntent.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/superfish.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/jquery.ajaxchimp.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/jquery.magnific-popup.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/owl.carousel.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/jquery.sticky.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/jquery.nice-select.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/parallax.min.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/mail-script.js"></script>
+	<script src="https://supergames19.github.io/onlain/blog1/js/main.js"></script>
+
+
+	<!-- Custom JS for Editability and Saving -->
+
+	<script src="https://supergames19.github.io/onlain/blog1/js/script.js"></script>
+
+</body>
+
+</html>
