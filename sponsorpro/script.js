@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edited Scarlett Page</title>
     <!-- Link the original CSS or embed styles -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/sponsorpro/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         /* Add any critical styles directly if style.css isn't guaranteed */
