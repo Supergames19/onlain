@@ -1,0 +1,641 @@
+/* Reset CSS */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0; /* Add margin reset */
+    padding: 0; /* Add padding reset */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 15px 5px; /* Reduce padding slightly */
+    background-color: #e9ebee; /* Facebook-like light grey */
+    color: #1c1e21; /* Darker text */
+    line-height: 1.4; /* Adjusted line height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 65vh;
+}
+
+.mobile-container {
+    max-width: 500px;
+    width: 100%;
+    background-color: #fff; /* White background for the post */
+    overflow: hidden;
+    border-radius: 8px; /* Slightly less rounded */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #385898; /* Link color */
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    padding: 12px 12px 8px 12px; /* Adjusted padding */
+    /* Removed border */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to top */
+    margin-bottom: 4px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: flex-start; /* Align items to top */
+    gap: 8px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border like FB */
+}
+/* Keep hover effect if desired */
+.logo:hover { transform: scale(1.05); }
+
+.brand-info {
+    padding-top: 2px; /* Align text better */
+}
+
+.brand-info .brand-name-line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600; /* Bold */
+    font-size: 0.9rem;
+    color: #050505;
+    margin-bottom: 2px;
+}
+.verified-icon {
+    color: #1877f2; /* FB Verified Blue */
+    font-size: 0.85rem; /* Adjust size */
+}
+
+
+.sponsored {
+    font-size: 0.75rem;
+    color: #65676b; /* FB secondary text color */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.sponsored i {
+    font-size: 0.7rem; /* Smaller globe */
+}
+
+
+.action-icons {
+    display: flex;
+    gap: 15px; /* Increased gap */
+    padding-top: 5px;
+}
+
+.action-icons i {
+    font-size: 1.1rem; /* Slightly larger */
+    color: #65676b; /* FB icon color */
+    cursor: pointer;
+}
+.action-icons i:hover { color: #1c1e21; }
+
+.tagline {
+    font-size: 0.9rem; /* Slightly larger */
+    color: #050505; /* Main text color */
+    padding: 4px 0;
+    line-height: 1.3;
+}
+.tagline span { margin-right: 4px; }
+.tagline a { font-weight: 600; color: #050505; } /* Link less distinct */
+
+
+/* Hero Section */
+.hero {
+    padding: 0; /* Remove padding if background image handles it */
+    text-align: center;
+    position: relative; /* Needed for absolute positioning inside */
+    /* Placeholder background - REPLACE with your image */
+    background-color: #f7f0e9; /* Light beige approximation */
+    background-size: cover;
+    background-position: center;
+    min-height: 350px; /* Adjust based on your background image */
+    display: flex; /* Use flex to center content vertically */
+    flex-direction: column;
+    justify-content: space-between; /* Pushes title up, button down */
+    align-items: center;
+}
+
+/* Add a container for the actual background image if needed */
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure it covers */
+    z-index: 0; /* Behind content */
+}
+
+
+.hero-content {
+    width: 100%;
+    padding: 15px;
+    position: relative; /* Ensure content is above background */
+    z-index: 1;
+    flex-grow: 1; /* Allow content to take space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin-bottom: 10px; /* Space below title block */
+    margin-top: 10px;
+}
+
+.scarlett-text {
+    font-size: 0.8rem; /* Smaller */
+    color: #333;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: block; /* On its own line */
+    margin-bottom: 5px;
+}
+
+.title h1 {
+    font-size: 2.1rem; /* Larger */
+    line-height: 1.1;
+    font-weight: 500; /* Less bold */
+    color: #8b4513; /* Reddish-brown approximation */
+    font-family: Georgia, serif; /* Serif font */
+    margin: 0;
+}
+
+.title .dari-text {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #6a5acd; /* Placeholder color */
+    display: block;
+    margin: 2px 0;
+}
+
+.title .perfumer-text {
+    font-size: 1.8rem; /* Slightly smaller than main title */
+    line-height: 1.1;
+    font-weight: 500;
+    color: #8b4513;
+    font-family: Georgia, serif;
+    display: block; /* Ensure it wraps correctly */
+}
+
+.perfumes-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align bottles at the bottom */
+    width: 100%;
+    /* margin-top: 10px; Let flexbox handle spacing */
+    /* margin-bottom: 20px; */
+    gap: 5px; /* Reduced gap */
+    flex-grow: 1; /* Take up available space */
+    padding-bottom: 60px; /* Space above button */
+}
+
+.perfume-card {
+    position: relative; /* For labels and badges */
+    width: 50%; /* Adjust width as needed */
+    max-width: 180px; /* Max size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfume-card img.editable-image {
+    max-width: 100%; /* Fill the card width */
+    height: auto;
+    display: block;
+    object-fit: contain; /* Contain keeps aspect ratio */
+     filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); /* Add shadow */
+}
+
+.perfume-label {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9); /* White semi-transparent */
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 15px; /* Pill shape */
+    font-size: 0.65rem;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    /* Position labels - adjust top/left/right as needed */
+}
+
+.perfume-card.left .perfume-label {
+    top: 10px;
+    left: -5px;
+    /* Add transform for slight rotation if desired */
+    /* transform: rotate(-5deg); */
+}
+
+.perfume-card.right .perfume-label {
+    top: 30px; /* Lower position for Banana */
+    right: -10px;
+     /* transform: rotate(5deg); */
+}
+
+
+.lasting-fragrance {
+    position: absolute;
+    top: 5px; /* Adjust position */
+    right: -15px; /* Adjust position */
+    z-index: 2;
+}
+
+.lasting-fragrance img.editable-image {
+    width: 55px; /* Adjust size of badge */
+    height: 55px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+
+.buy-button-container {
+    width: 100%;
+    position: absolute; /* Position at bottom */
+    bottom: 15px; /* Distance from bottom */
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.buy-button {
+    display: inline-block;
+    /* background: linear-gradient(to bottom, #f44336, #d32f2f); Red gradient */
+    background-color: #e41e3f; /* Solid red */
+    color: white;
+    padding: 10px 35px; /* Wider padding */
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase; /* Uppercase text */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.buy-button:hover {
+    /* background: linear-gradient(to bottom, #d32f2f, #b71c1c); Darker gradient */
+     background-color: #c21430; /* Darker solid red */
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+/* Product Preview Section */
+.product-preview {
+    padding: 10px 0 5px 0; /* Adjust padding */
+    background-color: #fff; /* Ensure white background */
+    border-top: 1px solid #dddfe2; /* FB divider color */
+}
+
+.product-preview-title { /* Changed class name */
+    font-size: 0.95rem; /* Slightly larger */
+    margin-bottom: 10px;
+    color: #050505;
+    font-weight: 600; /* Bold */
+    padding: 0 12px; /* Add horizontal padding */
+}
+
+.product-list-outer {
+    overflow-x: auto;
+    padding: 5px 12px 15px 12px; /* Padding left/right */
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+}
+.product-list-outer::-webkit-scrollbar { display: none; } /* Chrome/Safari/Opera */
+
+
+.product-list {
+    display: flex;
+    gap: 10px; /* Increased gap */
+}
+
+.product-item {
+    background-color: #fff; /* Keep white */
+    border-radius: 8px; /* Consistent rounding */
+    box-shadow: none; /* Remove individual shadow, rely on container */
+    border: 1px solid #dddfe2; /* Add border like image */
+    overflow: hidden;
+    flex: 0 0 auto; /* Prevent shrinking */
+    width: 120px; /* Width from image */
+    text-align: left;
+    padding-bottom: 5px; /* Space at bottom */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+}
+.product-item:hover {
+     border-color: #ccc; /* Slightly darker border on hover */
+}
+
+.product-item-header {
+    font-size: 0.6rem;
+    color: #65676b;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee; /* Separator */
+    text-transform: uppercase;
+}
+
+.product-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 5px; /* Padding around image */
+    min-height: 125px; /* Ensure space for image */
+    display: flex; /* Center image */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Allow wrapper to grow */
+}
+
+.product-item img.editable-image {
+    max-width: 100%; /* Control image size within wrapper */
+    max-height: 110px; /* Control height */
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Badges - Positioned absolutely within product-image-wrapper */
+.product-badge {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 4px;
+    color: white;
+    line-height: 1;
+}
+
+.product-badge-new {
+    top: 8px;
+    left: 8px;
+    background-color: #2b2ee2; /* Purple */
+    border-radius: 50%; /* Make it circular like sticker */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.77rem; /* Adjust font size inside circle */
+    /* For jagged look, use SVG or background-image */
+}
+
+.product-badge-brand {
+    top: 8px;
+    right: 8px;
+    /* Style for Brand of the Year - likely an image */
+     width: 40px; /* Placeholder size */
+     height: 40px;
+     background-color: #ccc; /* Placeholder */
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     /* Add img tag inside or use background-image */
+}
+.product-badge-brand img { width: 90%; height: 90%; object-fit: contain; }
+
+.product-badge-other {
+     top: 45px; /* Adjust position */
+     right: 8px;
+     /* Style for Courmand - likely an image */
+     width: 50px; /* Placeholder size */
+     height: 50px;
+     background-color: #eee; /* Placeholder */
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+.product-badge-other img { width: 90%; height: 90%; object-fit: contain; }
+
+.product-info-bottom {
+    text-align: center; /* Center text elements */
+}
+
+.product-name-bar {
+    background-color: #8a2be2; /* Purple */
+    color: white;
+    font-weight: bold;
+    font-size: 0.7rem;
+    padding: 5px 8px;
+    margin-top: auto; /* Push to bottom if item flex grows */
+    width: 100%; /* Take full width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-subtitle {
+    font-size: 0.65rem;
+    color: #65676b;
+    padding: 3px 8px 0px 8px; /* Top padding */
+}
+
+.product-size {
+    font-size: 0.65rem;
+    color: #65676b;
+    text-align: right;
+    padding: 0 8px 4px 8px; /* Bottom padding */
+}
+
+/* --- Wide Product Item --- */
+.product-item.wide {
+    width: 250px; /* Wider */
+    padding: 0; /* Remove padding, content controls it */
+    text-align: center;
+}
+.wide .product-item-header { /* Header specific to wide */
+     text-align: left;
+}
+
+.wide-content {
+    position: relative; /* For text overlay */
+    padding: 10px;
+}
+
+.wide img.promo-image {
+    width: 100%;
+    height: auto;
+    max-height: 95px;
+    object-fit:contain; /* Cover the area */
+    border-radius: 0; /* Remove rounding if needed */
+    display: block; /* Ensure block level */
+}
+
+.wide .promo-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #050505;
+}
+.wide .promo-text span { display: block; } /* Ensure line break */
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+    gap: 5px;
+    padding: 0 10px; /* Padding for grid */
+    margin-bottom: 10px;
+}
+.promo-grid img.editable-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.promo-button {
+    display: inline-block;
+    background-color: #e4e6eb; /* FB button grey */
+    color: #050505;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 5px; /* Space above button */
+    margin-bottom: 10px; /* Space below button */
+    border: none;
+    cursor: pointer;
+}
+.promo-button:hover {
+    background-color: #dcdfe3;
+    text-decoration: none;
+}
+
+
+/* --- Removed elements styling --- */
+.product-text { display: none; } /* Hide old product text if not used */
+.dots-indicator { display: none; } /* Hide old dots */
+/* Hide old tags if replaced */
+.new-tag { display: none; }
+.verified-tag { display: none; }
+
+/* Footer */
+footer {
+    padding: 10px;
+    color: #65676b;
+    font-size: 0.7rem;
+    border-top: 1px solid #dddfe2;
+}
+
+/* Styles for Editable Elements (Keep as is) */
+[contenteditable="true"] {
+    outline: 1px dashed #007bff;
+    cursor: text;
+    /* Prevent weird line breaks on empty elements */
+    min-height: 1em;
+    display: inline-block; /* Or block depending on element */
+}
+/* Target specific inline elements */
+.tagline span[contenteditable="true"],
+.sponsored span[contenteditable="true"],
+.brand-name-line span[contenteditable="true"] {
+    display: inline; /* Ensure they stay inline */
+    min-height: unset;
+}
+
+[contenteditable="true"]:hover {
+    background-color: #f0f8ff;
+}
+
+img.editable-image {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+img.editable-image:hover {
+    opacity: 0.8;
+    outline: 2px solid #007bff;
+}
+.hidden-file-input { display: none; }
+
+/* Edit Controls (Keep as is or adjust position/style) */
+.edit-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px; /* Reduced padding */
+    background-color: #f0f2f5; /* Match body background */
+    border-radius: 8px;
+    margin: -10px auto 20px auto; /* Negative margin to pull up */
+    max-width: 500px; /* Match container width */
+    width: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.edit-controls button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #ccd0d5; /* Button border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.edit-controls button:hover { transform: translateY(-1px); }
+
+#saveHtmlBtn { background-color: #e4e6eb; color: #050505; }
+#saveHtmlBtn:hover { background-color: #dcdfe3; }
+#saveJpgBtn { background-color: #1877f2; color: white; border-color: transparent; }
+#saveJpgBtn:hover { background-color: #166fe5; }
+
+/* Media Queries (Adjust if needed, focusing on mobile first) */
+/* Remove larger breakpoint styles if strictly targeting mobile look */
+
+/* Media Queries (Keep existing ones, adjust if needed) */
+@media (min-width: 501px) {
+    .mobile-container {
+        max-width: 500px; /* Keep it contained */
+        /* margin: 30px auto; Removed auto margin because body handles centering */
+    }
+     .edit-controls {
+        max-width: 500px;
+        width: 100%;
+     }
+}
+
+/* Optional: Slightly larger view for small tablets */
+@media (min-width: 601px) {
+    .mobile-container {
+         max-width: 600px;
+    }
+    .edit-controls {
+        max-width: 600px;
+     }
+    /* Adjust font sizes slightly if needed */
+    .brand-info .brand-name { font-size: 0.9rem; }
+    .tagline { font-size: 0.85rem; }
+    .title h1 { font-size: 2.1rem; }
+    .perfume-card img.editable-image { max-width: 130px; }
+    .buy-button { font-size: 0.9rem; }
+    .product-preview h2 { font-size: 0.9rem; }
+    .product-item { width: 110px; }
+    .product-item.wide { width: 240px; }
+    .product-item.wide img.editable-image { height: 140px; }
+}
+
+/* Keep the larger media query if you plan for desktop viewing */
+/* @media (min-width: 960px) { ... } */
