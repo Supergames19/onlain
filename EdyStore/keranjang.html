@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Keranjang Belanja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/EdyStore/style.css">
+    <!-- html2canvas for JPG saving -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- No inline styles needed -->
+</head>
+<body class="cart-page"> <!-- Class to help target JS/CSS -->
+     <header class="site-header">
+         <nav class="navbar" aria-label="Main Navigation">
+            <div class="container navbar-container">
+                <a href="index.html" class="brand-logo" contenteditable="true">EdyStore</a>
+                <ul class="nav-links" id="nav-menu">
+                     <li><a href="index.html" class="nav-link" >Beranda</a></li>
+                     <li><a href="index.html#produk" class="nav-link" >Koleksi</a></li>
+                    <li><a href="keranjang.html" class="nav-link active cart-link"> <!-- Active state -->
+                        <i data-feather="shopping-bag" contenteditable="false"></i>
+                         <span >Keranjang</span> (<span id="cart-count">0</span>)
+                    </a></li>
+                    <li><a href="index.html#kontak" class="nav-link" >Kontak</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+                        <i data-feather="sun" class="sun-icon" contenteditable="false"></i>
+                        <i data-feather="moon" class="moon-icon" contenteditable="false"></i>
+                    </button>
+                     <button class="menu-toggle" id="menu-toggler" aria-label="Toggle Menu" aria-expanded="false" aria-controls="nav-menu">
+                        <i data-feather="menu" contenteditable="false"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="section-padding">
+        <div class="container cart-container">
+            <h1 class="section-title" >Keranjang Belanja Anda</h1>
+
+            <div class="cart-layout">
+                <!-- Cart Items Panel -->
+                <div class="cart-items-panel">
+                    <div id="cart-items-container">
+                         <!-- JS will populate this with table or empty message -->
+                         <p class="empty-cart-message" style="display: none;" >Keranjang belanja Anda masih kosong.</p>
+                    </div>
+                     <!-- Container for cart action buttons -->
+                     <div class="cart-actions">
+                         <a href="index.html#produk" class="btn btn-outline continue-shopping-btn">
+                             <i data-feather="arrow-left" contenteditable="false"></i> <span >Lanjutkan Belanja</span>
+                         </a>
+                         <!-- Clear Cart Button -->
+                         <button id="clear-cart-btn" class="btn btn-danger btn-sm"> <!-- Use btn-danger -->
+                            <i data-feather="trash" contenteditable="false"></i> <span >Hapus Isi Keranjang</span>
+                         </button>
+                     </div>
+                </div>
+
+                <!-- Cart Summary Panel -->
+                <aside class="cart-summary-panel">
+                    <div class="cart-summary">
+                        <h2 >Ringkasan Pesanan</h2>
+                        <div class="summary-row">
+                            <span >Jumlah Item</span>
+                            <span id="cart-total-items">0</span>
+                        </div>
+                         <div class="summary-row">
+                            <span >Subtotal</span>
+                            <span id="cart-subtotal-price">Rp 0</span>
+                        </div>
+                         <div class="summary-row total-row">
+                            <span >Total</span>
+                            <strong id="cart-total-price">Rp 0</strong>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block btn-checkout" id="checkout-button" disabled>
+                            <span >Lanjutkan ke Checkout</span> <i data-feather="arrow-right" class="btn-icon" contenteditable="false"></i>
+                        </button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer section-padding">
+        <div class="container">
+            <p contenteditable="true">© <span id="current-year-footer-cart"></span> EdyStore. All Rights Reserved.</p>
+             <p contenteditable="true">Simulasi Toko Online - By: Edy Sahputra</p>
+        </div>
+    </footer>
+
+     <!-- Action Toolbar -->
+     <div class="action-toolbar">
+        <button id="save-html-btn" class="btn btn-secondary btn-sm" title="Simpan Halaman sebagai HTML Statis">Simpan HTML</button>
+        <button id="save-jpg-btn" class="btn btn-secondary btn-sm" title="Simpan Tampilan Halaman sebagai Gambar JPG">Simpan JPG</button>
+        <!-- Add product button hidden via CSS -->
+         
+    </div>
+
+     <!-- Toast Notification Placeholder -->
+     <div id="toast-notification" class="toast" role="alert" aria-live="assertive"></div>
+
+    <!-- Loading Overlay Placeholder -->
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true">
+        <div class="loading-spinner" role="status" aria-label="Loading"></div>
+        <p>Memproses...</p>
+    </div>
+
+    <!-- Main script MUST be after html2canvas -->
+    <script src="https://supergames19.github.io/onlain/EdyStore/script.js"></script>
+    <!-- No inline script needed for rendering cart, main script handles it via init() -->
+</body>
+</html>

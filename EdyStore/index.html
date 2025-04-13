@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title contenteditable="true">Tren Fashion Terbaru</title> <!-- Editable -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://supergames19.github.io/onlain/EdyStore/style.css">
+    <!-- html2canvas for JPG saving -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="index-page"> <!-- Added page class -->
+    <header class="site-header">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container navbar-container">
+                 <a href="index.html" class="brand-logo" contenteditable="true">EdyStore</a> <!-- Editable -->
+                <ul class="nav-links" id="nav-menu">
+                    <li><a href="index.html" class="nav-link active" >Beranda</a></li>
+                    <li><a href="#produk" class="nav-link" >Koleksi</a></li>
+                    <li><a href="keranjang.html" class="nav-link cart-link">
+                        <i data-feather="shopping-bag" contenteditable="false"></i>
+                        <span >Keranjang</span> (<span id="cart-count">0</span>)
+                    </a></li>
+                    <li><a href="#kontak" class="nav-link" >Kontak</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+                        <i data-feather="sun" class="sun-icon" contenteditable="false"></i>
+                        <i data-feather="moon" class="moon-icon" contenteditable="false"></i>
+                    </button>
+                    <button class="menu-toggle" id="menu-toggler" aria-label="Toggle Menu" aria-expanded="false" aria-controls="nav-menu">
+                        <i data-feather="menu" contenteditable="false"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+        <section class="hero-section">
+             <div class="container hero-content">
+                <h1 class="hero-title" contenteditable="true">Ekspresikan Auramu</h1> <!-- Editable -->
+                <p class="hero-subtitle" contenteditable="true">Temukan koleksi fashion pilihan yang mendefinisikan gayamu.</p> <!-- Editable -->
+                <a href="#produk" class="btn btn-primary btn-lg">
+                    <span contenteditable="true">Jelajahi Koleksi</span> <i data-feather="arrow-right" class="btn-icon" contenteditable="false"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="produk" class="product-section section-padding">
+            <div class="container">
+                <h2 class="section-title">
+                    <span contenteditable="true">Koleksi Pilihan</span>
+                </h2>
+                <div class="product-grid">
+                    <!-- Product Card 1 -->
+                    <article class="product-card" data-id="p1">
+                        <figure class="product-image-wrapper">
+                           <div class="editable-image-container" data-target-img-selector=".product-card[data-id='p1'] img">
+                               <img src="https://supergames19.github.io/onlain/EdyStore/img/2.png" alt="Produk Elegan 1" loading="lazy" class="editable-image" data-id="p1">
+                           </div>
+                            <div class="product-hover-overlay">
+                                <a href="detail-produk.html?id=p1" class="btn btn-outline-light btn-sm"><span contenteditable="true">Lihat Detail</span></a>
+                            </div>
+                        </figure>
+                        <div class="product-info">
+                            <h3 class="product-title"><a href="detail-produk.html?id=p1" contenteditable="true">Produk Elegan 1</a></h3>
+                            <span class="product-price" contenteditable="true">Rp 249.000</span>
+                            <button class="btn btn-secondary add-to-cart-btn btn-sm" data-id="p1" data-name="Produk Elegan 1" data-price="249000">
+                                <i data-feather="shopping-cart" contenteditable="false"></i> <span contenteditable="true">Tambah</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Product Card 2 -->
+                    <article class="product-card" data-id="p2">
+                         <figure class="product-image-wrapper">
+                             <div class="editable-image-container" data-target-img-selector=".product-card[data-id='p2'] img">
+                                <img src="https://supergames19.github.io/onlain/EdyStore/img/2.png" alt="Produk Elegan 2" loading="lazy" class="editable-image" data-id="p2"> <!-- Corrected default image -->
+                             </div>
+                             <div class="product-hover-overlay">
+                                <a href="detail-produk.html?id=p2" class="btn btn-outline-light btn-sm"><span contenteditable="true">Lihat Detail</span></a>
+                            </div>
+                        </figure>
+                        <div class="product-info">
+                             <h3 class="product-title"><a href="detail-produk.html?id=p2" contenteditable="true">Produk Elegan 2</a></h3>
+                            <span class="product-price" contenteditable="true">Rp 319.000</span>
+                            <button class="btn btn-secondary add-to-cart-btn btn-sm" data-id="p2" data-name="Produk Elegan 2" data-price="319000">
+                                <i data-feather="shopping-cart" contenteditable="false"></i> <span contenteditable="true">Tambah</span>
+                            </button>
+                        </div>
+                    </article>
+
+                     <!-- Product Card 3 -->
+                     <article class="product-card" data-id="p3">
+                        <figure class="product-image-wrapper">
+                            <div class="editable-image-container" data-target-img-selector=".product-card[data-id='p3'] img">
+                                <img src="https://supergames19.github.io/onlain/EdyStore/img/2.png" alt="Produk Elegan 3" loading="lazy" class="editable-image" data-id="p3">
+                            </div>
+                            <div class="product-hover-overlay">
+                                <a href="detail-produk.html?id=p3" class="btn btn-outline-light btn-sm"><span contenteditable="true">Lihat Detail</span></a>
+                            </div>
+                        </figure>
+                        <div class="product-info">
+                             <h3 class="product-title"><a href="detail-produk.html?id=p3" contenteditable="true">Produk Elegan 3</a></h3>
+                            <span class="product-price" contenteditable="true">Rp 199.000</span>
+                            <button class="btn btn-secondary add-to-cart-btn btn-sm" data-id="p3" data-name="Produk Elegan 3" data-price="199000">
+                                <i data-feather="shopping-cart" contenteditable="false"></i> <span contenteditable="true">Tambah</span>
+                            </button>
+                        </div>
+                    </article>
+                    <!-- New products will be appended here by JS -->
+                </div>
+            </div>
+        </section>
+
+         <section id="kontak" class="contact-section section-padding">
+             <div class="container contact-content">
+                 <h2 class="section-title" contenteditable="true">Tetap Terhubung</h2> <!-- Editable -->
+                 <p contenteditable="true">Dapatkan info terbaru & penawaran spesial langsung di inbox Anda.</p> <!-- Editable -->
+                 <form class="subscribe-form" onsubmit="event.preventDefault(); AuraStore.showToast('Fitur langganan belum diimplementasikan.', 'info');">
+                     <input type="email" placeholder="Masukkan alamat email Anda" required aria-label="Alamat Email">
+                     <button type="submit" class="btn btn-primary"><span contenteditable="true">Berlangganan</span></button>
+                 </form>
+                 <div class="social-links">
+                     <a href="#" aria-label="Instagram"><i data-feather="instagram" contenteditable="false"></i></a>
+                     <a href="#" aria-label="Facebook"><i data-feather="facebook" contenteditable="false"></i></a>
+                     <a href="#" aria-label="Twitter"><i data-feather="twitter" contenteditable="false"></i></a>
+                 </div>
+            </div>
+         </section>
+
+    </main>
+
+    <footer class="site-footer section-padding">
+        <div class="container">
+            <p contenteditable="true">© <span id="current-year"></span> EdyStore. All Rights Reserved.</p> <!-- Editable -->
+            <p contenteditable="true">Simulasi Toko Online - By: Edy Sahputra</p> <!-- Editable -->
+        </div>
+    </footer>
+
+     <!-- Action Toolbar -->
+     <div class="action-toolbar">
+        <button id="save-html-btn" class="btn btn-secondary btn-sm" title="Simpan Halaman sebagai HTML Statis">Simpan HTML</button>
+        <button id="save-jpg-btn" class="btn btn-secondary btn-sm" title="Simpan Tampilan Halaman sebagai Gambar JPG">Simpan JPG</button>
+        <button id="add-product-btn" class="btn btn-primary btn-sm" title="Tambah Produk Baru ke Halaman">Tambah Produk</button>
+        <!-- Hidden file input for image upload -->
+        <input type="file" id="image-upload-input" accept="image/*" style="display: none;">
+    </div>
+
+    <!-- Toast Notification Placeholder -->
+    <div id="toast-notification" class="toast" role="alert" aria-live="assertive"></div>
+
+    <!-- Loading Overlay Placeholder -->
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true">
+        <div class="loading-spinner" role="status" aria-label="Loading"></div>
+        <p>Memproses...</p>
+    </div>
+
+    <!-- Main script MUST be after html2canvas -->
+    <script src="https://supergames19.github.io/onlain/EdyStore/script.js"></script>
+    <!-- No inline script needed for index page functionality -->
+</body>
+</html>
