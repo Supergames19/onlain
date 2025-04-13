@@ -1,0 +1,667 @@
+/* Reset CSS */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 20px 5px; /* Provide some padding around the container */
+    background-color: #e9ebee; /* Facebook-like light grey */
+    color: #1c1e21; /* Darker text */
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column; /* Stack controls and container */
+    justify-content: flex-start; /* Align to top */
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+.mobile-container {
+    max-width: 500px; /* Max width for the mobile view */
+    width: 100%;
+    background-color: #fff; /* White background for the post */
+    overflow: hidden; /* Clip content like badges */
+    border-radius: 8px; /* Slightly less rounded */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    margin-bottom: 20px; /* Space below container */
+}
+
+a {
+    text-decoration: none;
+    color: #385898; /* Link color */
+    font-weight: 600; /* Make links slightly bolder */
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    padding: 12px 12px 8px 12px; /* Adjusted padding */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to top */
+    margin-bottom: 8px; /* Increased space below top bar */
+}
+
+.logo-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    background-color: #eee; /* Placeholder bg */
+    flex-shrink: 0; /* Prevent shrinking */
+    transition: transform 0.2s ease, outline 0.2s ease; /* Add outline transition */
+}
+
+.brand-info {
+    padding-top: 2px; /* Align text better */
+}
+
+.brand-info .brand-name-line {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #050505;
+    margin-bottom: 2px;
+}
+.brand-name-line span { display: inline; } /* Ensure span stays inline */
+
+.verified-icon {
+    color: #1877f2; /* FB Verified Blue */
+    font-size: 0.85rem;
+}
+
+.sponsored {
+    font-size: 0.75rem;
+    color: #65676b; /* FB secondary text color */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.sponsored span { display: inline; } /* Ensure span stays inline */
+.sponsored i {
+    font-size: 0.7rem;
+}
+
+.action-icons {
+    display: flex;
+    gap: 15px;
+    padding-top: 5px;
+    color: #65676b; /* FB icon color */
+}
+.action-icons i {
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.action-icons i:hover { color: #1c1e21; }
+
+.tagline {
+    font-size: 0.9rem;
+    color: #050505;
+    padding: 4px 0;
+    line-height: 1.35; /* Slightly more line height */
+}
+.tagline span[contenteditable="true"] { display: inline; margin-right: 4px; } /* Keep inline */
+.tagline a { color: #050505; font-weight: normal; } /* Link less distinct */
+
+/* Hero Section */
+.hero {
+    padding: 0;
+    text-align: center;
+    position: relative;
+    /* --- BACKGROUND --- */
+    background-color: #f7f0e9; /* Light beige approximation */
+    /* background: url('img/hero_background.jpg') no-repeat center center / cover; */
+    min-height: 380px; /* Adjust based on content/background */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-background-image { /* If using separate background image */
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    background-color: #eee; /* Placeholder bg */
+}
+
+.hero-content {
+    width: 100%;
+    padding: 20px 15px 15px 15px; /* Increased top padding */
+    position: relative;
+    z-index: 1; /* Above background */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    margin-bottom: 15px; /* More space below title */
+}
+
+.scarlett-text {
+    font-size: 0.85rem;
+    color: #444;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.title h1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+    font-weight: 500;
+    color: #8b4513; /* Reddish-brown */
+    font-family: Georgia, serif;
+    margin: 0;
+}
+
+.title .dari-text {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #6a5acd; /* Placeholder color */
+    display: block;
+    margin: 4px 0;
+}
+
+.title .perfumer-text {
+    font-size: 1.9rem;
+    line-height: 1.1;
+    font-weight: 500;
+    color: #8b4513;
+    font-family: Georgia, serif;
+    display: block;
+}
+
+.perfumes-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align bottles at bottom */
+    width: 100%;
+    gap: 5px;
+    flex-grow: 1; /* Take available space */
+    padding-bottom: 75px; /* More space above button */
+    position: relative; /* Needed for absolute children */
+    min-height: 150px; /* Ensure minimum height */
+}
+
+.perfume-card {
+    position: relative;
+    width: 50%;
+    max-width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfume-card img.editable-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 160px; /* Limit bottle height */
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+    background-color: transparent; /* Hide placeholder bg when image loads */
+}
+.perfume-card img#perfumeImg1 { transform: rotate(-5deg); margin-bottom: -10px;} /* Tilt left */
+.perfume-card img#perfumeImg2 { transform: rotate(5deg); } /* Tilt right */
+
+.perfume-label {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    z-index: 2; /* Above bottle */
+}
+.perfume-label span { display: inline; } /* Ensure span stays inline */
+
+.perfume-card.left .perfume-label {
+    top: 15%;
+    left: -10px;
+    transform: rotate(-8deg);
+}
+
+.perfume-card.right .perfume-label {
+    top: 25%;
+    right: -10px;
+    transform: rotate(8deg);
+}
+
+.lasting-fragrance {
+    position: absolute;
+    top: 0px;
+    right: -15px;
+    z-index: 2;
+}
+
+.lasting-fragrance img.editable-image {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+    background-color: #eee; /* Placeholder bg */
+}
+
+.buy-button-container {
+    width: 100%;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 3; /* Above other elements */
+}
+
+.buy-button {
+    display: inline-block;
+    background-color: #e41e3f; /* Solid red */
+    color: white;
+    padding: 10px 35px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+.buy-button:hover {
+     background-color: #c21430; /* Darker solid red */
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+/* Product Preview Section */
+.product-preview {
+    padding: 12px 0 10px 0;
+    background-color: #fff;
+    border-top: 1px solid #dddfe2;
+}
+
+.product-preview-title {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    color: #050505;
+    font-weight: 600;
+    padding: 0 12px;
+}
+.product-preview-title span { display: inline; } /* Ensure span stays inline */
+
+.product-list-outer {
+    overflow-x: auto; /* Enable horizontal scroll */
+    padding: 5px 12px 15px 12px;
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+}
+.product-list-outer::-webkit-scrollbar { display: none; } /* Chrome/Safari/Opera */
+
+.product-list {
+    display: flex;
+    gap: 10px;
+    width: max-content; /* Allow container to grow */
+}
+
+.product-item {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #dddfe2;
+    overflow: hidden;
+    flex: 0 0 auto;
+    width: 125px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+}
+.product-item:hover {
+     border-color: #ccc;
+}
+
+.product-item-header {
+    font-size: 0.6rem;
+    color: #65676b;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.product-item-header span { display: inline; } /* Ensure span stays inline */
+
+.product-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 8px;
+    min-height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    background-color: #f8f8f8;
+}
+
+.product-item img.editable-image {
+    max-width: 100%;
+    max-height: 115px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background-color: transparent;
+}
+
+/* Badges */
+.product-badge {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 4px;
+    color: white;
+    line-height: 1;
+    z-index: 2;
+}
+.product-badge span { display: inline; } /* Ensure span stays inline */
+
+.product-badge-new {
+    top: 5px;
+    left: 5px;
+    background-color: #6a0dad;
+    /* width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; */
+}
+
+.product-badge-brand {
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0;
+    display: flex; /* Ensure img is block inside */
+}
+.product-badge-brand img.editable-image {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: block;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+.product-badge-other {
+    bottom: 5px;
+    right: 5px;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0;
+    display: flex;
+}
+.product-badge-other img.editable-image {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+.product-info-bottom {
+    text-align: center;
+    margin-top: auto;
+    border-top: 1px solid #eee;
+}
+
+.product-name-bar {
+    background-color: #8a2be2;
+    color: white;
+    font-weight: bold;
+    font-size: 0.7rem;
+    padding: 5px 8px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.product-name-bar span { display: inline; } /* Ensure span stays inline */
+
+.product-subtitle {
+    font-size: 0.65rem;
+    color: #65676b;
+    padding: 4px 8px 0px 8px;
+}
+.product-subtitle span { display: inline; } /* Ensure span stays inline */
+
+.product-size {
+    font-size: 0.65rem;
+    color: #65676b;
+    padding: 0 8px 6px 8px;
+}
+.product-size span { display: inline; } /* Ensure span stays inline */
+
+/* Wide Product Item */
+.product-item.wide {
+    width: 260px;
+    padding: 0;
+    text-align: center;
+    border-color: #c9cdd1;
+}
+.wide .product-item-header { text-align: left; }
+
+.wide img.promo-image {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 0;
+    display: block;
+    background-color: #eee;
+}
+
+.wide-content {
+    position: relative;
+    padding: 12px;
+}
+
+.wide .promo-text {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #050505;
+}
+.wide .promo-text span { display: block; line-height: 1.2; }
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 15px;
+}
+.promo-grid img.editable-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #eee;
+}
+
+.promo-button {
+    display: inline-block;
+    background-color: #e4e6eb;
+    color: #050505;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.promo-button:hover { background-color: #dcdfe3; }
+.promo-button span { display: inline; } /* Ensure span stays inline */
+
+/* Position brand badge inside wide item */
+.wide .product-badge-brand {
+    top: auto;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+}
+.wide .product-badge-brand img.editable-image {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+}
+
+/* Footer */
+footer {
+    padding: 12px;
+    color: #65676b;
+    font-size: 0.8rem;
+    border-top: 1px solid #dddfe2;
+    text-align: center;
+}
+footer span { display: inline; } /* Keep inline */
+
+/* Styles for Editable Elements */
+[contenteditable="true"] {
+    outline: 1px dashed rgba(0, 123, 255, 0.5); /* Lighter dashed outline */
+    cursor: text;
+    padding: 1px 2px;
+    margin: -1px -2px;
+    min-height: 1.2em;
+    border-radius: 2px;
+    transition: background-color 0.2s ease, outline 0.2s ease;
+    /* Ensure inline display where needed */
+    display: inline-block; /* Default to inline-block */
+}
+/* Force inline display for specific elements */
+.tagline span[contenteditable="true"],
+.sponsored span[contenteditable="true"],
+.brand-name-line span[contenteditable="true"],
+.buy-button[contenteditable="true"],
+.promo-button[contenteditable="true"],
+.product-badge-new[contenteditable="true"],
+footer span[contenteditable="true"] {
+    display: inline;
+    min-height: unset;
+    vertical-align: baseline; /* Align better */
+}
+/* Adjust badges specifically */
+.product-badge-new[contenteditable="true"] {
+    display: inline-flex; /* Use flex for centering */
+    align-items: center;
+    justify-content: center;
+    padding: 3px 5px; /* Reset padding if needed */
+    margin: -1px -2px;
+}
+
+
+[contenteditable="true"]:hover {
+    background-color: rgba(0, 123, 255, 0.05); /* Very light blue bg on hover */
+    outline-color: rgba(0, 123, 255, 0.7);
+}
+[contenteditable="true"]:focus {
+    background-color: rgba(0, 123, 255, 0.1);
+    outline: 1px solid #007bff; /* Solid outline on focus */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Subtle focus ring */
+}
+
+
+img.editable-image {
+    cursor: pointer;
+    transition: opacity 0.3s ease, outline 0.2s ease;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    background-color: #eee; /* Background for loading state */
+}
+img.editable-image:hover {
+    opacity: 0.85;
+    outline-color: #007bff; /* Show outline on hover */
+}
+.hidden-file-input { display: none; }
+
+/* Edit Controls */
+.edit-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    background-color: rgba(240, 242, 245, 0.9);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    width: calc(100% - 10px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+}
+.edit-controls button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #ccd0d5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+.edit-controls button:hover {
+     transform: translateY(-1px);
+     box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+.edit-controls button:active {
+    transform: translateY(0px);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+#saveHtmlBtn { background-color: #e4e6eb; color: #050505; }
+#saveHtmlBtn:hover { background-color: #dcdfe3; }
+#saveJpgBtn { background-color: #1877f2; color: white; border-color: transparent; }
+#saveJpgBtn:hover { background-color: #166fe5; }
+
+/* Media Queries */
+/* Styles are mobile-first */
+@media (min-width: 600px) {
+    .mobile-container, .edit-controls {
+        max-width: 550px;
+    }
+}
