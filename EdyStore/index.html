@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title contenteditable="true">Tren Fashion Terbaru</title> <!-- Editable -->
+    <title contenteditable="true">EdyStore Terbaru</title> <!-- Editable -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -117,28 +117,53 @@
             </div>
         </section>
 
-         <section id="kontak" class="contact-section section-padding">
+        <!-- ========= MODIFIED KONTAK SECTION START ========= -->
+        <section id="kontak" class="contact-section section-padding">
              <div class="container contact-content">
-                 <h2 class="section-title" contenteditable="true">Tetap Terhubung</h2> <!-- Editable -->
-                 <p contenteditable="true">Dapatkan info terbaru & penawaran spesial langsung di inbox Anda.</p> <!-- Editable -->
-                 <form class="subscribe-form" onsubmit="event.preventDefault(); AuraStore.showToast('Fitur langganan belum diimplementasikan.', 'info');">
-                     <input type="email" placeholder="Masukkan alamat email Anda" required aria-label="Alamat Email">
-                     <button type="submit" class="btn btn-primary"><span contenteditable="true">Berlangganan</span></button>
-                 </form>
+                 <h2 class="section-title" contenteditable="true">Hubungi Kami</h2> <!-- Changed title -->
+                 <div class="contact-details" style="margin-bottom: 2rem; text-align: center; line-height: 1.8;">
+                     <!-- Address -->
+                     <div class="contact-item" style="margin-bottom: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap;">
+                         <i data-feather="map-pin" style="width: 1.1em; height: 1.1em; flex-shrink: 0; color: var(--primary-color);"></i>
+                         <span contenteditable="true">Jl. Fashion Raya No. 45, Blok C, Jakarta Pusat, DKI Jakarta 10110</span>
+                     </div>
+                     <br> <!-- Line break for better spacing -->
+                     <!-- Phone -->
+                     <div class="contact-item" style="margin-bottom: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap;">
+                         <i data-feather="phone" style="width: 1.1em; height: 1.1em; flex-shrink: 0; color: var(--primary-color);"></i>
+                         <a href="tel:+62215551234" contenteditable="true" style="color: var(--text-color); text-decoration: none;">+62 21 555 1234</a>
+                         <span style="color: var(--text-secondary-color); margin: 0 0.3rem;">(Telepon)</span>
+                         <a href="https://wa.me/6281234567890" target="_blank" contenteditable="true" style="color: var(--text-color); text-decoration: none;">+62 812 3456 7890</a>
+                         <span style="color: var(--text-secondary-color); margin-left: 0.3rem;">(WhatsApp)</span>
+                     </div>
+                     <br> <!-- Line break for better spacing -->
+                     <!-- Email -->
+                     <div class="contact-item" style="margin-bottom: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap;">
+                         <i data-feather="mail" style="width: 1.1em; height: 1.1em; flex-shrink: 0; color: var(--primary-color);"></i>
+                         <a href="mailto:cs@edystore.com" contenteditable="true" style="color: var(--text-color); text-decoration: none;">cs@edystore.com</a>(Gmail)</span>
+                    
+                     </div>
+                    </br>
+                    <footer style="font-size: 20px; color:rgb(255, 0, 128); font-weight: bold;"> copykan Alamat Gmail Diatas, Untuk Melanjutkan CheckOut Akhir</footer>
+                 </div>
+
+                 <!-- Social Links remain -->
                  <div class="social-links">
-                     <a href="#" aria-label="Instagram"><i data-feather="instagram" contenteditable="false"></i></a>
-                     <a href="#" aria-label="Facebook"><i data-feather="facebook" contenteditable="false"></i></a>
-                     <a href="#" aria-label="Twitter"><i data-feather="twitter" contenteditable="false"></i></a>
+                     <a href="https://www.instagram.com/" aria-label="Instagram"><i data-feather="instagram" contenteditable="false"></i></a>
+                     <a href="https://www.facebook.com/" aria-label="Facebook"><i data-feather="facebook" contenteditable="false"></i></a>
+                     <a href="https://x.com/" aria-label="Twitter"><i data-feather="twitter" contenteditable="false"></i></a>
+                     <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i data-feather="message-circle" contenteditable="false"></i></a> <!-- Added WhatsApp Icon -->
                  </div>
             </div>
          </section>
+        <!-- ========= MODIFIED KONTAK SECTION END ========= -->
 
     </main>
 
     <footer class="site-footer section-padding">
         <div class="container">
             <p contenteditable="true">© <span id="current-year"></span> EdyStore. All Rights Reserved.</p> <!-- Editable -->
-            <p contenteditable="true">Simulasi Toko Online - By: Edy Sahputra</p> <!-- Editable -->
+            <p contenteditable="true">Toko Online - By: Edy Sahputra</p> <!-- Editable -->
         </div>
     </footer>
 
@@ -162,6 +187,14 @@
 
     <!-- Main script MUST be after html2canvas -->
     <script src="https://supergames19.github.io/onlain/EdyStore/script.js"></script>
+    <script>
+        // Ensure Feather icons are replaced after dynamic content (if any) or on load
+        // It's usually called in script.js, but calling it here again ensures
+        // icons in the modified section are rendered if script.js runs too early.
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    </script>
     <!-- No inline script needed for index page functionality -->
 </body>
 </html>
