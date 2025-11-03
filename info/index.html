@@ -3,681 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Title -->
-    <title>Pembaca File, Data URL & Tautan Lokal v6</title>
+    <!-- Updated Title to v10 -->
+    <title>[SECURE] FORENSIC DATA ANALYZER V10.0</title>
     <style>
-        /* Reset dasar dan box-sizing */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* --- CSS VARIABLES (Hacker Theme) --- */
+        :root {
+            --color-hacker-bg: #0a0a0a; /* Hitam Sangat Gelap */
+            --color-hacker-text: #00ff41; /* Hijau Neon (Matrix) */
+            --color-hacker-secondary: #00ffff; /* Cyan Neon */
+            --color-hacker-error: #ff0041; /* Merah Neon */
+            --color-hacker-warning: #ffff00; /* Kuning Neon */
+            --color-hacker-shadow: 0 0 5px rgba(0, 255, 65, 0.5), 0 0 10px rgba(0, 255, 65, 0.2);
+            --font-monospace: "Consolas", "Monaco", "Courier New", monospace;
+            --transition-speed: 0.3s;
         }
 
-        html {
-            font-size: 16px;
-        }
-
+        /* Global Reset and Hacker Look (Same as V9) */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            line-height: 1.6;
-            background-color: #f0f2f5;
-            color: #333;
-            padding: 10px;
-            min-height: 100vh;
+            font-family: var(--font-monospace); line-height: 1.4;
+            background-color: var(--color-hacker-bg); color: var(--color-hacker-text);
+            padding: 10px; min-height: 100vh;
         }
 
         .container {
-            max-width: 900px;
-            width: 100%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            overflow: hidden; /* Changed from visible for better shadow containment */
+            max-width: 900px; width: 100%; margin: 20px auto;
+            background-color: #1a1a1a; padding: 25px; border-radius: 0;
+            border: 1px solid var(--color-hacker-text); box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+            overflow: hidden;
         }
 
         h1, h2 {
-            color: #1d3557;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
+            color: var(--color-hacker-secondary); text-shadow: 0 0 3px rgba(0, 255, 255, 0.7);
+            border-bottom: 1px solid var(--color-hacker-text); padding-bottom: 8px;
+            margin-bottom: 20px; text-transform: uppercase;
         }
         h1 { font-size: 1.8rem; }
         h2 { font-size: 1.4rem; margin-top: 30px; }
 
-        .file-label {
-            display: block;
-            margin-bottom: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            background-color: #457b9d;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            border: none;
-            font-size: 1rem;
+        .drop-area { /* ... D&D area styles (Same as V9) ... */
+             border: 2px dashed var(--color-hacker-text); border-radius: 4px; padding: 30px;
+             text-align: center; transition: all var(--transition-speed) ease; position: relative;
+             margin-bottom: 20px; background-color: #0d0d0d;
         }
-        .file-label:hover {
-            background-color: #1d3557;
+        .file-label { /* ... File label styles (Same as V9) ... */
+             display: block; margin-bottom: 0; font-weight: 600; cursor: pointer;
+             background-color: var(--color-hacker-secondary); color: var(--color-hacker-bg);
+             padding: 12px 18px; border-radius: 4px; text-align: center;
+             transition: background-color var(--transition-speed) ease; border: none;
         }
+        #fileInput { display: none; }
+        #outputArea { margin-top: 20px; min-height: 50px; }
 
-        #fileInput {
-            display: none;
-        }
-
-        #outputArea {
-            margin-top: 20px;
-            min-height: 50px;
-        }
-
-        /* --- Status/Error Styling --- */
+        /* Status/Error Styling (Same as V9) */
         .status-message {
-            font-weight: 500;
-            padding: 12px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            text-align: center;
+            font-weight: 600; padding: 12px 15px; border-radius: 0; margin-bottom: 20px;
+            border: 1px dashed; text-align: center; text-transform: uppercase;
         }
-        .status-message.processing {
-             background-color: #e9ecef; color: #495057; border-color: #ced4da;
-        }
-        .status-message.error {
-             background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;
-        }
-        .status-message.warning {
-            background-color: #fff3cd; color: #856404; border-color: #ffeeba;
-        }
-         .status-message.success { /* Can be used for Blob URL success */
-            background-color: #d4edda; color: #155724; border-color: #c3e6cb;
-        }
-        /* --- End Status/Error Styling --- */
+        .status-message.processing { background-color: #222; color: var(--color-hacker-secondary); border-color: var(--color-hacker-secondary); }
+        .status-message.error { background-color: #300a0a; color: var(--color-hacker-error); border-color: var(--color-hacker-error); }
+        .status-message.warning { background-color: #30300a; color: var(--color-hacker-warning); border-color: var(--color-hacker-warning); }
+        .status-message.success { background-color: #0a300a; color: var(--color-hacker-text); border-color: var(--color-hacker-text); }
 
-        #fileInfo p, #dataUrlSection p, #previewSection p {
-            margin-bottom: 10px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
+        /* Code and output styles */
         #fileInfo code, #dataUrlOutput {
-            background-color: #f8f9fa;
-            padding: 3px 6px;
-            border-radius: 4px;
-            border: 1px solid #dee2e6;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            word-break: break-all;
-            font-size: 0.9em;
-            color: #495057;
+            background-color: #1f1f1f; padding: 3px 6px; border-radius: 2px;
+            border: 1px solid #333; font-family: var(--font-monospace);
+            word-break: break-all; font-size: 0.9em; color: var(--color-hacker-warning);
+            text-shadow: none; display: inline-block; max-width: 100%; white-space: pre-wrap;
         }
-        #fileInfo code {
-             display: inline-block; max-width: 100%; white-space: pre-wrap;
+        #fileInfo code.hash {
+            font-size: 0.8em; /* Smaller font for long hashes */
+            white-space: normal;
         }
-
         #dataUrlOutput {
-            display: block; width: 100%; min-height: 150px; max-height: 400px;
-            padding: 10px; margin-top: 10px; resize: vertical;
+             display: block; width: 100%; min-height: 150px; max-height: 400px; padding: 10px; margin-top: 10px; resize: vertical;
+             color: var(--color-hacker-text);
         }
 
-        /* Preview Area styles remain the same */
-        #previewArea { margin-top: 15px; }
-        #previewArea img, #previewArea video, #previewArea audio {
-            max-width: 100%; height: auto; display: block; margin-top: 10px;
-            border: 1px solid #dee2e6; border-radius: 4px; background-color: #f8f9fa;
-        }
-        #previewArea iframe {
-            width: 100%; height: 450px; margin-top: 10px; border: 1px solid #ccc;
-            border-radius: 4px; background-color: #fff;
-        }
-        #previewArea pre {
-            background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px;
-            margin-top: 10px; max-height: 450px; overflow: auto; white-space: pre-wrap;
-            word-wrap: break-word; font-size: 0.9em; color: #495057; border-radius: 4px;
-        }
-
-        .section {
-            margin-top: 25px; padding-top: 20px; border-top: 1px solid #e9ecef;
-        }
-
-        /* --- Button Styles --- */
+        /* Button Styles (Same as V9) */
         .action-button {
-            color: white; border: none; padding: 10px 15px; border-radius: 5px;
-            cursor: pointer; margin-top: 12px; font-size: 0.95em;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            font-weight: 500; margin-right: 10px; /* Add margin between buttons */
+            color: var(--color-hacker-bg); background-color: var(--color-hacker-text);
+            border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 12px;
+            font-weight: 700; margin-right: 10px; text-transform: uppercase;
         }
-        .action-button:last-of-type {
-             margin-right: 0; /* No margin on the last button */
-        }
-        .action-button:hover { opacity: 0.9; }
-        .action-button:active { transform: scale(0.98); }
-        .action-button:disabled { background-color: #adb5bd !important; cursor: not-allowed; transform: none; opacity: 0.7; }
-
-        #copyDataUrlButton { background-color: #2a9d8f; } /* Teal */
-        #copyDataUrlButton:hover { background-color: #264653; }
-
-        #createBlobLinkButton { background-color: #007bff; } /* Blue */
-        #createBlobLinkButton:hover { background-color: #0056b3; }
-        /* --- End Button Styles --- */
-
-        /* --- Blob URL Result Area --- */
-        #blobUrlResultArea {
-            margin-top: 15px;
-            padding: 15px;
-            border: 1px dashed #ced4da; /* Dashed border to signify difference */
-            border-radius: 5px;
-            background-color: #f8f9fa;
-        }
-        #blobUrlResultArea p {
-            margin-bottom: 8px;
-            font-size: 0.95em;
-        }
-        #blobUrlResultArea strong { /* Warning emphasis */
-             color: #dc3545; /* Red for warning */
-             font-weight: 600;
-        }
-        #blobUrlResultArea a {
-            display: inline-block; /* Allows padding/margin */
-            margin-top: 5px;
-            padding: 8px 12px;
-            background-color: #28a745; /* Green for download */
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
-        }
-        #blobUrlResultArea a:hover {
-            background-color: #218838;
-        }
-        #blobUrlResultArea code { /* Style for displaying the blob url text */
-             font-size: 0.85em;
-             word-break: break-all;
-             color: #6c757d;
-        }
-         /* Hide initially */
-        #blobUrlResultArea:empty {
-            display: none;
-            border: none; /* Hide border when empty */
-            padding: 0;
-            margin: 0;
-        }
-        /* --- End Blob URL Result Area --- */
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            body { padding: 5px; }
-            .container { padding: 15px; margin: 10px auto; }
-            h1 { font-size: 1.6rem; } h2 { font-size: 1.25rem; }
-            .file-label { padding: 10px 15px; font-size: 0.95rem; }
-            #previewArea iframe, #previewArea pre { height: 350px; }
-        }
-        @media (max-width: 480px) {
-             h1 { font-size: 1.4rem; } h2 { font-size: 1.1rem; }
-             .container { padding: 10px; }
-             #fileInfo p, #dataUrlSection p, #previewSection p { font-size: 0.95rem; }
-             #fileInfo code, #dataUrlOutput, #previewArea pre { font-size: 0.85em; }
-             /* Stack buttons on small screens */
-             .action-button { width: 100%; margin-right: 0; margin-bottom: 10px; }
-             .action-button:last-of-type { margin-bottom: 0; }
-             #previewArea iframe, #previewArea pre { height: 300px; }
-             #blobUrlResultArea a { width: 100%; text-align: center; }
-        }
+        .action-button:hover { background-color: var(--color-hacker-secondary); box-shadow: 0 0 5px var(--color-hacker-secondary); color: var(--color-hacker-bg); }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Pembaca File, Data URL & Tautan Lokal v6</h1>
+        <h1>DATA INJECTION & FORENSIC ANALYZER V10.0</h1>
 
-        <label for="fileInput" class="file-label">Pilih File...</label>
-        <input type="file" id="fileInput">
+        <div id="dropArea" class="drop-area">
+            <label for="fileInput" class="file-label">>> INJECT TARGET DATA (INITIATE FILE STREAM)</label>
+            <input type="file" id="fileInput">
+            <p class="drop-text">atau SERET & LEPAS payload di sini</p>
+        </div>
 
         <div id="outputArea">
-            <p>Silakan pilih file untuk melihat informasinya, menghasilkan Data URL, dan membuat tautan unduh lokal.</p>
+            <p>STATUS: AWAITING INPUT. SILAKAN INJECT FILE DATA.</p>
         </div>
 
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("Script v6 mulai dimuat."); // LOG 1
+            console.log(":: STARTING FORENSIC ANALYZER V10.0 SEQUENCE ::");
 
             // --- Variabel dan Konstanta ---
             const fileInput = document.getElementById('fileInput');
             const outputArea = document.getElementById('outputArea');
+            const dropArea = document.getElementById('dropArea');
             const MAX_FILE_SIZE_MB = 50;
             const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
-            let currentBlobUrl = null; // To store and revoke the current Blob URL
-            let currentFileNameForBlob = 'downloaded_file'; // Default download name
+            let currentBlobUrl = null;
+            let currentFileNameForBlob = 'PAYLOAD_DOWNLOAD';
 
-            // --- Validasi Elemen Penting ---
-            if (!fileInput || !outputArea) {
-                console.error("Error Kritis: Elemen UI #fileInput atau #outputArea tidak ditemukan!");
-                if (outputArea) {
-                   outputArea.innerHTML = '<div class="status-message error">Error Kritis: Gagal memuat komponen UI dasar. Coba refresh halaman.</div>';
-                }
+            // --- Validasi & Event Listeners (Same as V9) ---
+            if (!fileInput || !outputArea || !dropArea) {
+                console.error(":: FATAL ERROR: CRITICAL UI ELEMENTS MISSING ::");
+                if (outputArea) { outputArea.innerHTML = '<div class="status-message error">:: CRITICAL ERROR! REBOOT SYSTEM ::</div>'; }
                 return;
             }
-            console.log("Elemen UI dasar ditemukan."); // LOG 2
+            fileInput.addEventListener('change', (event) => { processFile(event.target.files); event.target.value = null; });
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { dropArea.addEventListener(eventName, preventDefaults, false); });
+            ['dragenter', 'dragover'].forEach(eventName => { dropArea.addEventListener(eventName, highlight, false); });
+            ['dragleave', 'drop'].forEach(eventName => { dropArea.addEventListener(eventName, unhighlight, false); });
+            dropArea.addEventListener('drop', handleDrop, false);
 
-            // --- Event Listeners ---
-            fileInput.addEventListener('change', handleFileSelect);
-            // Dynamic listeners for copy/create blob buttons added later
-
-            console.log("Event listener untuk input file ditambahkan."); // LOG 3
+            function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+            function highlight() { dropArea.classList.add('highlight'); }
+            function unhighlight() { dropArea.classList.remove('highlight'); }
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                processFile(files);
+            }
+            console.log(":: INPUT LISTENER ENABLED ::");
 
             // --- Fungsi Utama Handler File ---
-            function handleFileSelect(event) {
-                console.log("handleFileSelect dipanggil."); // LOG 4
-                revokeCurrentBlobUrl(); // Revoke any previous Blob URL
-                outputArea.innerHTML = '<div class="status-message processing">Memproses file...</div>';
-                const file = event.target.files[0];
-                currentFileNameForBlob = file ? file.name : 'downloaded_file'; // Store filename
+            function processFile(fileList) {
+                console.log(":: EXECUTING PROCESS_FILE FUNCTION ::");
+                revokeCurrentBlobUrl();
+                outputArea.innerHTML = '<div class="status-message processing">:: INITIATING DATA SEQUENCE. ANALYZING PAYLOAD... ::</div>';
+
+                const file = fileList[0];
 
                 if (!file) {
-                    console.log("Tidak ada file yang dipilih.");
-                    outputArea.innerHTML = '<p>Tidak ada file yang dipilih.</p>';
-                    event.target.value = null;
+                    outputArea.innerHTML = '<p>STATUS: AWAITING INPUT. TIDAK ADA PAYLOAD YANG DIINJECT.</p>';
                     return;
                 }
-                console.log(`File dipilih: ${file.name}, Ukuran: ${file.size} bytes, Tipe: ${file.type}`); // LOG 5
+                currentFileNameForBlob = file.name;
 
                 if (file.size > MAX_FILE_SIZE_BYTES) {
-                    const errorMsg = `File terlalu besar (${formatBytes(file.size)}). Batas maksimal ${MAX_FILE_SIZE_MB} MB. Hanya info file yang ditampilkan.`;
-                    console.warn(errorMsg); // LOG 6
+                    const errorMsg = `WARNING: PAYLOAD OVERSIZE (${formatBytes(file.size)}). MAX LIMIT ${MAX_FILE_SIZE_MB} MB. ABORTING FULL READ.`;
                     const warningDiv = document.createElement('div');
                     warningDiv.className = 'status-message warning';
                     warningDiv.textContent = errorMsg;
                     outputArea.innerHTML = '';
                     outputArea.appendChild(warningDiv);
+                    // Pass the file even if oversized to still get metadata
                     displayFileInfo(file).then(infoDiv => { if (infoDiv) outputArea.appendChild(infoDiv); });
-                    event.target.value = null;
                     return;
                 }
 
-                const existingContent = outputArea.querySelectorAll(':not(.status-message)');
-                existingContent.forEach(el => el.remove());
+                outputArea.querySelectorAll(':not(.status-message)').forEach(el => el.remove());
 
+                // displayFileInfo is now ASYNC but still part of Promise.all
                 Promise.all([
                     displayFileInfo(file),
                     readFileAsDataURLPromise(file),
                     readFileForPreviewPromise(file)
                 ]).then(([infoDiv, dataUrlResult, previewResult]) => {
-                    console.log("Semua promise pembacaan file selesai."); // LOG 15
+                    console.log(":: DATA ANALYSYS COMPLETE. RENDERING OUTPUT ::");
                     const statusMsg = outputArea.querySelector('.status-message.processing');
                     if (statusMsg) statusMsg.remove();
 
                     if (infoDiv) outputArea.appendChild(infoDiv);
                     if (dataUrlResult) {
                         outputArea.appendChild(dataUrlResult);
-                        // Add listeners for buttons *inside* dataUrlResult NOW
                         const copyBtn = dataUrlResult.querySelector('#copyDataUrlButton');
                         const blobBtn = dataUrlResult.querySelector('#createBlobLinkButton');
-                        if (copyBtn) {
-                            copyBtn.addEventListener('click', handleCopyDataUrl);
-                            console.log("Listener ditambahkan ke #copyDataUrlButton"); // LOG 16
-                        } else { console.warn("#copyDataUrlButton tidak ditemukan di DOM"); }
-                        if (blobBtn) {
-                            blobBtn.addEventListener('click', handleCreateBlobLink);
-                            console.log("Listener ditambahkan ke #createBlobLinkButton"); // LOG 17
-                        } else { console.warn("#createBlobLinkButton tidak ditemukan di DOM"); }
+                        if (copyBtn) copyBtn.addEventListener('click', handleCopyDataUrl);
+                        if (blobBtn) blobBtn.addEventListener('click', handleCreateBlobLink);
                     }
                     if (previewResult) outputArea.appendChild(previewResult);
 
                 }).catch(error => {
-                    console.error("Error dalam Promise.all (pembaca file):", error); // LOG 18
+                    console.error(":: FATAL ERROR DURING DATA SEQUENCE:", error);
                     const statusMsg = outputArea.querySelector('.status-message');
-                    const errorText = `Error: ${error.message || 'Gagal memproses file.'}`;
+                    const errorText = `FATAL ERROR: ${error.message || 'FAILED TO PROCESS DATA STREAM.'}`;
                     if (statusMsg && statusMsg.classList.contains('processing')) {
                        statusMsg.textContent = errorText;
                        statusMsg.className = 'status-message error';
                     } else {
-                        outputArea.innerHTML = `<div class="status-message error">${errorText}</div>`; // Overwrite if no processing msg
+                        outputArea.innerHTML = `<div class="status-message error">${errorText}</div>`;
                     }
-                }).finally(() => {
-                    console.log("Proses file selesai (finally). Reset input."); // LOG 19
-                    event.target.value = null; // Reset input file
                 });
             }
 
-            // --- Fungsi Pembacaan File (Minor changes for new button) ---
-            function displayFileInfo(file) {
-                 console.log("displayFileInfo dipanggil."); // LOG 8
-                 // No changes needed here
-                 return new Promise((resolve) => { /* ... same as v5 ... */
-                     const fileInfoDiv = document.createElement('div');
-                    fileInfoDiv.id = 'fileInfo';
-                    fileInfoDiv.classList.add('section');
-                    try {
-                        fileInfoDiv.innerHTML = `
-                            <h2>Informasi File</h2>
-                            <p><strong>Nama File:</strong> <code>${escapeHtml(file.name)}</code></p>
-                            <p><strong>Ukuran File:</strong> ${formatBytes(file.size)}</p>
-                            <p><strong>Tipe MIME:</strong> <code>${escapeHtml(file.type) || 'Tidak diketahui'}</code></p>
-                            <p><strong>Terakhir Diubah:</strong> ${file.lastModifiedDate ? file.lastModifiedDate.toLocaleString('id-ID') : 'Tidak diketahui'}</p>
-                        `;
-                        resolve(fileInfoDiv);
-                    } catch (e) {
-                        console.error("Error di displayFileInfo:", e);
-                        resolve(null);
-                    }
-                 });
+            // --- HELPER BARU: Get SHA-256 Hash ---
+            async function calculateFileHash(file) {
+                if (!crypto.subtle || !file.arrayBuffer) return 'CRYPTO API UNAVAILABLE';
+                try {
+                    // Read file as ArrayBuffer
+                    const buffer = await file.arrayBuffer();
+                    // Calculate SHA-256 hash
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+                    // Convert buffer to hex string
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                } catch (e) {
+                    console.error("HASH GENERATION ERROR:", e);
+                    return 'HASH FAILED: ' + (e.message || 'UNKNOWN ERROR');
+                }
             }
 
+            // --- HELPER BARU: Read Magic Bytes (First 16 bytes) ---
+            function readMagicBytes(file) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    // Read only the first 16 bytes slice
+                    const slice = file.slice(0, 16);
+                    reader.onload = function(event) {
+                        if (event.target.result) {
+                            const view = new DataView(event.target.result);
+                            let hexString = '';
+                            // Convert bytes to two-digit hex with spaces for readability
+                            for (let i = 0; i < view.byteLength; i++) {
+                                hexString += view.getUint8(i).toString(16).padStart(2, '0');
+                                if ((i + 1) % 4 === 0 && i !== view.byteLength - 1) hexString += ' ';
+                            }
+                            resolve(hexString.toUpperCase());
+                        } else {
+                            resolve('READ FAILED: EMPTY RESULT');
+                        }
+                    };
+                    reader.onerror = () => resolve('READ FAILED: IO ERROR');
+                    reader.readAsArrayBuffer(slice);
+                });
+            }
+
+
+            // --- Fungsi Pembacaan File (UPDATED: displayFileInfo is now ASYNC) ---
+
+            function getFileCategory(mimeType) { // Same as V9
+                if (!mimeType || mimeType.trim() === '') return 'RAW/UNKNOWN DATA';
+                const lowerMime = mimeType.toLowerCase();
+
+                if (lowerMime.startsWith('image/')) return 'GRAPHIC/IMAGE PROTOCOL';
+                if (lowerMime.startsWith('video/')) return 'VIDEO/STREAM PROTOCOL';
+                if (lowerMime.startsWith('audio/')) return 'AUDIO/WAVE PROTOCOL';
+                if (lowerMime.startsWith('text/')) return 'ASCII/TEXT PROTOCOL';
+                if (lowerMime.includes('application/pdf')) return 'SECURED PDF DOCUMENT';
+                if (lowerMime.includes('application/zip') || lowerMime.includes('application/x-tar') || lowerMime.includes('application/gzip')) return 'ARCHIVE/COMPRESSED DATA';
+                if (lowerMime.includes('json') || lowerMime.includes('xml')) return 'STRUCTURED DATA OBJECT';
+                if (lowerMime.startsWith('application/')) return 'APPLICATION/BINARY PAYLOAD';
+                return 'UNKNOWN DATA TYPE';
+            }
+
+
+            async function displayFileInfo(file) {
+                 const fileInfoDiv = document.createElement('div');
+                 fileInfoDiv.id = 'fileInfo';
+                 fileInfoDiv.classList.add('section');
+
+                 try {
+                     // Perform async operations in parallel
+                     const [fileHash, magicBytes] = await Promise.all([
+                         calculateFileHash(file).catch(() => 'HASH_FAILURE'),
+                         readMagicBytes(file).catch(() => 'MAGIC_BYTE_FAILURE')
+                     ]);
+
+                     // Sync Information
+                     const extensionMatch = file.name.match(/\.([0-9a-z]+)$/i);
+                     const fileExtension = extensionMatch ? extensionMatch[1].toUpperCase() : 'N/A';
+                     const fileCategory = getFileCategory(file.type);
+                     const lastModifiedTimestamp = file.lastModified;
+                     
+                     // Calculate Base64 Overhead (Approximate: 33.3% + padding)
+                     const base64Overhead = ((file.size * 4 / 3) - file.size) / file.size * 100;
+                     const overheadText = file.size > MAX_FILE_SIZE_BYTES ? `(OVERSIZE: CALCULATE FAILED)` : `${base64Overhead.toFixed(2)}%`;
+
+
+                     fileInfoDiv.innerHTML = `
+                         <h2>PAYLOAD METADATA</h2>
+                         <p><strong>PAYLOAD NAME:</strong> <code>${escapeHtml(file.name)}</code></p>
+                         <p><strong>FILE EXTENSION:</strong> <code>${escapeHtml(fileExtension)}</code></p>
+                         <p><strong>DATA SIZE (BYTES):</strong> ${formatBytes(file.size)} (${file.size} bytes)</p>
+                         <p><strong>MIME PROTOCOL:</strong> <code>${escapeHtml(file.type) || 'UNKNOWN'}</code></p>
+                         <p><strong>DATA CATEGORY:</strong> ${fileCategory}</p>
+                         
+                         <p><strong>BASE64 OVERHEAD:</strong> ${overheadText}</p> <!-- NEW DETAIL -->
+                         <p><strong>DATA HEADER (MAGIC BYTES):</strong> <code>${escapeHtml(magicBytes)}</code></p> <!-- NEW DETAIL -->
+
+                         <h2>INTEGRITY CHECK [SHA-256]</h2>
+                         <p><strong>DATA FINGERPRINT:</strong> <code class="hash">${escapeHtml(fileHash)}</code></p> <!-- NEW DETAIL (HASH) -->
+
+                         <h2>SYSTEM TIMESTAMPS</h2>
+                         <p><strong>LAST MODIFIED (LOCAL):</strong> ${file.lastModifiedDate ? file.lastModifiedDate.toLocaleString('id-ID') : 'N/A'}</p>
+                         <p><strong>MODIFICATION EPOCH:</strong> <code>${lastModifiedTimestamp || 'N/A'}</code></p>
+                     `;
+                     return fileInfoDiv;
+                 } catch (e) {
+                     console.error(":: ERROR IN METADATA EXTRACTION ::", e);
+                     // Create error div for info section
+                     fileInfoDiv.innerHTML = `<h2>PAYLOAD METADATA</h2><div class="status-message error">DATA EXTRACTION FAILED: ${escapeHtml(e.message)}</div>`;
+                     return fileInfoDiv; // Still resolve with the error message in the div
+                 }
+            }
+
+            // --- Fungsi Pembacaan Data URL, Pratinjau, dan Tombol (Same as V9) ---
+
             function readFileAsDataURLPromise(file) {
-                 console.log("readFileAsDataURLPromise dipanggil."); // LOG 9
-                return new Promise((resolve, reject) => {
+                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
                     reader.onload = function(event) {
-                         console.log("FileReader (DataURL) - onload selesai."); // LOG 10
                         if (!event.target || typeof event.target.result !== 'string' || !event.target.result.startsWith('data:')) {
-                            console.error("FileReader (DataURL) - Hasil kosong atau tidak valid."); // LOG 10a
-                            reject(new Error("Gagal mendapatkan hasil Data URL yang valid."));
-                            return;
+                            reject(new Error("FAILED TO DECODE BASE64 STREAM.")); return;
                         }
                         const dataUrlSection = document.createElement('div');
                         dataUrlSection.id = 'dataUrlSection';
                         dataUrlSection.classList.add('section');
-                        // Added the new button and result area div
                         dataUrlSection.innerHTML = `
-                            <h2>Data URL & Tautan Lokal</h2>
-                            <p>Representasi Base64 dari isi file. Gunakan untuk menyematkan data langsung (misal, di <code><img src="...data:..."></code>) atau salin.</p>
+                            <h2>BASE64 DATA & LOCAL FORGE</h2>
+                            <p>RAW BASE64 REPRESENTATION OF PAYLOAD. INJECT THIS STREAM DIRECTLY INTO CODE (e.g., <code><img src="...data:..."></code>) OR COPY FOR EXTERNAL USE.</p>
                             <textarea id="dataUrlOutput" readonly>${event.target.result}</textarea>
-                            <button id="copyDataUrlButton" class="action-button">Salin Data URL</button>
-                            <button id="createBlobLinkButton" class="action-button">Buat Tautan Unduh Lokal (Blob URL)</button>
+                            <button id="copyDataUrlButton" class="action-button">> COPY DATA STREAM</button>
+                            <button id="createBlobLinkButton" class="action-button">> FORGE LOCAL BLOB (DOWNLOAD)</button>
                             <div id="blobUrlResultArea" aria-live="polite">
-                                <!-- Hasil Blob URL akan muncul di sini -->
                             </div>
                         `;
                         resolve(dataUrlSection);
                     };
-                    reader.onerror = function(event) { /* ... same as v5 ... */
-                        console.error("FileReader (DataURL) - onerror:", event.target.error); // LOG 11
-                        reject(new Error(`Gagal membaca file sebagai Data URL: ${event.target.error.name || 'Unknown error'}`));
-                     };
-                    reader.onabort = function() { /* ... same as v5 ... */
-                         console.warn("FileReader (DataURL) - onabort: Pembacaan dibatalkan."); // LOG 11a
-                         reject(new Error("Pembacaan file Data URL dibatalkan."));
-                    };
-                    try {
-                        reader.readAsDataURL(file);
-                        console.log("FileReader (DataURL) - readAsDataURL dimulai."); // LOG 11b
-                    } catch (e) {
-                        console.error("Error saat memulai readAsDataURL:", e); // LOG 11c
-                        reject(new Error("Gagal memulai pembacaan file Data URL."));
-                    }
+                    reader.onerror = (event) => { reject(new Error(`FAILED TO READ PAYLOAD: ${event.target.error.name || 'UNKNOWN ERROR'}`)); };
+                    reader.onabort = () => { reject(new Error("DATA READ ABORTED BY SYSTEM.")); };
+                    try { reader.readAsDataURL(file); }
+                    catch (e) { reject(new Error("FAILED TO INITIATE BASE64 READ OPERATION.")); }
                 });
             }
 
             function readFileForPreviewPromise(file) {
-                 console.log("readFileForPreviewPromise dipanggil."); // LOG 12
-                 // No significant changes needed here
-                 return new Promise((resolve, reject) => { /* ... same as v5 ... */
+                 return new Promise((resolve, reject) => {
                     const previewSection = document.createElement('div');
                     previewSection.id = 'previewSection';
                     previewSection.classList.add('section');
-                    previewSection.innerHTML = `<h2>Pratinjau File</h2>`;
+                    previewSection.innerHTML = `<h2>PAYLOAD VISUALIZATION</h2>`;
                     const previewArea = document.createElement('div');
                     previewArea.id = 'previewArea';
                     previewSection.appendChild(previewArea);
-
                     const fileType = file.type;
                     const reader = new FileReader();
 
                     reader.onload = function(event) {
-                         console.log(`FileReader (Preview type: ${fileType}) - onload selesai.`); // LOG 13
                           if (!event.target || typeof event.target.result === 'undefined') {
-                              console.error("FileReader (Preview) - Hasil tidak valid.");
-                              previewArea.innerHTML = '<p>Gagal mendapatkan hasil pratinjau yang valid.</p>';
-                              resolve(previewSection);
-                              return;
+                              previewArea.innerHTML = '<p>VISUALIZATION FAILED. INVALID DATA STREAM.</p>';
+                              resolve(previewSection); return;
                           }
                         let previewElement;
                         const result = event.target.result;
-
                         try {
                             if (fileType.startsWith('image/')) {
-                                previewElement = document.createElement('img');
-                                previewElement.src = result;
-                                previewElement.alt = `Pratinjau ${escapeHtml(file.name)}`;
-                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau gambar.</p>'; };
+                                previewElement = document.createElement('img'); previewElement.src = result; previewElement.alt = `VISUALIZING ${escapeHtml(file.name)}`;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>FAILED TO LOAD GRAPHIC PROTOCOL.</p>'; };
                             } else if (fileType.startsWith('video/')) {
-                                previewElement = document.createElement('video');
-                                previewElement.src = result;
-                                previewElement.controls = true;
-                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau video.</p>'; };
+                                previewElement = document.createElement('video'); previewElement.src = result; previewElement.controls = true;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>FAILED TO INITIATE VIDEO STREAM.</p>'; };
                             } else if (fileType.startsWith('audio/')) {
-                                previewElement = document.createElement('audio');
-                                previewElement.src = result;
-                                previewElement.controls = true;
-                                previewElement.onerror = () => { previewArea.innerHTML = '<p>Gagal memuat pratinjau audio.</p>'; };
+                                previewElement = document.createElement('audio'); previewElement.src = result; previewElement.controls = true;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>FAILED TO INITIATE AUDIO WAVE.</p>'; };
                             } else if (fileType === 'text/html') {
-                                previewElement = document.createElement('iframe');
-                                previewElement.src = result;
-                                previewElement.sandbox = 'allow-same-origin';
-                                previewElement.title = `Pratinjau HTML: ${escapeHtml(file.name)}`;
-                                previewElement.onload = () => { console.log("Iframe pratinjau HTML dimuat (jika berhasil).");};
-                                previewElement.onerror = () => {
-                                     console.warn("Gagal memuat HTML di iframe via Data URL.");
-                                     previewArea.innerHTML = '<p>Gagal memuat pratinjau HTML dalam iframe (kemungkinan diblokir atau terlalu panjang).</p>';
-                                };
+                                previewElement = document.createElement('iframe'); previewElement.src = result; previewElement.sandbox = 'allow-same-origin'; previewElement.title = `HTML VIEW: ${escapeHtml(file.name)}`;
+                                previewElement.onerror = () => { previewArea.innerHTML = '<p>HTML INJECTION BLOCKED (SAFETY PROTOCOL). VIEW RAW DATA.</p>'; };
                             } else if (fileType.startsWith('text/')) {
-                                previewElement = document.createElement('pre');
-                                previewElement.textContent = result;
+                                previewElement = document.createElement('pre'); previewElement.textContent = result;
                             } else {
-                                previewArea.innerHTML = `<p>Pratinjau tidak tersedia untuk tipe file: <code>${escapeHtml(fileType) || 'Tidak diketahui'}</code>.</p>`;
-                                resolve(previewSection);
-                                return;
+                                previewArea.innerHTML = `<p>VISUALIZATION NOT SUPPORTED FOR PROTOCOL: <code>${escapeHtml(fileType) || 'UNKNOWN'}</code>.</p>`;
+                                resolve(previewSection); return;
                             }
-                            if (previewElement) {
-                                previewArea.appendChild(previewElement);
-                            }
+                            if (previewElement) { previewArea.appendChild(previewElement); }
                             resolve(previewSection);
                         } catch (e) {
-                             console.error("Error saat membuat elemen pratinjau:", e);
-                             previewArea.innerHTML = `<div class="status-message error">Error saat menampilkan pratinjau: ${escapeHtml(e.message)}</div>`;
+                             previewArea.innerHTML = `<div class="status-message error">VISUALIZATION ERROR: ${escapeHtml(e.message)}</div>`;
                              resolve(previewSection);
                         }
                     };
-
-                    reader.onerror = function(event) { /* ... same as v5 ... */
-                        console.error(`FileReader (Preview type: ${fileType}) - onerror:`, event.target.error); // LOG 14
-                        previewArea.innerHTML = `<div class="status-message error">Gagal membaca file untuk pratinjau: ${escapeHtml(event.target.error.name || 'Unknown error')}</div>`;
-                        resolve(previewSection); // Resolve even on error
-                    };
-                     reader.onabort = function() { /* ... same as v5 ... */
-                         console.warn(`FileReader (Preview type: ${fileType}) - onabort: Pembacaan dibatalkan.`); // LOG 14a
-                         previewArea.innerHTML = `<div class="status-message warning">Pembacaan file pratinjau dibatalkan.</div>`;
-                         resolve(previewSection);
-                     };
-
-                    try { /* ... same as v5 ... */
+                    reader.onerror = (event) => { previewArea.innerHTML = `<div class="status-message error">FAILED TO READ PAYLOAD FOR VISUALIZATION: ${escapeHtml(event.target.error.name || 'UNKNOWN ERROR')}</div>`; resolve(previewSection); };
+                    reader.onabort = () => { previewArea.innerHTML = `<div class="status-message warning">PAYLOAD READ FOR VISUALIZATION ABORTED.</div>`; resolve(previewSection); };
+                    try {
                         if (fileType.startsWith('image/') || fileType.startsWith('video/') || fileType.startsWith('audio/') || fileType === 'text/html') {
                             reader.readAsDataURL(file);
                         } else if (fileType.startsWith('text/')) {
                             reader.readAsText(file);
-                        } else {
-                            previewArea.innerHTML = `<p>Pratinjau tidak tersedia untuk tipe file: <code>${escapeHtml(fileType) || 'Tidak diketahui'}</code>.</p>`;
-                            resolve(previewSection);
-                        }
-                    } catch (e) { /* ... same as v5 ... */
-                         console.error("Error saat memulai pembacaan file preview:", e); // LOG 14b
-                         reject(new Error("Gagal memulai pembacaan file pratinjau."));
-                    }
+                        } else { resolve(previewSection); }
+                    } catch (e) { reject(new Error("FAILED TO INITIATE VISUALIZATION READ OPERATION.")); }
                  });
             }
 
-            // --- Fungsi Handler untuk Tombol Copy Data URL ---
             function handleCopyDataUrl(event) {
-                handleGenericCopy(event.target, '#dataUrlOutput');
+                handleGenericCopy(event.target, '#dataUrlOutput', 'DATA STREAM COPIED', 'COPY DATA STREAM');
             }
-
-            // --- Fungsi Handler untuk Tombol Buat Blob Link ---
             function handleCreateBlobLink(event) {
-                console.log("handleCreateBlobLink dipanggil."); // LOG 20
-                const button = event.target;
-                button.disabled = true; // Disable while processing
+                const button = event.target; button.disabled = true;
                 const section = button.closest('#dataUrlSection');
                 const dataUrlOutput = section ? section.querySelector('#dataUrlOutput') : null;
                 const blobResultArea = section ? section.querySelector('#blobUrlResultArea') : null;
 
                 if (!dataUrlOutput || !blobResultArea) {
-                    console.error("Elemen #dataUrlOutput atau #blobUrlResultArea tidak ditemukan.");
-                    if(blobResultArea) blobResultArea.innerHTML = `<p class="status-message error">Error: Komponen UI hilang.</p>`;
-                    button.disabled = false;
-                    return;
+                    if(blobResultArea) blobResultArea.innerHTML = `<p class="status-message error">ACCESS DENIED / UI COMPONENT MISSING.</p>`;
+                    button.disabled = false; return;
                 }
-
                 const dataUrl = dataUrlOutput.value;
                 if (!dataUrl || !dataUrl.startsWith('data:')) {
-                    console.error("Data URL tidak valid atau kosong."); // LOG 21
-                    blobResultArea.innerHTML = `<p class="status-message error">Error: Tidak ada Data URL yang valid untuk diproses.</p>`;
-                    button.disabled = false;
-                    return;
+                    blobResultArea.innerHTML = `<p class="status-message error">ERROR: INVALID BASE64 STREAM DETECTED.</p>`;
+                    button.disabled = false; return;
                 }
-
-                blobResultArea.innerHTML = `<p class="status-message processing">Membuat Blob URL...</p>`;
-
+                blobResultArea.innerHTML = `<p class="status-message processing">:: FORGING LOCAL BLOB URL... ::</p>`;
                 try {
                     const blob = dataURLtoBlob(dataUrl);
-                    if (!blob) {
-                         throw new Error("Gagal mengonversi Data URL menjadi Blob.");
-                    }
-                    console.log(`Blob dibuat: Type=${blob.type}, Size=${blob.size}`); // LOG 22
-
-                    revokeCurrentBlobUrl(); // Revoke previous URL before creating new one
+                    if (!blob) { throw new Error("FAILED TO RECONSTRUCT BINARY BLOB."); }
+                    revokeCurrentBlobUrl();
                     currentBlobUrl = URL.createObjectURL(blob);
-                    console.log(`Blob URL dibuat: ${currentBlobUrl}`); // LOG 23
-
                     blobResultArea.innerHTML = `
-                        <p class="status-message success">Tautan unduh lokal (Blob URL) berhasil dibuat:</p>
-                        <p><strong>PENTING:</strong> Tautan ini hanya berfungsi di browser Anda saat ini dan bersifat <strong>sementara</strong>. Tautan ini <strong>tidak dapat dibagikan</strong> ke orang lain atau digunakan setelah Anda menutup tab/browser.</p>
-                        <a href="${currentBlobUrl}" download="${escapeHtml(currentFileNameForBlob || 'download')}" title="Unduh file menggunakan Blob URL">
-                            Unduh File (${escapeHtml(currentFileNameForBlob || 'file')})
+                        <p class="status-message success">LOCAL BLOB FORGED. SECURE DOWNLOAD LINK ESTABLISHED.</p>
+                        <p><strong>ALERT:</strong> THIS LOCAL BLOB URL IS EPHEMERAL! IT WILL EXPIRE ON TAB/BROWSER CLOSURE AND IS <strong>NON-TRANSFERABLE</strong>.</p>
+                        <a href="${currentBlobUrl}" download="${escapeHtml(currentFileNameForBlob || 'payload_download')}" title="INITIATE BLOB DOWNLOAD">
+                            >> DOWNLOAD PAYLOAD (${escapeHtml(currentFileNameForBlob || 'FILE')})
                         </a>
-                        <p><small>URL Sebenarnya (hanya untuk info): <code>${currentBlobUrl}</code></small></p>
+                        <p><small>RAW URL (FOR DEBUG): <code>${currentBlobUrl}</code></small></p>
                     `;
-
                 } catch (error) {
-                    console.error("Error saat membuat Blob URL:", error); // LOG 24
-                    revokeCurrentBlobUrl(); // Clean up if error occurred
-                    blobResultArea.innerHTML = `<p class="status-message error">Gagal membuat tautan: ${escapeHtml(error.message)}</p>`;
+                    revokeCurrentBlobUrl();
+                    blobResultArea.innerHTML = `<p class="status-message error">FAILED TO FORGE BLOB: ${escapeHtml(error.message)}</p>`;
                 } finally {
-                     button.disabled = false; // Re-enable button
+                     button.disabled = false;
                 }
             }
 
-            // --- Helper: Konversi Data URL ke Blob ---
             function dataURLtoBlob(dataurl) {
                 try {
-                    // Split metadata from data
                     const arr = dataurl.split(',');
-                    if (arr.length < 2) return null; // Invalid format
-
-                    // Get MIME type
+                    if (arr.length < 2) return null;
                     const mimeMatch = arr[0].match(/:(.*?);/);
-                    const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream'; // Default MIME
-
-                    // Decode Base64
-                    const bstr = atob(arr[1]); // Decode base64 string
+                    const mime = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+                    const bstr = atob(arr[1]);
                     let n = bstr.length;
-                    const u8arr = new Uint8Array(n); // Create an array buffer
-
-                    // Convert binary string characters to uint8 values
-                    while (n--) {
-                        u8arr[n] = bstr.charCodeAt(n);
-                    }
-
+                    const u8arr = new Uint8Array(n);
+                    while (n--) { u8arr[n] = bstr.charCodeAt(n); }
                     return new Blob([u8arr], { type: mime });
-                } catch (e) {
-                    console.error("Error in dataURLtoBlob:", e);
-                    return null; // Return null on conversion error
-                }
+                } catch (e) { return null; }
             }
 
-            // --- Helper: Revoke Blob URL ---
             function revokeCurrentBlobUrl() {
                 if (currentBlobUrl) {
-                    console.log(`Mencabut Blob URL: ${currentBlobUrl}`); // LOG 25
                     URL.revokeObjectURL(currentBlobUrl);
                     currentBlobUrl = null;
-                    // Also clear the result area if needed, or let the new file process handle it
                      const blobResultArea = outputArea.querySelector('#blobUrlResultArea');
-                     if (blobResultArea) {
-                         blobResultArea.innerHTML = ''; // Clear the area when revoking
-                     }
+                     if (blobResultArea) { blobResultArea.innerHTML = ''; }
                 }
             }
 
-            // --- Fungsi Generik untuk Menyalin (Sama seperti v5) ---
-            function handleGenericCopy(button, selector) {
-                 const section = button.closest('.section'); // Find parent section
+            function handleGenericCopy(button, selector, successMsg, originalMsg) {
+                 const section = button.closest('.section');
                  const elementToCopyFrom = section ? section.querySelector(selector) : null;
-                 console.log(`handleGenericCopy: Mencari ${selector} di dalam section.`); // LOG 26
 
                  if (elementToCopyFrom && navigator.clipboard && !button.disabled) {
-                     copyToClipboard(elementToCopyFrom.value, button);
+                     copyToClipboard(elementToCopyFrom.value, button, successMsg, originalMsg);
                  } else if (!navigator.clipboard) {
-                     console.warn("navigator.clipboard tidak tersedia (perlu HTTPS?)."); // LOG 27
-                     alert('Fitur salin otomatis tidak didukung (mungkin bukan HTTPS?). Salin manual.');
-                 } else if (!elementToCopyFrom) {
-                     console.error(`Gagal menyalin: Elemen ${selector} tidak ditemukan.`); // LOG 28
-                 } else { /* Button disabled */ }
+                     alert('CLIPBOARD ACCESS DENIED. MANUAL DATA EXTRACTION REQUIRED.');
+                 }
             }
 
-            // --- Fungsi Inti Copy ke Clipboard (Sama seperti v5) ---
-            function copyToClipboard(textToCopy, buttonElement) {
-                if (!textToCopy) {
-                    console.warn("Tidak ada teks untuk disalin."); return; // LOG 29
-                }
+            function copyToClipboard(textToCopy, buttonElement, successMsg, originalMsg) {
+                if (!textToCopy) { return; }
                 navigator.clipboard.writeText(textToCopy).then(() => {
-                     console.log("Teks berhasil disalin."); // LOG 30
-                     const originalText = buttonElement.textContent;
-                     buttonElement.textContent = 'Disalin!';
+                     buttonElement.textContent = successMsg;
                      buttonElement.disabled = true;
                      setTimeout(() => {
-                         buttonElement.textContent = originalText;
+                         buttonElement.textContent = originalMsg;
                          buttonElement.disabled = false;
                      }, 2000);
                  }).catch(err => {
-                     console.error('Gagal menyalin teks: ', err); // LOG 31
-                     const originalText = buttonElement.textContent;
-                     buttonElement.textContent = 'Gagal!';
-                     // Re-enable after a delay, maybe allow retry
-                     setTimeout(() => {
-                         buttonElement.textContent = originalText;
-                         // buttonElement.disabled = false; // Decide if re-enabling on fail
-                     }, 2500);
-                     alert('Gagal menyalin otomatis. Perizinan clipboard mungkin ditolak. Salin manual.');
+                     buttonElement.textContent = 'ACCESS DENIED!';
+                     alert('CLIPBOARD FAILED. MANUAL DATA EXTRACTION REQUIRED.');
                  });
             }
 
-            // --- Fungsi Helper Lainnya (Sama seperti v5) ---
-            function formatBytes(bytes, decimals = 2) { /* ... same as v5 ... */
-                if (!+bytes || bytes < 0) return '0 Bytes';
+            function formatBytes(bytes, decimals = 2) {
+                if (!+bytes || bytes < 0) return '0 BYTES';
                 const k = 1024;
                 const dm = decimals < 0 ? 0 : decimals;
-                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                const sizes = ['BYTES', 'KB', 'MB', 'GB', 'TB', 'PB'];
                 const i = bytes === 0 ? 0 : Math.floor(Math.log(bytes) / Math.log(k));
                 const index = Math.max(0, Math.min(i, sizes.length - 1));
                 const size = parseFloat((bytes / Math.pow(k, index)).toFixed(dm));
                 return `${size} ${sizes[index]}`;
             }
-            function escapeHtml(unsafe) { /* ... same as v5 ... */
+
+            function escapeHtml(unsafe) {
                  if (typeof unsafe !== 'string') { return String(unsafe); }
                  return unsafe
-                     .replace(/&/g, "&")
-                     .replace(/</g, "<")
-                     .replace(/>/g, ">")
-                     
-                     .replace(/'/g, "'");
+                     .replace(/&/g, "&amp;")
+                     .replace(/</g, "&lt;")
+                     .replace(/>/g, "&gt;")
+                     .replace(/"/g, "&quot;")
+                     .replace(/'/g, "&#039;");
             }
 
-            console.log("Script v6 selesai dimuat dan siap."); // LOG Terakhir
+            console.log(":: SYSTEM INITIALIZATION COMPLETE. STANDBY FOR COMMAND ::");
 
-        }); // Akhir DOMContentLoaded
+        });
     </script>
 
 </body>
