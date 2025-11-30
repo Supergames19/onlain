@@ -4,126 +4,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Konfirmasi Servis Selesai & Lunas (+Foto)</title>
+    <title>Notifikasi Servis Selesai</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Library html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Library Signature Pad -->
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-    <link rel="stylesheet" href="https://supergames19.github.io/onlain/servis-out/style.css">
-    <script src="https://supergames19.github.io/onlain/servis-out/script.js"></script>
 
-   
+    <style>
+        :root {
+            /* Tema Hijau untuk Status Selesai */
+            --primary: #10b981; /* Emerald Green */
+            --primary-dark: #047857;
+            --bg-light: #f0fdf4;
+            --surface: #ffffff;
+            --border: #d1fae5;
+            --text-dark: #064e3b;
+            --text-gray: #64748b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-header { text-align: center; margin-bottom: 20px; }
+        .page-header h1 { font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: var(--primary-dark); }
+        .page-header p { font-size: 0.85rem; color: var(--text-gray); }
+
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* --- Area Kertas Nota --- */
+        #service-editor {
+            flex: 1;
+            background: var(--surface);
+            padding: 0; /* Padding diatur di dalam container */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        #notification-container {
+            padding: 25px;
+            position: relative;
+        }
+
+        /* Header Nota */
+        .note-header {
+            text-align: center;
+            border-bottom: 2px dashed var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .status-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Konten Teks */
+        p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 10px; color: #374151; }
+        
+        /* Tabel Rincian */
+        .details-box {
+            background: var(--bg-light);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 5px;
+        }
+        .detail-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .detail-label { font-weight: 500; color: var(--text-dark); }
+        .detail-value { font-weight: 600; text-align: right; }
+
+        /* Total Biaya */
+        .total-section {
+            text-align: right;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px solid var(--text-dark);
+        }
+        .total-label { font-size: 1rem; }
+        .total-amount { font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); font-family: 'Poppins', sans-serif; display: block;}
+
+        /* Foto Unit */
+        .image-preview {
+            width: 100%;
+            height: 180px;
+            background-color: #f9fafb;
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Footer TTD */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .sig-box { text-align: center; }
+        .sig-pad {
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            height: 100px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        /* Edit Styles */
+        [contenteditable="true"] { border-bottom: 1px dashed #9ca3af; }
+        [contenteditable="true"]:focus { background: #e0f2fe; border-bottom: 1px solid var(--primary); color: black; }
+
+        /* Controls */
+        .controls-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn {
+            width: 100%; padding: 12px; margin-top: 10px; border: none; border-radius: 6px;
+            font-weight: 600; cursor: pointer; color: white; transition: 0.2s;
+        }
+        .btn-green { background: var(--primary); }
+        .btn-green:hover { background: var(--primary-dark); }
+        .btn-clear { background: #94a3b8; font-size: 0.7rem; padding: 4px 8px; width: auto; margin: 5px auto; display: block;}
+
+        @media (min-width: 768px) {
+            .main-wrapper { flex-direction: row; align-items: flex-start; }
+            #service-editor { flex: 3; }
+            .controls-panel { flex: 1; position: sticky; top: 20px; }
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="page-header">
-        <h1>Konfirmasi Pengambilan Servis & Pelunasan</h1>
-        <p>Edit detail, ganti/tambahkan foto final unit, tambahkan TTD, lalu simpan.</p>
+        <h1>Konfirmasi Servis Selesai</h1>
+        <p>Edit rincian, masukkan foto hasil, dan kirim ke pelanggan.</p>
     </div>
 
-    <div class="main-container">
-
-        <!-- Area Editor Konfirmasi -->
-        <div id="service-editor">
-            <div id="receipt-container">
-                <!-- Konten Konfirmasi -->
-                <h2 contenteditable="true">Bukti Pengambilan Barang Servisan</h2>
-                <p contenteditable="true">Kepada Yth. Bapak/Ibu <strong contenteditable="true">[Nama
-                        Pelanggan]</strong>,</p>
-                <p contenteditable="true">Dengan ini kami konfirmasikan bahwa proses servis untuk perangkat <strong
-                        contenteditable="true">[Jenis Perangkat, misal: Laptop Acer Aspire 5]</strong> dengan nomor
-                    servis <strong contenteditable="true">[Nomor Servis/Nota]</strong> telah selesai.</p>
-                <p contenteditable="true">Perangkat tersebut telah <strong contenteditable="true">diambil</strong> oleh
-                    Anda/perwakilan Anda pada tanggal <strong contenteditable="true">[Tanggal Pengambilan, misal: 25
-                        Desember 2023]</strong>.</p>
-
-                <!-- --- Foto Unit --- -->
-                <p contenteditable="true" class="image-caption">Foto unit setelah perbaikan (sebelum diambil):</p>
-                <img id="device-photo" src="https://via.placeholder.com/350x250.png/e8e8e8/999999?text=Foto+Final+Unit"
-                    alt="Foto Final Unit Perangkat">
-                <!-- --- End Foto Unit --- -->
-
-                <!-- Status Pembayaran -->
-                <div class="payment-status" contenteditable="true">
-                    Pembayaran sejumlah <strong contenteditable="true">[Jumlah Pembayaran, misal: Rp 750.000,-]</strong>
-                    telah kami terima dan dinyatakan <strong
-                        style="color: var(--primary-color); font-weight: bold;">LUNAS</strong>.
-                </div>
-
-                <p contenteditable="true">Detail perbaikan yang telah dilakukan meliputi: <strong
-                        contenteditable="true">[Ringkasan Perbaikan, misal: Penggantian Keyboard dan Pembersihan
-                        Internal]</strong>.</p>
-
-                <!-- Informasi Garansi (Opsional) -->
-                <div class="warranty-info">
-                    <p contenteditable="true"><strong>Informasi Garansi (jika ada):</strong></p>
-                    <p contenteditable="true">Garansi servis untuk <strong contenteditable="true">[Sebutkan
-                            komponen/servis yg digaransi]</strong> berlaku selama <strong
-                            contenteditable="true">[Periode Garansi, misal: 1 Bulan]</strong> terhitung sejak tanggal
-                        pengambilan, dengan syarat dan ketentuan berlaku.</p>
-                    <p contenteditable="true"><small>Harap simpan bukti ini untuk klaim garansi.</small></p>
-                </div>
-
-                <p contenteditable="true" style="text-align: center; margin-top: 25px;">Terima kasih telah mempercayakan
-                    servis perangkat Anda kepada kami.</p>
-                <!-- Akhir Konten Konfirmasi -->
-
-                <!-- Footer dengan Area Tanda Tangan (Same) -->
-                <div class="footer">
-                    <div class="signature-column">
-                        <p contenteditable="true">Hormat kami,</p>
-                        <div class="signature-wrapper"> <canvas id="provider-signature-pad"></canvas> </div>
-                        <button class="clear-sig-button" id="clear-provider-sig">Hapus TTD</button>
-                        <strong contenteditable="true">[Nama Toko/Servis Anda]</strong>
-                        <span contenteditable="true" style="display: block; font-size: 0.9em;">[Nama Staff/Teknisi -
-                            Opsional]</span>
-                    </div>
-                    <div class="signature-column">
-                        <p contenteditable="true">Tanda Terima Konsumen:</p>
-                        <div class="signature-wrapper"> <canvas id="customer-signature-pad"></canvas> </div>
-                        <button class="clear-sig-button" id="clear-customer-sig">Hapus TTD</button>
-                        <strong contenteditable="true">[Nama Pelanggan]</strong>
-                        <span contenteditable="true" style="display: block; font-size: 0.9em;">Tanggal Terima: [Tanggal
-                            Pengambilan]</span>
-                    </div>
-                </div>
-                <!-- Akhir Footer -->
-            </div>
-        </div>
-
-        <!-- Kontrol Edit dan Simpan -->
-        <div class="controls-section">
-            <!-- --- Image Upload Control Added Back --- -->
-            <div class="control-group">
-                <label for="image-upload">🖼️ Ganti Foto Final Unit:</label>
-                <input type="file" id="image-upload" accept="image/*">
-            </div>
-            <!-- --- End Image Upload Control --- -->
-            <div class="control-group">
-                <label>💾 Simpan Bukti Pengambilan:</label>
-                <button id="save-html-btn">Simpan sebagai HTML</button>
-                <button id="save-jpg-btn">Simpan sebagai JPG</button>
-                <button id="save-png-btn">Simpan sebagai PNG</button>
-            </div>
-            <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
-                Simpan bukti ini sebagai arsip digital.
+    <div class="main-wrapper">
+        <!-- Panel Kontrol -->
+        <div class="controls-panel">
+            <label style="font-weight:600; display:block; margin-bottom:5px;">Foto Hasil Servis:</label>
+            <input type="file" id="image-upload" accept="image/*" style="width:100%; font-size:0.9rem; margin-bottom:15px;">
+            
+            <label style="font-weight:600; display:block; margin-bottom:5px;">Aksi:</label>
+            <button class="btn btn-green" id="save-btn">💾 Simpan Gambar (JPG)</button>
+            <p style="font-size:0.75rem; color:#666; text-align:center; margin-top:10px;">
+                Tombol hapus & garis edit akan hilang otomatis saat disimpan.
             </p>
         </div>
+
+        <!-- Editor Nota -->
+        <div id="service-editor">
+            <div id="notification-container">
+                
+                <!-- Header -->
+                <div class="note-header">
+                    <div class="status-badge" contenteditable="true">SERVIS SELESAI</div>
+                    <h3 contenteditable="true" style="margin:0;">[Nama Toko Anda]</h3>
+                    <p contenteditable="true" style="margin:0; font-size:0.8rem; color:#666;">Jln. Raya Contoh No. 123 (0812-3456-7890)</p>
+                </div>
+
+                <!-- Isi Pesan -->
+                <p>Halo <strong contenteditable="true">[Nama Pelanggan]</strong>,</p>
+                <p contenteditable="true">
+                    Kabar baik! Perangkat <strong>[Tipe HP/Laptop]</strong> dengan nomor servis <strong>[#INV-001]</strong> telah selesai kami perbaiki dan sudah lulus uji fungsi (Quality Control).
+                </p>
+
+                <!-- Rincian Pekerjaan -->
+                <div class="details-box">
+                    <div class="detail-row">
+                        <span class="detail-label" contenteditable="true">Tindakan Perbaikan</span>
+                        <span class="detail-value" contenteditable="true">Ganti LCD + Pembersihan</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label" contenteditable="true">Sparepart Diganti</span>
+                        <span class="detail-value" contenteditable="true">LCD Original Samsung A50</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label" contenteditable="true">Garansi Toko</span>
+                        <span class="detail-value" contenteditable="true" style="color:var(--primary-dark);">30 Hari</span>
+                    </div>
+                </div>
+
+                <!-- Foto Hasil -->
+                <p contenteditable="true" style="font-size:0.85rem; text-align:center; margin-top:15px; color:#666;">Kondisi perangkat saat ini:</p>
+                <div class="image-preview">
+                    <img id="device-photo" src="https://via.placeholder.com/600x300/e5e7eb/a3a3a3?text=Upload+Foto+Hasil+Servis" alt="Foto Unit">
+                </div>
+
+                <!-- Total -->
+                <div class="total-section">
+                    <span class="total-label" contenteditable="true">Total Biaya Pelunasan:</span>
+                    <span class="total-amount" contenteditable="true">Rp 450.000,-</span>
+                </div>
+
+                <p contenteditable="true" style="margin-top:20px; font-style:italic; font-size:0.85rem; text-align:center;">
+                    *Harap membawa nota ini saat pengambilan unit. Terima kasih atas kepercayaannya.
+                </p>
+
+                <!-- Footer TTD -->
+                <div class="footer-grid">
+                    <div class="sig-box">
+                        <p style="font-size:0.8rem;">Teknisi / Admin</p>
+                        <canvas id="admin-sig" class="sig-pad"></canvas>
+                        <button class="btn btn-clear" id="clear-admin">Hapus</button>
+                    </div>
+                    <!-- TTD Penerima dikosongkan untuk diisi saat pengambilan fisik, atau bisa dihapus jika dikirim via WA -->
+                    <div class="sig-box">
+                        <p style="font-size:0.8rem;">Penerima (Saat Ambil)</p>
+                        <canvas id="client-sig" class="sig-pad"></canvas>
+                        <button class="btn btn-clear" id="clear-client">Hapus</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Setup Signature
+            const adminCanvas = document.getElementById('admin-sig');
+            const clientCanvas = document.getElementById('client-sig');
 
+            function initPad(canvas) {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+                return new SignaturePad(canvas, { backgroundColor: 'rgba(0,0,0,0)' });
+            }
+
+            const adminPad = initPad(adminCanvas);
+            const clientPad = initPad(clientCanvas);
+
+            document.getElementById('clear-admin').addEventListener('click', () => adminPad.clear());
+            document.getElementById('clear-client').addEventListener('click', () => clientPad.clear());
+
+            window.addEventListener('resize', () => {
+                // Resize handling simplistik
+                initPad(adminCanvas); initPad(clientCanvas);
+            });
+
+            // 2. Upload Foto
+            document.getElementById('image-upload').addEventListener('change', (e) => {
+                if(e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (evt) => document.getElementById('device-photo').src = evt.target.result;
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            // 3. Simpan Gambar (Logic Pembersih)
+            document.getElementById('save-btn').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "Memproses...";
+                btn.disabled = true;
+
+                const element = document.getElementById('notification-container');
+
+                html2canvas(element, {
+                    scale: 2, // High Res
+                    useCORS: true,
+                    backgroundColor: "#ffffff",
+                    onclone: (clonedDoc) => {
+                        const container = clonedDoc.getElementById('notification-container');
+                        
+                        // Hapus elemen pengganggu
+                        container.querySelectorAll('.btn-clear').forEach(el => el.style.display = 'none');
+                        
+                        // Rapikan Tampilan Edit
+                        container.querySelectorAll('[contenteditable]').forEach(el => {
+                            el.removeAttribute('contenteditable');
+                            el.style.border = 'none';
+                            el.style.background = 'transparent';
+                        });
+
+                        // Rapikan Canvas TTD
+                        container.querySelectorAll('.sig-pad').forEach(el => {
+                            el.style.border = 'none'; 
+                        });
+                        
+                        // Rapikan Layout Container
+                        container.style.padding = '30px';
+                        container.style.border = 'none';
+                    }
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `Servis-Selesai-${Date.now()}.jpg`;
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.click();
+                    
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    console.error(err);
+                    alert("Gagal menyimpan.");
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
 </html>
