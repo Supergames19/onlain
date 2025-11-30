@@ -4,117 +4,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Notifikasi-Servis</title>
+    <title>Notifikasi Servis - Editor</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Library html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Library Signature Pad -->
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
-    <link rel="stylesheet" href="https://supergames19.github.io/onlain/servis-in/css/style.css">
-    <script src="https://supergames19.github.io/onlain/servis-in/js/script.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --danger: #ef4444;
+            --bg-light: #f1f5f9;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-dark: #1e293b;
+        }
 
-    
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .page-header h1 { font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 5px; }
+        .page-header p { font-size: 0.85rem; color: var(--secondary); }
+
+        /* Container Layout */
+        .main-wrapper {
+            display: flex;
+            flex-direction: column; /* Mobile first: tumpuk ke bawah */
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* --- Editor Area (Kertas) --- */
+        #service-editor {
+            flex: 1;
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        /* Typography dalam Editor */
+        #notification-container h2 {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            color: var(--text-dark);
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        #notification-container p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px; }
+        
+        /* Edit Mode Styles */
+        [contenteditable="true"] {
+            border-bottom: 1px dashed #cbd5e1;
+            transition: all 0.2s;
+        }
+        [contenteditable="true"]:focus {
+            background-color: #eff6ff;
+            border-bottom: 1px solid var(--primary);
+            color: black;
+        }
+
+        /* Highlight Biaya */
+        .cost-section {
+            background: #fef2f2;
+            border: 1px dashed var(--danger);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .cost-section .price {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--danger);
+            margin: 5px 0;
+        }
+
+        /* Gambar Perangkat */
+        .device-img-wrapper { text-align: center; margin: 15px 0; }
+        #device-photo {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            object-fit: contain;
+        }
+
+        /* Footer Tanda Tangan */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile: 1 kolom */
+            gap: 30px;
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .sig-box { text-align: center; }
+        .sig-canvas-wrapper {
+            border: 1px dashed #94a3b8;
+            background: #f8fafc;
+            border-radius: 4px;
+            height: 120px;
+            position: relative;
+            margin: 10px auto;
+            max-width: 300px; /* Batasi lebar di HP */
+            width: 100%;
+        }
+        canvas { width: 100%; height: 100%; display: block; }
+        
+        .btn-clear {
+            font-size: 0.75rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        /* --- Control Panel (Tombol) --- */
+        .controls-panel {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: fit-content;
+        }
+
+        .control-group label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        
+        /* Input File Custom */
+        input[type="file"] {
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        input[type="file"]::file-selector-button {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        /* Tombol Save */
+        .btn-save {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.1s;
+        }
+        .btn-save:active { transform: scale(0.98); }
+        .btn-jpg { background-color: var(--primary); }
+        .btn-png { background-color: #0ea5e9; }
+        
+        /* Responsive Tablet & Desktop */
+        @media (min-width: 768px) {
+            .main-wrapper {
+                flex-direction: row; /* Side by side */
+                align-items: flex-start;
+            }
+            #service-editor { flex: 3; }
+            .controls-panel { flex: 1; position: sticky; top: 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; } /* 2 kolom TTD */
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="page-header">
-        <h1>Editor Notifikasi Servis Pelanggan</h1>
-        <p>Klik teks untuk edit, ganti gambar, tambahkan TTD, lalu simpan.</p>
+        <h1>Editor Notifikasi Servis</h1>
+        <p>Edit teks langsung di kertas, tanda tangan, lalu simpan.</p>
     </div>
 
-    <div class="main-container">
-
-        <!-- Area Editor Notifikasi -->
-        <div id="service-editor">
-            <div id="notification-container">
-                <!-- Konten Notifikasi -->
-                <h2 contenteditable="true">Informasi Penting Servis Perangkat Anda</h2>
-                <p contenteditable="true">Kepada Yth. Bapak/Ibu <strong contenteditable="true">[Nama
-                        Pelanggan]</strong>,</p>
-                <p contenteditable="true">Kami ingin memberitahukan hasil pemeriksaan teknisi kami terhadap perangkat
-                    <strong contenteditable="true">[Jenis Perangkat, misal: Smartphone Samsung A51]</strong> dengan
-                    nomor servis <strong contenteditable="true">[Nomor Servis/Nota]</strong> yang Anda serahkan.</p>
-                <p contenteditable="true">Setelah pengecekan, ditemukan kerusakan pada komponen <strong
-                        contenteditable="true">IC (Integrated Circuit)</strong> di bagian <strong
-                        contenteditable="true">[Sebutkan bagian spesifik, misal: Power Management]</strong>. Kerusakan
-                    ini menyebabkan masalah <strong contenteditable="true">[Sebutkan gejala, misal: perangkat mati total
-                        dan tidak bisa diisi daya]</strong>.</p>
-                <p contenteditable="true">Perbaikan memerlukan penggantian komponen IC tersebut.</p>
-                <div class="cost-section">
-                    <p contenteditable="true">Estimasi biaya untuk perbaikan ini adalah:</p>
-                    <span class="highlight" contenteditable="true"
-                        style="font-size: 1.6em; display: block; margin: 5px 0;">Rp 500.000,-</span>
-                    <small contenteditable="true" style="display: block; font-size: 0.9em; color: #666;">(Sudah termasuk
-                        komponen IC dan jasa pemasangan)</small>
-                </div>
-                <p contenteditable="true" class="image-caption">Berikut adalah foto unit perangkat Anda saat ini:</p>
-                <img id="device-photo" src="https://supergames19.github.io/onlain/servis/img/1.png"
-                    alt="Foto Unit Perangkat">
-                <div class="call-to-action">
-                    <p contenteditable="true"><strong contenteditable="true">Mohon konfirmasi Anda</strong> segera
-                        apakah setuju untuk melanjutkan proses perbaikan dengan estimasi biaya di atas.</p>
-                    <p contenteditable="true">Anda dapat membalas pesan ini atau menghubungi kami di <strong
-                            contenteditable="true">[Nomor Telepon/WA Anda]</strong> untuk persetujuan atau pertanyaan.
-                    </p>
-                    <p contenteditable="true">Perbaikan akan kami proses setelah konfirmasi diterima.</p>
-                </div>
-
-                <!-- Akhir Konten Notifikasi -->
-
-                <!-- Footer dengan Area Tanda Tangan -->
-                <div class="footer">
-                    <div class="signature-column">
-                        <p contenteditable="true">Hormat kami,</p>
-                        <div class="signature-wrapper"> <canvas id="provider-signature-pad"></canvas> </div>
-                        <button class="clear-sig-button" id="clear-provider-sig">Hapus TTD</button>
-                        <strong contenteditable="true">[Nama Toko/Servis Anda]</strong>
-                        <span contenteditable="true" style="display: block; font-size: 0.9em;">[Jabatan/Nama Teknisi -
-                            Opsional]</span>
-                    </div>
-                    <div class="signature-column">
-                        <p contenteditable="true">Tanda Tangan Persetujuan Konsumen:</p>
-                        <div class="signature-wrapper"> <canvas id="customer-signature-pad"></canvas> </div>
-                        <button class="clear-sig-button" id="clear-customer-sig">Hapus TTD</button>
-                        <strong contenteditable="true">[Nama Pelanggan]</strong>
-                        <span contenteditable="true" style="display: block; font-size: 0.9em;">Tanggal: [Tanggal
-                            Persetujuan]</span>
-                    </div>
-                    
-                </div>
-                <!-- Akhir Footer -->
-            </div>
-        </div>
-
-        <!-- Kontrol Edit dan Simpan -->
-        <div class="controls-section">
+    <div class="main-wrapper">
+        <!-- Panel Kontrol (Dipindah ke atas untuk Mobile, di samping untuk Desktop via CSS) -->
+        <div class="controls-panel">
             <div class="control-group">
-                <label for="image-upload">🖼️ Ganti Foto Unit:</label>
+                <label>📷 Ganti Foto Unit</label>
                 <input type="file" id="image-upload" accept="image/*">
             </div>
-            <div class="control-group">
-                <label>💾 Simpan Hasil Edit:</label>
-                <button id="save-html-btn">Simpan sebagai HTML</button>
-                <button id="save-jpg-btn">Simpan sebagai JPG</button>
-                <button id="save-png-btn">Simpan sebagai PNG</button>
+            <div class="control-group" style="margin-top: 10px;">
+                <label>💾 Simpan Dokumen</label>
+                <button class="btn-save btn-jpg" id="save-jpg-btn">Download JPG (Ringan)</button>
+                <div style="height: 10px;"></div>
+                <button class="btn-save btn-png" id="save-png-btn">Download PNG (Jelas)</button>
             </div>
-            <p style="font-size: 0.8em; color: var(--secondary-color); text-align: center; margin-top: 10px;">
-                JPG: ukuran file kecil (kompresi). PNG: kualitas terbaik (lossless).
+            <p style="font-size: 0.75rem; color: #888; text-align: center; margin-top: 10px;">
+                Tips: Hasil download akan otomatis rapi tanpa garis edit.
             </p>
+        </div>
+
+        <!-- Area Editor Kertas -->
+        <div id="service-editor">
+            <div id="notification-container">
+                <h2 contenteditable="true">Laporan Hasil Pengecekan Servis</h2>
+                
+                <p>Kepada Yth. <strong contenteditable="true">[Nama Pelanggan]</strong>,</p>
+                
+                <p contenteditable="true">Berikut adalah hasil diagnosa teknisi kami terhadap unit 
+                    <strong>[Tipe HP/Laptop]</strong> dengan No. Nota <strong>[12345]</strong>.
+                </p>
+
+                <p contenteditable="true">
+                    Ditemukan kerusakan pada bagian <strong>[IC Power / LCD]</strong> yang menyebabkan kendala 
+                    <strong>[Mati total / Layar blank]</strong>. Perlu dilakukan penggantian komponen.
+                </p>
+
+                <div class="cost-section">
+                    <p contenteditable="true" style="margin:0; font-size:0.9rem;">Estimasi Biaya Perbaikan:</p>
+                    <span class="price" contenteditable="true">Rp 350.000,-</span>
+                    <small contenteditable="true" style="color:#666; display:block;">(Sudah termasuk sparepart & jasa)</small>
+                </div>
+
+                <p style="text-align: center; font-size: 0.9rem; color: #555;">Kondisi Unit Saat Ini:</p>
+                <div class="device-img-wrapper">
+                    <img id="device-photo" src="https://via.placeholder.com/400x250/e2e8f0/94a3b8?text=Foto+Unit+Disini" alt="Foto Unit">
+                </div>
+
+                <div style="background: #eff6ff; padding: 15px; border-radius: 6px; border-left: 4px solid var(--primary);">
+                    <p contenteditable="true" style="margin:0;">
+                        <strong>Konfirmasi:</strong> Mohon balas pesan ini atau hubungi 
+                        <strong contenteditable="true">[No. WA Admin]</strong> jika setuju untuk dikerjakan.
+                    </p>
+                </div>
+
+                <!-- Area Tanda Tangan -->
+                <div class="footer-grid">
+                    <div class="sig-box">
+                        <p contenteditable="true" style="font-weight: 600; margin-bottom: 5px;">Hormat Kami,</p>
+                        <div class="sig-canvas-wrapper">
+                            <canvas id="provider-signature-pad"></canvas>
+                        </div>
+                        <button class="btn-clear" id="clear-provider-sig">Hapus TTD</button>
+                        <div contenteditable="true" style="font-weight: bold; margin-top: 5px;">[Nama Toko]</div>
+                    </div>
+
+                    <div class="sig-box">
+                        <p contenteditable="true" style="font-weight: 600; margin-bottom: 5px;">Penyetuju,</p>
+                        <div class="sig-canvas-wrapper">
+                            <canvas id="customer-signature-pad"></canvas>
+                        </div>
+                        <button class="btn-clear" id="clear-customer-sig">Hapus TTD</button>
+                        <div contenteditable="true" style="font-weight: bold; margin-top: 5px;">[Nama Pelanggan]</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. SETUP SIGNATURE PAD (High DPI Support) ---
+            const providerCanvas = document.getElementById('provider-signature-pad');
+            const customerCanvas = document.getElementById('customer-signature-pad');
 
+            function resizeCanvas(canvas) {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext("2d").scale(ratio, ratio);
+            }
+
+            // Init Pads
+            resizeCanvas(providerCanvas);
+            resizeCanvas(customerCanvas);
+
+            const providerPad = new SignaturePad(providerCanvas, { backgroundColor: 'rgba(0,0,0,0)' });
+            const customerPad = new SignaturePad(customerCanvas, { backgroundColor: 'rgba(0,0,0,0)' });
+
+            // Handle Resize Window (Agar canvas tidak stretch)
+            window.addEventListener("resize", () => {
+                // Catatan: Resize akan menghapus data TTD, idealnya simpan data dulu.
+                // Untuk kesederhanaan di sini kita biarkan, user perlu TTD ulang jika resize layar drastis.
+                resizeCanvas(providerCanvas);
+                resizeCanvas(customerCanvas);
+            });
+
+            // Tombol Hapus TTD
+            document.getElementById('clear-provider-sig').addEventListener('click', () => providerPad.clear());
+            document.getElementById('clear-customer-sig').addEventListener('click', () => customerPad.clear());
+
+            // --- 2. UPLOAD FOTO ---
+            document.getElementById('image-upload').addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => document.getElementById('device-photo').src = e.target.result;
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            // --- 3. FUNGSI DOWNLOAD (Clean Look) ---
+            function downloadImage(format) {
+                const element = document.getElementById("notification-container");
+                const btn = format === 'jpeg' ? document.getElementById('save-jpg-btn') : document.getElementById('save-png-btn');
+                const originalText = btn.innerText;
+                
+                btn.innerText = "Memproses...";
+                btn.disabled = true;
+
+                html2canvas(element, {
+                    scale: 2, // Resolusi tinggi (2x)
+                    useCORS: true,
+                    backgroundColor: "#ffffff", // Background putih pasti
+                    
+                    // FUNGSI PENTING: Membersihkan tampilan sebelum difoto
+                    onclone: function(clonedDoc) {
+                        const clonedContainer = clonedDoc.getElementById('notification-container');
+                        
+                        // 1. Sembunyikan tombol "Hapus TTD" di hasil foto
+                        const buttons = clonedContainer.querySelectorAll('.btn-clear');
+                        buttons.forEach(b => b.style.display = 'none');
+
+                        // 2. Hilangkan border putus-putus area TTD
+                        const wrappers = clonedContainer.querySelectorAll('.sig-canvas-wrapper');
+                        wrappers.forEach(w => {
+                            w.style.border = 'none';
+                            w.style.background = 'transparent';
+                        });
+
+                        // 3. Matikan mode edit (hilangkan garis bawah putus-putus teks)
+                        const editables = clonedContainer.querySelectorAll('[contenteditable]');
+                        editables.forEach(el => {
+                            el.removeAttribute('contenteditable');
+                            el.style.borderBottom = 'none';
+                            el.style.background = 'transparent';
+                        });
+
+                        // 4. Pastikan border container utama rapi
+                        clonedContainer.style.boxShadow = 'none';
+                        clonedContainer.style.border = '1px solid #ddd';
+                    }
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `Notifikasi-Servis-${Date.now()}.${format}`;
+                    link.href = canvas.toDataURL(`image/${format}`, 0.9);
+                    link.click();
+                    
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }).catch(err => {
+                    alert("Gagal menyimpan gambar.");
+                    console.error(err);
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
+            }
+
+            document.getElementById('save-jpg-btn').addEventListener('click', () => downloadImage('jpeg'));
+            document.getElementById('save-png-btn').addEventListener('click', () => downloadImage('png'));
+        });
+    </script>
+</body>
 </html>
