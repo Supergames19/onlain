@@ -1,0 +1,581 @@
+ :root {
+             /* WhatsApp Colors */
+    --wa-green-dark: #075E54;
+    --wa-green-light: #25D366;
+    --wa-blue-link: #34B7F1;
+    --wa-bg-light: #ECE5DD;
+    --wa-bg-status: #000000; /* Black BG for status */
+    --wa-white: #ffffff;
+    --wa-black: #000000;
+    --wa-text-primary: #f1f3f5; /* Slightly off-white */
+    --wa-text-secondary: #adb5bd; /* Lighter secondary */
+    --wa-text-dark: #111b21;
+
+    /* Editor specific */
+    --primary-color: var(--wa-green-dark);
+    --primary-darker: #054d44;
+    --card-bg: var(--wa-white);
+    --border-color: #dee2e6;
+    --text-color: var(--wa-text-dark);
+    --success-color: #2a9d8f;
+    --error-color: #e79551; /* Adjusted error color slightly */
+    --loading-color: #e9c46a;
+    --info-color: #6c757d; /* Added info color for consistency */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --font-primary: 'Roboto', sans-serif;
+    --toolbar-height: 75px; /* Keep consistent */
+    --text-shadow-strong: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+}
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.5;
+            background: #f0f2f5;
+            color: var(--text-color);
+            padding-top: calc(var(--toolbar-height) + 10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Toolbar --- */
+        .toolbar-container {
+            /* ... (styles mostly unchanged) ... */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .toolbar {
+            /* ... (styles mostly unchanged) ... */
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .toolbar-button,
+        .toolbar label.toolbar-button {
+            /* ... (styles mostly unchanged) ... */
+            background-color: var(--primary-color);
+            color: var(--wa-white);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toolbar-button:hover,
+        .toolbar label.toolbar-button:hover {
+            background-color: var(--primary-darker);
+        }
+
+        .toolbar-button:disabled,
+        .toolbar label.toolbar-button[aria-disabled="true"] {
+            /* ... */
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #bec3c9;
+            color: #65676b;
+            box-shadow: none;
+        }
+
+        .toolbar-button.reset {
+            background-color: #e4e6eb;
+            color: var(--wa-text-dark);
+        }
+
+        .toolbar-button.reset:hover {
+            background-color: #d8dade;
+        }
+
+        .toolbar input[type="file"] {
+            display: none;
+        }
+
+        .toolbar-link-group {
+            /* ... */
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #f0f2f5;
+            padding: 5px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            flex-grow: 1;
+            min-width: 250px;
+        }
+
+        .toolbar-link-group label {
+            /* ... */
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #54656f;
+            white-space: nowrap;
+        }
+
+        .toolbar-link-group input[type="url"] {
+            /* ... */
+            border: 1px solid var(--border-color);
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .toolbar-link-group input[type="url"]:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
+        /* --- Status Message --- */
+        .status-message {
+            /* ... (styles mostly unchanged) ... */
+            width: calc(100% - 20px);
+            max-width: 480px;
+            margin: 10px auto 5px auto;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.4s ease, height 0.4s ease, margin-top 0.4s ease;
+            border: 1px solid transparent;
+            z-index: 999;
+            position: relative;
+        }
+
+        .status-message.show {
+            opacity: 1;
+            height: auto;
+            padding: 8px 15px;
+        }
+
+        .status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: var(--success-color);
+        }
+
+        .status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: var(--error-color);
+        }
+
+        .status-message.loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border-color: var(--loading-color);
+        }
+
+        .status-message.info {
+            background-color: #e2e3e5;
+            color: #383d41;
+            border-color: var(--info-color);
+        }
+
+        /* --- Main Content Area --- */
+        .main-content {
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        /* --- WhatsApp Status Styles --- */
+        .whatsapp-status-container {
+            background-color: var(--wa-bg-status);
+            /* Black */
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 9 / 16;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            z-index: 3;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+            /* Refined gradient */
+        }
+
+        .status-profile-pic-wrapper {
+            position: relative;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .status-profile-pic {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 2px solid var(--wa-white);
+            /* Thicker white border */
+        }
+
+        .status-page-info .status-advertiser-name {
+            /* Renamed for clarity */
+            font-weight: 500;
+            font-size: 0.95rem;
+            /* Slightly larger */
+            color: var(--wa-white);
+            margin-bottom: 2px;
+            text-shadow: var(--text-shadow-strong);
+        }
+
+        .status-page-info .status-label {
+            font-size: 0.75rem;
+            color: var(--wa-text-secondary);
+            text-shadow: var(--text-shadow-strong);
+        }
+
+        .status-media {
+            flex-grow: 1;
+            position: relative;
+            background-color: #2c8d2cd8;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .status-media img {
+            display: block;
+            width: 100%;
+            height: 75%;
+            object-fit:contain;
+        }
+
+        /* Text overlay refinement */
+        .status-text-overlay {
+            position: absolute;
+            bottom: 65px;
+            /* Raised slightly for CTA space */
+            left: 0;
+            width: 100%;
+            padding: 18px 16px 15px 16px;
+            /* More padding */
+            z-index: 4;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 10%, transparent 90%);
+            /* Darker base, faster fade */
+            color: var(--wa-text-primary);
+            font-size: 1rem;
+            line-height: 1.45;
+            text-shadow: var(--text-shadow-strong);
+        }
+
+        .status-text-overlay p {
+            margin: 0;
+        }
+
+        .status-text-overlay[contenteditable="true"] {
+            min-height: 3.5em;
+        }
+
+        /* Ensure decent editable height */
+
+        /* CTA Area refinement */
+        .status-cta-area {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0;
+            /* Remove padding here, apply to link */
+            text-align: center;
+            z-index: 5;
+        }
+
+        .status-cta-area a {
+            /* The link itself defines the area */
+            padding: 12px 15px;
+            /* Padding defines clickable area */
+            text-decoration: none;
+            color: var(--wa-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-shadow: var(--text-shadow-strong);
+            transition: background-color 0.2s ease;
+        }
+
+        .status-cta-area a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Subtle hover */
+
+        .status-cta-icon svg {
+            /* Style the SVG */
+            width: 20px;
+            height: 20px;
+            fill: var(--wa-white);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .status-cta-text {
+            font-size: 0.9rem;
+            /* Slightly larger CTA text */
+            font-weight: 500;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            /* Slight spacing */
+        }
+
+        .status-cta-text[contenteditable="true"] {
+            /* Adjusted for inline-block */
+            padding: 1px 4px;
+            margin: -1px -4px;
+        }
+
+        /* Image Upload Overlay */
+        .image-upload-overlay {
+            /* ... (styles mostly unchanged) ... */
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 500;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .status-profile-pic-wrapper .image-upload-overlay {
+            bottom: -2px;
+            right: -5px;
+            padding: 3px 5px;
+            font-size: 0.6em;
+        }
+
+        .status-media .image-upload-overlay {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        label.image-upload-overlay {
+            pointer-events: auto;
+        }
+
+        .status-profile-pic-wrapper:hover .image-upload-overlay,
+        .status-media:hover .image-upload-overlay {
+            opacity: 1;
+        }
+
+        /* Content Editable Styling - Very Subtle */
+        [contenteditable="true"] {
+            outline: none;
+            border: 1px solid transparent;
+            /* No border shown initially */
+            cursor: text;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            /* Remove default padding/margin, handle per element */
+        }
+
+        [contenteditable="true"]:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            /* Very faint hover */
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        [contenteditable="true"]:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+            /* Faint focus border */
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+            /* No glow */
+        }
+
+        /* Ensure paragraph behaves within editable overlay */
+        .status-text-overlay[contenteditable="true"] p {
+            display: inline;
+        }
+
+
+        /* JPG Capture Class */
+        .is-capturing {
+            /* Base container has no specific capture style */
+        }
+
+        .is-capturing [contenteditable="true"],
+        .is-capturing [contenteditable="true"]:hover,
+        .is-capturing [contenteditable="true"]:focus {
+            border-color: transparent !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+            cursor: default !important;
+        }
+
+        .is-capturing .image-upload-overlay {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+        /* Explicitly re-apply gradients during capture if needed */
+        .is-capturing .status-header {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%) !important;
+        }
+
+        .is-capturing .status-text-overlay {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 10%, transparent 90%) !important;
+        }
+
+        .is-capturing .status-cta-area a:hover {
+            background-color: transparent !important;
+        }
+
+        /* Disable hover effect during capture */
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 650px) {
+            .toolbar {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .toolbar>* {
+                flex-shrink: 0;
+            }
+
+            .toolbar-link-group {
+                min-width: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: calc(var(--toolbar-height) + 5px);
+            }
+
+            /* Make status almost full screen on small devices */
+            .main-content {
+                padding: 0;
+            }
+
+            .whatsapp-status-container {
+                border-radius: 0;
+                max-width: 100%;
+                /* Calculate height minus toolbar, adjust as needed */
+                height: calc(100vh - var(--toolbar-height) - 10px);
+                aspect-ratio: unset;
+                /* Let height dominate */
+                margin-top: -5px;
+                /* Pull up slightly */
+            }
+
+            .toolbar-button,
+            .toolbar label.toolbar-button {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .toolbar-link-group label {
+                font-size: 0.7rem;
+            }
+
+            .toolbar-link-group input {
+                font-size: 0.75rem;
+            }
+
+            .status-message {
+                max-width: 100%;
+                width: calc(100% - 10px);
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+            .status-header {
+                padding: 10px 12px;
+            }
+
+            .status-profile-pic {
+                width: 34px;
+                height: 34px;
+            }
+
+            .status-page-info .status-advertiser-name {
+                font-size: 0.9rem;
+            }
+
+            .status-page-info .status-label {
+                font-size: 0.7rem;
+            }
+
+            .status-text-overlay {
+                font-size: 0.9rem;
+                padding: 15px 12px 12px 12px;
+                bottom: 60px;
+            }
+
+            .status-cta-area a {
+                padding: 10px 15px;
+            }
+
+            .status-cta-text {
+                font-size: 0.85rem;
+            }
+
+            .status-cta-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
