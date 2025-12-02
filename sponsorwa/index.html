@@ -233,7 +233,102 @@
         </div>
     </div>
 
-    <script src="https://supergames19.github.io/onlain/sponsorwa/js/script.js"></script>
+    <!-- JavaScript Inline untuk semua fungsi -->
+    <script>
+        // Fungsi untuk menampilkan pesan status
+        function showStatusMessage(message) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Upload foto profil
+        document.getElementById('profilePicUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePicDisplay').src = e.target.result;
+                    showStatusMessage('Foto profil berhasil diganti!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Upload media status
+        document.getElementById('statusMediaUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('statusMediaDisplay').src = e.target.result;
+                    showStatusMessage('Media status berhasil diganti!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Update link CTA
+        document.getElementById('ctaLinkInput').addEventListener('input', function() {
+            const link = this.value;
+            document.getElementById('ctaLinkWrapper').href = link;
+        });
+
+        // Simpan sebagai HTML
+        document.getElementById('saveHtmlBtn').addEventListener('click', function() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.download = 'status.html';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            showStatusMessage('File HTML berhasil disimpan!');
+        });
+
+        // Simpan sebagai JPG (diperbaiki: tidak melebar, tidak zoom, penuh)
+        document.getElementById('saveJpgBtn').addEventListener('click', function() {
+            const element = document.getElementById('statusCard');
+            const options = {
+                scale: 1,  // Tidak zoom, gunakan skala asli
+                width: element.offsetWidth,  // Lebar sesuai elemen asli (400px)
+                height: element.offsetHeight,  // Tinggi sesuai elemen asli (otomatis)
+                useCORS: true,  // Untuk gambar eksternal
+                allowTaint: false
+            };
+            html2canvas(element, options).then(function(canvas) {
+                const link = document.createElement('a');
+                link.download = 'status.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9);  // Kualitas 90% untuk ukuran optimal
+                link.click();
+                showStatusMessage('Gambar JPG berhasil disimpan!');
+            }).catch(function(error) {
+                console.error('Error generating JPG:', error);
+                showStatusMessage('Gagal menyimpan JPG. Coba lagi.');
+            });
+        });
+
+        // Reset ke template awal
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            // Reset gambar
+            document.getElementById('profilePicDisplay').src = document.getElementById('profilePicDisplay').dataset.initialSrc;
+            document.getElementById('statusMediaDisplay').src = document.getElementById('statusMediaDisplay').dataset.initialSrc;
+
+            // Reset teks
+            document.querySelector('.status-advertiser-name').innerHTML = document.querySelector('.status-advertiser-name').dataset.initialHtml;
+            document.querySelector('.status-label').innerHTML = document.querySelector('.status-label').dataset.initialHtml;
+            document.querySelector('.status-text-overlay').innerHTML = document.querySelector('.status-text-overlay').dataset.initialHtml;
+            document.querySelector('.status-cta-text').innerHTML = document.querySelector('.status-cta-text').dataset.initialHtml;
+
+            // Reset link
+            document.getElementById('ctaLinkWrapper').href = document.getElementById('ctaLinkWrapper').dataset.initialHref;
+            document.getElementById('ctaLinkInput').value = '';
+
+            showStatusMessage('Template dikembalikan ke awal!');
+        });
+    </script>
 
 </body>
 
